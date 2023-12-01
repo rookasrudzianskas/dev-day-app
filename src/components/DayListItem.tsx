@@ -1,12 +1,18 @@
 //@ts-nocheck
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import {useRouter} from "expo-router";
 
 const DayListItem = ({ item }: {item: number}) => {
+  const router = useRouter();
   return (
-    <View className="flex-1" style={styles.box}>
+    <TouchableOpacity
+      activeOpacity={0.7}
+      onPress={() => router.push(`/(days)/day${item}`)}
+      className="flex-1" style={styles.box}
+    >
       <Text style={styles.text}>{item}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

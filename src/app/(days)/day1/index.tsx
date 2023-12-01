@@ -2,14 +2,14 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 
-const FollowersPage = () => {
+const DayOne = () => {
   return (
     <View>
       <Text>
-        byrookas 🚀
+        byrookas 🚀 This is day one!
       </Text>
     </View>
   );
 };
 
-export default FollowersPage;
+export default DayOne;
