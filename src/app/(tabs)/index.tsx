@@ -7,18 +7,21 @@ const DAYS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
 const TabOneScreen = () => {
   return (
     <View className="pt-16" style={styles.container}>
-      <FlatList
-        data={DAYS}
-        numColumns={2}
-        contentContainerStyle={styles.content}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(item) => item!}
-        renderItem={({item}) => (
-          <View style={styles.box}>
-            <Text style={styles.text}>{item}</Text>
-          </View>
-        )}
-      />
+      <View>
+        <FlatList
+          data={DAYS}
+          numColumns={2}
+          contentContainerStyle={styles.content}
+          columnWrapperStyle={styles.column}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(item) => item!}
+          renderItem={({item}) => (
+            <View style={styles.box}>
+              <Text style={styles.text}>{item}</Text>
+            </View>
+          )}
+        />
+      </View>
     </View>
   );
 };
@@ -32,11 +35,15 @@ export const styles = StyleSheet.create({
   },
   content: {
     gap: 10,
+    padding: 10,
+  },
+  column: {
+    gap: 10,
   },
   box: {
     backgroundColor: '#F9EDE3',
-    width: 80,
-    height: 80,
+    flex: 1,
+    aspectRatio: 1,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: '#9b4521',
     borderRadius: 20,
