@@ -9,7 +9,8 @@ const TabOneScreen = () => {
     <View className="pt-16" style={styles.container}>
       <FlatList
         data={DAYS}
-        numColumns={4}
+        numColumns={2}
+        contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item!}
         renderItem={({item}) => (
@@ -28,7 +29,9 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    gap: 3,
+  },
+  content: {
+    gap: 10,
   },
   box: {
     backgroundColor: '#F9EDE3',
