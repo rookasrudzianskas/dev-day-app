@@ -5,6 +5,7 @@ import { SplashScreen, Stack } from "expo-router";
 import { vars } from "nativewind";
 import { memo, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
+import { Inter_900Black } from '@expo-google-fonts/inter';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -22,6 +23,7 @@ SplashScreen.preventAutoHideAsync();
 export default memo(function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require("@/src/assets/fonts/SpaceMono-Regular.ttf"),
+    Inter: Inter_900Black,
     ...FontAwesome.font,
   });
 
