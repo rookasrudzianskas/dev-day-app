@@ -1,11 +1,15 @@
 import "../../global.css";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { vars } from "nativewind";
 import { memo, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { Inter_900Black } from '@expo-google-fonts/inter';
+import * as SplashScreen from 'expo-splash-screen';
+import { AmaticSC_400Regular, AmaticSC_700Bold } from "@expo-google-fonts/amatic-sc";
+
+SplashScreen.preventAutoHideAsync();
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -24,6 +28,8 @@ export default memo(function RootLayout() {
   const [loaded, error] = useFonts({
     SpaceMono: require("@/src/assets/fonts/SpaceMono-Regular.ttf"),
     Inter: Inter_900Black,
+    AmaticSC_400Regular: AmaticSC_400Regular,
+    AmaticSC_700Bold: AmaticSC_700Bold,
     ...FontAwesome.font,
   });
 

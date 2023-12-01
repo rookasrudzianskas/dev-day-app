@@ -1406,6 +1406,11 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
+"@expo-google-fonts/amatic-sc@^0.2.3":
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/amatic-sc/-/amatic-sc-0.2.3.tgz#00b353b58c42315a9c5248f288c76ebc15ec8a35"
+  integrity sha512-6fGot7aV2IhTijktewelFscSKyA//2w3unhWbpEO/C3Stc0jNM4VsOGV8l5gTf79nwQ6kEKEzRybcRukRmH1vQ==
+
 "@expo-google-fonts/inter@^0.2.3":
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@expo-google-fonts/inter/-/inter-0.2.3.tgz#82bf7224bb76fc6614a00393a9e9ee4d6dd09dcb"
@@ -4379,7 +4384,7 @@ expo-screen-orientation@~6.0.5:
   resolved "https://registry.yarnpkg.com/expo-screen-orientation/-/expo-screen-orientation-6.0.6.tgz#48b395bde2c4aa8d5236fc570bc36a7681895030"
   integrity sha512-qiTGX1udJi6hj+8JUP9C27+TJDU7+42HcYcgmGd5hi/iXvIK1YwuCkXFdny+BkiapFb5jQnJCBZfdhMk1fjh+Q==
 
-expo-splash-screen@~0.20.2, expo-splash-screen@~0.20.4:
+expo-splash-screen@~0.20.2, expo-splash-screen@~0.20.5:
   version "0.20.5"
   resolved "https://registry.yarnpkg.com/expo-splash-screen/-/expo-splash-screen-0.20.5.tgz#ebeba3e3977606830f74f506ab2cc25042bb7efd"
   integrity sha512-nTALYdjHpeEA30rdOWSguxn72ctv8WM8ptuUgpfRgsWyn4i6rwYds/rBXisX69XO5fg+XjHAQqijGx/b28+3tg==
