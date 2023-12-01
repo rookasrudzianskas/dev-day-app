@@ -9,7 +9,7 @@ const TabOneScreen = () => {
     <View className="pt-16" style={styles.container}>
       <View>
         <FlatList
-          data={DAYS}
+          data={Array.from(DAYS)}
           numColumns={2}
           contentContainerStyle={styles.content}
           columnWrapperStyle={styles.column}

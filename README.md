@@ -1,20 +1,5 @@
 # ⚛️💨 Universal Nativewind v4 starter
 
-<img src="https://i.imgur.com/WXzT4GR.png" alt="Image"/>
-This starter is a expo managed app setup to create universal apps using expo-router and nativewind v4.
-
-Run with `npm start` and use `i` and `a` to launch app on expo go. `w` to launch web app.
-
-## Includes
-
-- Expo SDK 49
-- Nativewind v4
-- Expo Router v2
-  - typed routes
-- Typescript 5
-- Reanimated v3
-- Gesture Handler v2
-
 ## Native Deploy
 
 > ℹ️ For all these steps you need to install EAS first
@@ -94,42 +79,3 @@ Enabled for you to import modules using `@/components` custom alias instead of a
 ```jsx
 import YourComponent from "@/components/YourComponent";
 ```
-
-More info @ <https://docs.expo.dev/guides/typescript/#path-aliases>
-
-## Expo Router
-
-Expo Router is a native and platform-optimized navigation solution built on top of React Navigation, offering deep linking, offline-first capabilities, optimization features, universal refresh and linking across Android, iOS, and web, as well as the ability to make app content discoverable to search engines.
-
-More info @ <https://docs.expo.dev/routing/introduction/>
-
-### Typed routes
-
-App comes configured with typed routes
-
-```jsx
-✅ <Link href="/user/1" />
-
-// TypeScript errors if href is not a valid route
-❌ <Link href="/usser/1" />
-```
-
-More info @ <https://docs.expo.dev/router/reference/typed-routes/>
-
-## Nativewind v4 docs
-
-New docs for v4 available @ <https://www.nativewind.dev/v4/overview>
-
-## About Author
-
-### [Rodrigo Figueroa](https://twitter.com/bidah)
-
-Follow Rodrigo Figueroa, creator of Universal Nativewind v4 Starter, on X/Twitter: [@bidah](https://twitter.com/bidah)
-
-### [Mark Lawlor](https://twitter.com/mark__lawlor)
-
-Follow Mark Lawlor, creator of Nativewind, on X/Twitter: [@mark\_\_lawlor](https://twitter.com/mark__lawlor)
-
-### [Evan Bacon](https://twitter.com/baconbrix)
-
-Follow Evan Bacon, creator of Expo Router, on X/Twitter: [@baconbrix](https://twitter.com/baconbrix)
