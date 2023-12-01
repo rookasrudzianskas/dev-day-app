@@ -1,6 +1,7 @@
 // @ts-nocheck
 import {FlatList, StyleSheet, Text, View} from "react-native";
 import React from "react";
+import DayListItem from "@/src/components/DayListItem";
 
 const DAYS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
 
@@ -16,9 +17,7 @@ const TabOneScreen = () => {
           showsVerticalScrollIndicator={false}
           keyExtractor={(item) => item!}
           renderItem={({item}) => (
-            <View style={styles.box}>
-              <Text style={styles.text}>{item}</Text>
-            </View>
+            <DayListItem item={item} />
           )}
         />
       </View>
@@ -39,19 +38,5 @@ export const styles = StyleSheet.create({
   },
   column: {
     gap: 10,
-  },
-  box: {
-    backgroundColor: '#F9EDE3',
-    flex: 1,
-    aspectRatio: 1,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#9b4521',
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    color: '#9b4521',
-    fontSize: 70,
   }
 })
