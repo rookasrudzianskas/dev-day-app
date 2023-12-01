@@ -1,8 +1,4 @@
-// tab one screen
-import { vars, useColorScheme } from "nativewind";
-import { Pressable, Text, View, PressableProps } from "react-native";
-import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/lib/utils";
+import { Text, View } from "react-native";
 import React from "react";
 
 const TabOneScreen = () => {
