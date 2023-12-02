@@ -18,7 +18,12 @@ const Onboarding = () => {
               Monitor your spending and contribution ensuring every penny is accounted for. This will help you to make better financial decisions.
             </Text>
 
-            <View className={""}>
+            <View className={"flex flex-row"}>
+              <TouchableOpacity activeOpacity={0.7} className="" style={styles.skipButton}>
+                <Text className="text-gray-200 text-lg spacing-wide">
+                  Skip
+                </Text>
+              </TouchableOpacity>
               <TouchableOpacity activeOpacity={0.7} className="" style={styles.button}>
                 <Text className="text-gray-200 text-lg spacing-wide">
                   Get Started
@@ -60,10 +65,22 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: '#302E38',
     padding: 15,
-    width: "100%",
     borderRadius: 10,
+    flex: 1,
     marginTop: 20,
     alignSelf: 'center',
     alignItems: 'center',
+  },
+  skipButton: {
+    backgroundColor: '#15141A',
+    padding: 13,
+    borderRadius: 10,
+    width: 100,
+    marginTop: 20,
+    alignSelf: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#FDFDFD',
+    marginRight: 10,
   },
 });
