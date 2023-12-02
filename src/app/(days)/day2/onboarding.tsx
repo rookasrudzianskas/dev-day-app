@@ -10,18 +10,21 @@ const ONBOARDING_STEPS = [
     description: 'Monitor your spending and contribution ensuring every penny is accounted for. This will help you to make better financial decisions.',
     image: 'money',
     button: 'Get Started',
+    step: 0,
   },
   {
     title: 'Track Every Coin',
     description: 'Monitor your spending and contribution ensuring every penny is accounted for. This will help you to make better financial decisions.',
     image: 'snowflake-o',
     button: 'Continue',
+    step: 1,
   },
   {
     title: 'Track Every Dollar',
     description: 'Monitor your spending and contribution ensuring every penny is accounted for. This will help you to make better financial decisions.',
     image: 'compress',
     button: 'Confirm & Pay',
+    step: 2,
   },
 ]
 
@@ -48,9 +51,9 @@ const Onboarding = () => {
       <Stack.Screen options={{ headerShown: false}} />
       <View className="bg-[#15141A] h-full justify-between">
         <View style={styles.stepIndicatorContainer}>
-          <View className="flex-1 h-1 bg-white rounded-md" style={styles.stepIndicator}/>
-          <View className="flex-1 h-1 bg-white rounded-md" style={styles.stepIndicator}/>
-          <View className="flex-1 h-1 bg-white rounded-md" style={styles.stepIndicator}/>
+          {ONBOARDING_STEPS.map((step, index) => (
+            <View key={index} className={`flex-1 h-1 bg-white rounded-md ${screenIndex === index && 'bg-purple-400'}`} style={styles.stepIndicator}/>
+          ))}
         </View>
         <FontAwesome style={styles.image} name={data.image} size={40} color="#FDFDFD" />
           <View className="mb-16">
@@ -100,7 +103,6 @@ const styles = StyleSheet.create({
     letterSpacing: 1.3,
     alignSelf: 'center',
     margin: 20,
-    marginTop: 50,
   },
   footer: {
     margin: 'auto'
