@@ -71,6 +71,7 @@ const Onboarding = () => {
   }
 
   return (
+  <GestureDetector gesture={swipes}>
     <View className="pt-16 bg-[#15141A] h-screen items-center justify-center">
       <Stack.Screen options={{ headerShown: false}} />
       <View className="bg-[#15141A] h-full justify-between">
@@ -82,7 +83,6 @@ const Onboarding = () => {
           </View>
           <FontAwesome style={styles.image} name={data.image} size={40} color="#FDFDFD" />
         </View>
-        <GestureDetector gesture={swipes}>
           <View className="mb-16">
             <Text style={styles.title} className="text-gray-200">
               {data.title}
@@ -104,9 +104,9 @@ const Onboarding = () => {
               </TouchableOpacity>
             </View>
           </View>
-    </GestureDetector>
       </View>
     </View>
+    </GestureDetector>
   );
 };
 
