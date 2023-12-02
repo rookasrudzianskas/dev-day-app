@@ -50,12 +50,14 @@ const Onboarding = () => {
     <View className="pt-16 bg-[#15141A] h-screen items-center justify-center">
       <Stack.Screen options={{ headerShown: false}} />
       <View className="bg-[#15141A] h-full justify-between">
-        <View style={styles.stepIndicatorContainer}>
-          {ONBOARDING_STEPS.map((step, index) => (
-            <View key={index} className={`flex-1 h-1 bg-white rounded-md ${screenIndex === index && 'bg-purple-400'}`} style={styles.stepIndicator}/>
-          ))}
+        <View>
+          <View style={styles.stepIndicatorContainer}>
+            {ONBOARDING_STEPS.map((step, index) => (
+              <View key={index} className={`flex-1 h-1 bg-white rounded-md ${screenIndex === index && 'bg-purple-400'}`} style={styles.stepIndicator}/>
+            ))}
+          </View>
+          <FontAwesome style={styles.image} name={data.image} size={40} color="#FDFDFD" />
         </View>
-        <FontAwesome style={styles.image} name={data.image} size={40} color="#FDFDFD" />
           <View className="mb-16">
             <Text style={styles.title} className="text-gray-200">
               {data.title}
@@ -103,6 +105,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1.3,
     alignSelf: 'center',
     margin: 20,
+    marginTop: 50,
   },
   footer: {
     margin: 'auto'
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
   stepIndicatorContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 20,
+    gap: 5,
     marginTop: 20,
   },
   stepIndicator: {
