@@ -64,8 +64,6 @@ const Onboarding = () => {
   return (
   <GestureDetector gesture={swipes}>
     <Animated.View
-      // entering={LightSpeedInRight}
-      // exiting={LightSpeedOutLeft}
       key={screenIndex}
       className="pt-16 bg-[#15141A] h-screen items-center justify-center"
     >
@@ -86,14 +84,14 @@ const Onboarding = () => {
         </View>
           <View className="mb-16">
             <Animated.Text
-              entering={SlideInRight}
+              entering={SlideInLeft}
               style={styles.title}
               className="text-gray-200"
             >
               {data.title}
             </Animated.Text>
             <Animated.Text
-              entering={SlideInRight}
+              entering={SlideInLeft.delay(80)}
               className="text-gray-300 text-lg spacing-wide">
               {data.description}
             </Animated.Text>
