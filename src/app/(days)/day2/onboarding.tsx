@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Stack} from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
@@ -17,6 +17,14 @@ const Onboarding = () => {
             <Text className="text-gray-300 text-lg spacing-wide">
               Monitor your spending and contribution ensuring every penny is accounted for. This will help you to make better financial decisions.
             </Text>
+
+            <View className={""}>
+              <TouchableOpacity activeOpacity={0.7} className="" style={styles.button}>
+                <Text className="text-gray-200 text-lg spacing-wide">
+                  Get Started
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
       </View>
     </View>
@@ -48,5 +56,14 @@ const styles = StyleSheet.create({
   },
   footer: {
     margin: 'auto'
-  }
+  },
+  button: {
+    backgroundColor: '#302E38',
+    padding: 15,
+    width: "100%",
+    borderRadius: 10,
+    marginTop: 20,
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
 });
