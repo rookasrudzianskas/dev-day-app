@@ -5,7 +5,7 @@ import {Stack, useRouter} from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {Directions, Gesture} from 'react-native-gesture-handler';
 import { GestureDetector } from 'react-native-gesture-handler';
-import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import Animated, {FadeIn, FadeOut, SlideOutRight} from 'react-native-reanimated';
 import { LightSpeedInRight, LightSpeedOutLeft } from 'react-native-reanimated';
 import { SlideInRight, SlideOutLeft, SlideInLeft } from 'react-native-reanimated';
 
@@ -85,6 +85,7 @@ const Onboarding = () => {
           <View className="mb-16">
             <Animated.Text
               entering={SlideInLeft}
+              exiting={SlideOutRight}
               style={styles.title}
               className="text-gray-200"
             >
