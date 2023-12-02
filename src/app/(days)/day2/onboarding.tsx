@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Stack, useRouter} from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Gesture } from 'react-native-gesture-handler';
+import {Directions, Gesture} from 'react-native-gesture-handler';
 import { GestureDetector } from 'react-native-gesture-handler';
 
 const ONBOARDING_STEPS = [
@@ -34,7 +34,28 @@ const Onboarding = () => {
   const router = useRouter();
   const [screenIndex, setScreenIndex] = useState(0);
   const data = ONBOARDING_STEPS[screenIndex];
-  const fling = Gesture.Fling();
+
+  const onBack = () => {
+    const isFirstScreen = screenIndex === 0;
+    if(isFirstScreen) {
+      router.push('/');
+    } else {
+      setScreenIndex(screenIndex - 1);
+    }
+  }
+
+  const onNext = () => {
+    const isLastScreen = screenIndex === ONBOARDING_STEPS.length - 1;
+    if(isLastScreen) {
+      router.push('/');
+    } else {
+      setScreenIndex(screenIndex + 1);
+    }
+  }
+
+  const swipeForward = Gesture.Fling().direction(Directions.LEFT).onEnd(onNext);
+  const swipeBackward = Gesture.Fling().direction(Directions.RIGHT).onEnd(onBack);
+  const swipes = Gesture.Simultaneous(swipeBackward, swipeForward);
 
   const onContinue = () => {
     if(screenIndex < ONBOARDING_STEPS.length - 1) {
@@ -50,7 +71,6 @@ const Onboarding = () => {
   }
 
   return (
-    <GestureDetector gesture={fling}>
     <View className="pt-16 bg-[#15141A] h-screen items-center justify-center">
       <Stack.Screen options={{ headerShown: false}} />
       <View className="bg-[#15141A] h-full justify-between">
@@ -62,6 +82,7 @@ const Onboarding = () => {
           </View>
           <FontAwesome style={styles.image} name={data.image} size={40} color="#FDFDFD" />
         </View>
+        <GestureDetector gesture={swipes}>
           <View className="mb-16">
             <Text style={styles.title} className="text-gray-200">
               {data.title}
@@ -83,9 +104,9 @@ const Onboarding = () => {
               </TouchableOpacity>
             </View>
           </View>
+    </GestureDetector>
       </View>
     </View>
-    </GestureDetector>
   );
 };
 
