@@ -6,6 +6,8 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {Directions, Gesture} from 'react-native-gesture-handler';
 import { GestureDetector } from 'react-native-gesture-handler';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import { LightSpeedInRight, LightSpeedOutLeft } from 'react-native-reanimated';
+import { SlideInRight, SlideOutLeft, SlideInLeft } from 'react-native-reanimated';
 
 const ONBOARDING_STEPS = [
   {
@@ -62,8 +64,9 @@ const Onboarding = () => {
   return (
   <GestureDetector gesture={swipes}>
     <Animated.View
-      entering={FadeIn}
-      exiting={FadeOut}
+      // entering={LightSpeedInRight}
+      // exiting={LightSpeedOutLeft}
+      key={screenIndex}
       className="pt-16 bg-[#15141A] h-screen items-center justify-center"
     >
       <Stack.Screen options={{ headerShown: false}} />
@@ -74,15 +77,26 @@ const Onboarding = () => {
               <View key={index} className={`flex-1 h-1 bg-white rounded-md ${screenIndex === index && 'bg-purple-400'}`} style={styles.stepIndicator}/>
             ))}
           </View>
-          <FontAwesome style={styles.image} name={data.image} size={40} color="#FDFDFD" />
+          <Animated.View
+            entering={FadeIn}
+            exiting={FadeOut}
+          >
+            <FontAwesome style={styles.image} name={data.image} size={40} color="#FDFDFD" />
+          </Animated.View>
         </View>
           <View className="mb-16">
-            <Text style={styles.title} className="text-gray-200">
+            <Animated.Text
+              entering={SlideInRight}
+              style={styles.title}
+              className="text-gray-200"
+            >
               {data.title}
-            </Text>
-            <Text className="text-gray-300 text-lg spacing-wide">
+            </Animated.Text>
+            <Animated.Text
+              entering={SlideInRight}
+              className="text-gray-300 text-lg spacing-wide">
               {data.description}
-            </Text>
+            </Animated.Text>
 
             <View className={"flex flex-row"}>
               <TouchableOpacity onPress={onSkip} activeOpacity={0.7} className="" style={styles.skipButton}>
