@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Stack, useRouter} from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -14,41 +14,57 @@ const ONBOARDING_STEPS = [
   {
     title: 'Track Every Coin',
     description: 'Monitor your spending and contribution ensuring every penny is accounted for. This will help you to make better financial decisions.',
-    image: 'money',
+    image: 'snowflake-o',
     button: 'Continue',
   },
   {
     title: 'Track Every Dollar',
     description: 'Monitor your spending and contribution ensuring every penny is accounted for. This will help you to make better financial decisions.',
-    image: 'money',
+    image: 'compress',
     button: 'Confirm & Pay',
   },
 ]
 
 const Onboarding = () => {
   const router = useRouter();
+  const [screenIndex, setScreenIndex] = useState(0);
+  const data = ONBOARDING_STEPS[screenIndex];
+
+  const onContinue = () => {
+    if(screenIndex < ONBOARDING_STEPS.length - 1) {
+      setScreenIndex(screenIndex + 1);
+    } else {
+      // make it restart again
+      setScreenIndex(0);
+    }
+  }
+
+  const onSkip = () => {
+    router.push('/day1/index');
+  }
+
   return (
     <View className="pt-16 bg-[#15141A] h-screen items-center justify-center">
       <Stack.Screen options={{ headerShown: false}} />
       <View className="bg-[#15141A] h-full justify-between">
-        <FontAwesome style={styles.image} name="money" size={40} color="#FDFDFD" />
+        <FontAwesome style={styles.image} name={data.image} size={40} color="#FDFDFD" />
           <View className="mb-16">
             <Text style={styles.title} className="text-gray-200">
-              Track Every Penny
+              {data.title}
             </Text>
             <Text className="text-gray-300 text-lg spacing-wide">
-              Monitor your spending and contribution ensuring every penny is accounted for. This will help you to make better financial decisions.
+              {data.description}
             </Text>
 
             <View className={"flex flex-row"}>
-              <TouchableOpacity activeOpacity={0.7} className="" style={styles.skipButton}>
+              <TouchableOpacity onPress={onSkip} activeOpacity={0.7} className="" style={styles.skipButton}>
                 <Text className="text-gray-200 text-lg spacing-wide">
                   Skip
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => router.push('/da2/onboarding2')} activeOpacity={0.7} className="" style={styles.button}>
+              <TouchableOpacity onPress={() => onContinue()} activeOpacity={0.7} className="" style={styles.button}>
                 <Text className="text-gray-200 text-lg spacing-wide">
-                  Get Started
+                  {data.button}
                 </Text>
               </TouchableOpacity>
             </View>
