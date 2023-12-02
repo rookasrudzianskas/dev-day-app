@@ -6,7 +6,7 @@ import {Stack, useRouter} from "expo-router";
 const Day2 = () => {
   const router = useRouter();
   return (
-    <View>
+    <View className="flex flex-1 items-center justify-center">
       <Stack.Screen options={{ title: 'Day 2 Onboarding'}} />
       <Button title={'Go To Onboarding'} onPress={() => router.push('/day2/onboarding')}></Button>
     </View>
