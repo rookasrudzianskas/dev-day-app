@@ -57,15 +57,6 @@ const Onboarding = () => {
   const swipeBackward = Gesture.Fling().direction(Directions.RIGHT).onEnd(onBack);
   const swipes = Gesture.Simultaneous(swipeBackward, swipeForward);
 
-  const onContinue = () => {
-    if(screenIndex < ONBOARDING_STEPS.length - 1) {
-      setScreenIndex(screenIndex + 1);
-    } else {
-      // make it restart again
-      setScreenIndex(0);
-    }
-  }
-
   const onSkip = () => {
     router.push('/');
   }
@@ -97,7 +88,7 @@ const Onboarding = () => {
                   Skip
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => onContinue()} activeOpacity={0.7} className="" style={styles.button}>
+              <TouchableOpacity onPress={() => onNext()} activeOpacity={0.7} className="" style={styles.button}>
                 <Text className="text-gray-200 text-lg spacing-wide">
                   {data.button}
                 </Text>
