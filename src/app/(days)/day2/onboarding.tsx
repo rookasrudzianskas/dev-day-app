@@ -5,6 +5,7 @@ import {Stack, useRouter} from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import {Directions, Gesture} from 'react-native-gesture-handler';
 import { GestureDetector } from 'react-native-gesture-handler';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 const ONBOARDING_STEPS = [
   {
@@ -34,7 +35,6 @@ const Onboarding = () => {
   const router = useRouter();
   const [screenIndex, setScreenIndex] = useState(0);
   const data = ONBOARDING_STEPS[screenIndex];
-
   const onBack = () => {
     const isFirstScreen = screenIndex === 0;
     if(isFirstScreen) {
@@ -43,7 +43,6 @@ const Onboarding = () => {
       setScreenIndex(screenIndex - 1);
     }
   }
-
   const onNext = () => {
     const isLastScreen = screenIndex === ONBOARDING_STEPS.length - 1;
     if(isLastScreen) {
@@ -52,18 +51,21 @@ const Onboarding = () => {
       setScreenIndex(screenIndex + 1);
     }
   }
+  const onSkip = () => {
+    router.push('/');
+  }
 
   const swipeForward = Gesture.Fling().direction(Directions.LEFT).onEnd(onNext);
   const swipeBackward = Gesture.Fling().direction(Directions.RIGHT).onEnd(onBack);
   const swipes = Gesture.Simultaneous(swipeBackward, swipeForward);
 
-  const onSkip = () => {
-    router.push('/');
-  }
-
   return (
   <GestureDetector gesture={swipes}>
-    <View className="pt-16 bg-[#15141A] h-screen items-center justify-center">
+    <Animated.View
+      entering={FadeIn}
+      exiting={FadeOut}
+      className="pt-16 bg-[#15141A] h-screen items-center justify-center"
+    >
       <Stack.Screen options={{ headerShown: false}} />
       <View className="bg-[#15141A] h-full justify-between">
         <View>
@@ -96,7 +98,7 @@ const Onboarding = () => {
             </View>
           </View>
       </View>
-    </View>
+    </Animated.View>
     </GestureDetector>
   );
 };
