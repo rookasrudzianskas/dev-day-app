@@ -8,6 +8,7 @@ import { View, StyleSheet } from "react-native";
 import { Inter_900Black } from '@expo-google-fonts/inter';
 import * as SplashScreen from 'expo-splash-screen';
 import { AmaticSC_400Regular, AmaticSC_700Bold } from "@expo-google-fonts/amatic-sc";
+import {GestureHandlerRootView} from "react-native-gesture-handler";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -58,11 +59,13 @@ const theme = vars({
 
 function RootLayoutNav() {
   return (
-    <View style={[theme, StyleSheet.absoluteFill]}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-      </Stack>
-    </View>
+    <GestureHandlerRootView style={{ flex: 1}}>
+      <View style={[theme, StyleSheet.absoluteFill]}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+        </Stack>
+      </View>
+    </GestureHandlerRootView>
   );
 }

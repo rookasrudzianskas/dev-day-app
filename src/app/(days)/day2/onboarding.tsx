@@ -3,6 +3,8 @@ import React, {useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Stack, useRouter} from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Gesture } from 'react-native-gesture-handler';
+import { GestureDetector } from 'react-native-gesture-handler';
 
 const ONBOARDING_STEPS = [
   {
@@ -32,6 +34,7 @@ const Onboarding = () => {
   const router = useRouter();
   const [screenIndex, setScreenIndex] = useState(0);
   const data = ONBOARDING_STEPS[screenIndex];
+  const fling = Gesture.Fling();
 
   const onContinue = () => {
     if(screenIndex < ONBOARDING_STEPS.length - 1) {
@@ -47,6 +50,7 @@ const Onboarding = () => {
   }
 
   return (
+    <GestureDetector gesture={fling}>
     <View className="pt-16 bg-[#15141A] h-screen items-center justify-center">
       <Stack.Screen options={{ headerShown: false}} />
       <View className="bg-[#15141A] h-full justify-between">
@@ -81,6 +85,7 @@ const Onboarding = () => {
           </View>
       </View>
     </View>
+    </GestureDetector>
   );
 };
 
