@@ -84,15 +84,16 @@ const Onboarding = () => {
         </View>
           <View className="mb-16">
             <Animated.Text
-              entering={SlideInLeft}
-              exiting={SlideOutRight}
+              entering={SlideInRight}
+              exiting={SlideOutLeft}
               style={styles.title}
               className="text-gray-200"
             >
               {data.title}
             </Animated.Text>
             <Animated.Text
-              entering={SlideInLeft.delay(80)}
+              entering={SlideInRight.delay(30)}
+              exiting={SlideOutLeft.delay(30)}
               className="text-gray-300 text-lg spacing-wide">
               {data.description}
             </Animated.Text>
