@@ -40,13 +40,18 @@ const Onboarding = () => {
   }
 
   const onSkip = () => {
-    router.push('/day1/index');
+    router.push('/');
   }
 
   return (
     <View className="pt-16 bg-[#15141A] h-screen items-center justify-center">
       <Stack.Screen options={{ headerShown: false}} />
       <View className="bg-[#15141A] h-full justify-between">
+        <View style={styles.stepIndicatorContainer}>
+          <View className="flex-1 h-1 bg-white rounded-md" style={styles.stepIndicator}/>
+          <View className="flex-1 h-1 bg-white rounded-md" style={styles.stepIndicator}/>
+          <View className="flex-1 h-1 bg-white rounded-md" style={styles.stepIndicator}/>
+        </View>
         <FontAwesome style={styles.image} name={data.image} size={40} color="#FDFDFD" />
           <View className="mb-16">
             <Text style={styles.title} className="text-gray-200">
@@ -121,4 +126,13 @@ const styles = StyleSheet.create({
     borderColor: '#302E38',
     marginRight: 10,
   },
+  stepIndicatorContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginHorizontal: 20,
+    marginTop: 20,
+  },
+  stepIndicator: {
+    margin: 5
+  }
 });
