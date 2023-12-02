@@ -1,10 +1,32 @@
 //@ts-nocheck
 import React from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
-import {Stack} from "expo-router";
+import {Stack, useRouter} from "expo-router";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
+const ONBOARDING_STEPS = [
+  {
+    title: 'Track Every Penny',
+    description: 'Monitor your spending and contribution ensuring every penny is accounted for. This will help you to make better financial decisions.',
+    image: 'money',
+    button: 'Get Started',
+  },
+  {
+    title: 'Track Every Coin',
+    description: 'Monitor your spending and contribution ensuring every penny is accounted for. This will help you to make better financial decisions.',
+    image: 'money',
+    button: 'Continue',
+  },
+  {
+    title: 'Track Every Dollar',
+    description: 'Monitor your spending and contribution ensuring every penny is accounted for. This will help you to make better financial decisions.',
+    image: 'money',
+    button: 'Confirm & Pay',
+  },
+]
+
 const Onboarding = () => {
+  const router = useRouter();
   return (
     <View className="pt-16 bg-[#15141A] h-screen items-center justify-center">
       <Stack.Screen options={{ headerShown: false}} />
@@ -24,7 +46,7 @@ const Onboarding = () => {
                   Skip
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.7} className="" style={styles.button}>
+              <TouchableOpacity onPress={() => router.push('/da2/onboarding2')} activeOpacity={0.7} className="" style={styles.button}>
                 <Text className="text-gray-200 text-lg spacing-wide">
                   Get Started
                 </Text>
@@ -80,7 +102,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#FDFDFD',
+    borderColor: '#302E38',
     marginRight: 10,
   },
 });
