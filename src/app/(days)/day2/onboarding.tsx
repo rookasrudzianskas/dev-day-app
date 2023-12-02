@@ -92,7 +92,7 @@ const Onboarding = () => {
             </Animated.Text>
             <Animated.Text
               entering={SlideInRight.delay(30)}
-              exiting={SlideOutLeft.delay(30)}
+              exiting={SlideOutLeft}
               className="text-gray-300 text-lg spacing-wide">
               {data.description}
             </Animated.Text>
