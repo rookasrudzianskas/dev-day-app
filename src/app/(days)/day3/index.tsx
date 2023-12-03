@@ -1,7 +1,7 @@
 //@ts-nocheck
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
-import {Stack} from "expo-router";
+import {Text, View, StyleSheet, Button, SafeAreaView} from 'react-native';
+import {Stack, useRouter} from "expo-router";
 import MarkdownDisplay from "@/src/components/day3/markdown-display";
 
 const description = `
@@ -20,13 +20,21 @@ Integrate Markdown content in **React Native**
 `;
 
 const Day3 = () => {
+  const router = useRouter();
+
   return (
-    <View className="flex-1">
+    <SafeAreaView edges={['bottom']} style={{ flex: 1 }}>
       <Stack.Screen options={{ title: 'Day 3 Markdown'}} />
       <MarkdownDisplay>
         {description}
       </MarkdownDisplay>
-    </View>
+      <Button
+        title={'Go To Editor'}
+        className="mb-6"
+        onPress={() => router.push('/day3/editor')}>
+          Go To Editor
+      </Button>
+    </SafeAreaView>
   );
 };
 
