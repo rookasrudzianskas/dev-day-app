@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 
 const template = `# 🎉 Fun with Markdown!
@@ -48,6 +48,9 @@ Markdown is not just for formatting; it's for having fun while expressing yourse
 `;
 
 const EditorScreen = () => {
+  const [content, setContent] = useState(template);
+  const [tab, setTab] = useState('edit');
+
   return (
     <View>
       <Text>
