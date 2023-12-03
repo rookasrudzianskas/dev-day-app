@@ -106,7 +106,3 @@ const EditorScreen = () => {
 };
 
 export default EditorScreen;
-
-const styles = StyleSheet.create({
-
-});
