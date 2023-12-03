@@ -1,6 +1,7 @@
 //@ts-nocheck
 import React, {useState} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, Pressable, TextInput, TouchableOpacity, ScrollView} from 'react-native';
+import MarkdownDisplay from "@/src/components/day3/markdown-display";
 
 const template = `# 🎉 Fun with Markdown!
 
@@ -52,12 +53,60 @@ const EditorScreen = () => {
   const [tab, setTab] = useState('edit');
 
   return (
-    <View>
-      <Text>
-        byrookas 🚀
-      </Text>
+    <View className="flex-1 p-3 bg-neutral-50">
+      <View className="flex flex-row gap-4">
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => setTab('edit')}
+          className={`flex-1 rounded-md flex items-center justify-center border border-2 ${tab === 'edit' ? 'border-purple-400' : 'border-gray-300'} py-3 mb-3`}
+        >
+          <Text className="text-md font-semibold">Edit</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => setTab('preview')}
+          className={`flex-1 rounded-md flex items-center justify-center border border-2 ${tab === 'preview' ? 'border-purple-400' : 'border-gray-300'} py-3 mb-3`}
+        >
+          <Text className="text-md font-semibold">Preview</Text>
+        </TouchableOpacity>
+      </View>
+
+      {tab === 'edit' ? (
+        <View style={{ flex: 1, borderWidth: 1, borderColor: 'transparent' }}>
+          <ScrollView
+            style={{
+              flex: 1,
+              borderWidth: 1,
+              borderColor: 'transparent',
+              paddingHorizontal: 5, // Adjust padding as needed
+              borderRadius: 8, // Adjust border radius as needed
+            }}
+            showsVerticalScrollIndicator={false} // Hide the scroll indicator for ScrollView
+          >
+            <TextInput
+              value={content}
+              onChangeText={setContent}
+              multiline
+              numberOfLines={50}
+              style={{
+                flex: 1,
+                fontSize: 14,
+              }}
+            />
+          </ScrollView>
+        </View>
+
+      ) : (
+        <MarkdownDisplay>
+          {content}
+        </MarkdownDisplay>
+      )}
     </View>
   );
 };
 
 export default EditorScreen;
+
+const styles = StyleSheet.create({
+
+});

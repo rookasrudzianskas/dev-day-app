@@ -21,7 +21,7 @@ const markdownStyles = StyleSheet.create({
     lineHeight: 40,
   },
   heading2: {
-    fontFamily: 'InterBold',
+    fontFamily: 'Inter',
     color: '#404040',
 
     marginTop: 10,
