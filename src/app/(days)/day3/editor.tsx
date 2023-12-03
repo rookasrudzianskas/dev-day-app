@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, Pressable, TextInput, TouchableOpacity, ScrollView} from 'react-native';
+import {Text, View, TextInput, TouchableOpacity, ScrollView} from 'react-native';
 import MarkdownDisplay from "@/src/components/day3/markdown-display";
 
 const template = `# 🎉 Fun with Markdown!
