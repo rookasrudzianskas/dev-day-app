@@ -6,6 +6,7 @@ const config = getDefaultConfig(__dirname, {
 });
 
 config.resolver.sourceExts.push("mjs");
+config.resolver.assetExts.push("lottie");
 
 const { withNativeWind } = require("nativewind/metro");
 module.exports = withNativeWind(config, {

@@ -36,6 +36,13 @@ const Animation = () => {
           animation.current?.play();
         }}
       />
+      <Button
+        title="Stop"
+        onPress={() => {
+          // stop
+          animation.current?.reset();
+        }}
+      />
     </View>
   );
 };
