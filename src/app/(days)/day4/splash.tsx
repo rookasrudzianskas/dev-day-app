@@ -4,7 +4,7 @@ import { Button, StyleSheet, View } from 'react-native';
 import LottieView from 'lottie-react-native';
 import {Stack} from "expo-router";
 
-const Animation = () => {
+const Splash = () => {
   const animation = useRef(null);
 
   // useEffect(() => {
@@ -16,44 +16,25 @@ const Animation = () => {
     <View style={styles.animationContainer}>
       <Stack.Screen options={{ title: 'Day 4 Splash Screen', headerShown: false}} />
       <LottieView
-        // autoPlay
+        autoPlay
         ref={animation}
         style={{
-          width: 200,
+          width: "80%",
+          maxWidth: 400,
           height: 200,
-          backgroundColor: '#eee',
+          backgroundColor: '#000',
         }}
         source={require('../../../assets/animation.json')}
-      />
-      <Button
-        title="Restart Animation"
-        onPress={() => {
-          animation.current?.reset();
-          animation.current?.play();
-        }}
-      />
-      <Button
-        title="Play"
-        onPress={() => {
-          animation.current?.play();
-        }}
-      />
-      <Button
-        title="Stop"
-        onPress={() => {
-          // stop
-          animation.current?.reset();
-        }}
       />
     </View>
   );
 };
 
-export default Animation;
+export default Splash;
 
 const styles = StyleSheet.create({
   animationContainer: {
-    backgroundColor: '#eee',
+    backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,

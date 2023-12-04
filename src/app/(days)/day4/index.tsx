@@ -23,6 +23,12 @@ const Day4 = () => {
         onPress={() => router.push('/day4/animation')}>
         Go To Editor
       </Button>
+      <Button
+        title={'Go To Splash'}
+        className="mb-6"
+        onPress={() => router.push('/day4/splash')}>
+        Go To Editor
+      </Button>
     </SafeAreaView>
   );
 };
