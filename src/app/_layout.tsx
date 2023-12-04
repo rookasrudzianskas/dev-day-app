@@ -39,7 +39,6 @@ export default memo(function RootLayout() {
 
  useEffect(() => {
    if(loaded || error) {
-     // SplashScreen.hideAsync();
      setAppReady(true);
    }
  }, [loaded, error])
