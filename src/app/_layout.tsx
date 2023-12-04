@@ -41,21 +41,13 @@ export default memo(function RootLayout() {
    if(loaded || error) {
      setAppReady(true);
    }
- }, [loaded, error])
+ }, [loaded, error]);
+ const showAnimatedSplashScreen = !appReady || !splashAnimationFinished;
 
-  if(!appReady || !splashAnimationFinished) {
-    return (
-      <SplashAnimation
-        onAnimationFinish={(isCanceled: any) => {
-          if(!isCanceled) {
-            setSplashAnimationFinished(true);
-          }
-        }}
-      />
-    );
-  }
-
-  return <RootLayoutNav />;
+  return <RootLayoutNav
+    showAnimatedSplashScreen={showAnimatedSplashScreen}
+    setSplashAnimationFinished={setSplashAnimationFinished}
+  />;
 });
 
 const theme = vars({
@@ -63,15 +55,27 @@ const theme = vars({
   "--theme-bg": "rgba(230,230,230,1)",
 });
 
-function RootLayoutNav() {
+function RootLayoutNav({showAnimatedSplashScreen, setSplashAnimationFinished}: any) {
   return (
     <GestureHandlerRootView style={{ flex: 1}}>
-      <View style={[theme, StyleSheet.absoluteFill]}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-        </Stack>
-      </View>
+      {showAnimatedSplashScreen && (
+        <SplashAnimation
+          onAnimationFinish={(isCanceled: any) => {
+            if(!isCanceled) {
+              setSplashAnimationFinished(true);
+            }
+          }}
+        />
+      )}
+
+      {!showAnimatedSplashScreen && (
+        <View style={[theme, StyleSheet.absoluteFill]}>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+          </Stack>
+        </View>
+      )}
     </GestureHandlerRootView>
   );
 }
