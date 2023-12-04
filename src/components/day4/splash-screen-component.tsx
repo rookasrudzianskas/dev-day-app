@@ -1,8 +1,7 @@
 //@ts-nocheck
-import React, { useRef, useEffect } from 'react';
-import { Button, StyleSheet, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import LottieView from 'lottie-react-native';
-import {Stack} from "expo-router";
 
 const SplashAnimation = ({onAnimationFinish = (isCanceled) => {}}) => {
   return (
