@@ -10,6 +10,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { AmaticSC_400Regular, AmaticSC_700Bold } from "@expo-google-fonts/amatic-sc";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import SplashAnimation from "@/src/components/day4/splash-screen-component";
+import Animated, {FadeIn} from "react-native-reanimated";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -56,26 +57,27 @@ const theme = vars({
 });
 
 function RootLayoutNav({showAnimatedSplashScreen, setSplashAnimationFinished}: any) {
+
+  if(showAnimatedSplashScreen) {
+    return (
+      <SplashAnimation
+        onAnimationFinish={(isCanceled: any) => {
+          if(!isCanceled) {
+            setSplashAnimationFinished(true);
+          }
+        }}
+      />
+    )
+  }
+
   return (
     <GestureHandlerRootView style={{ flex: 1}}>
-      {showAnimatedSplashScreen && (
-        <SplashAnimation
-          onAnimationFinish={(isCanceled: any) => {
-            if(!isCanceled) {
-              setSplashAnimationFinished(true);
-            }
-          }}
-        />
-      )}
-
-      {!showAnimatedSplashScreen && (
-        <View style={[theme, StyleSheet.absoluteFill]}>
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-          </Stack>
-        </View>
-      )}
+      <Animated.View entering={FadeIn} style={[theme, StyleSheet.absoluteFill]}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+        </Stack>
+      </Animated.View>
     </GestureHandlerRootView>
   );
 }
