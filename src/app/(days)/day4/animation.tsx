@@ -19,32 +19,32 @@ const Animation = () => {
         // autoPlay
         ref={animation}
         style={{
-          width: 200,
-          height: 200,
-          backgroundColor: '#eee',
+          width: "80%",
+          maxWidth: 400,
+          backgroundColor: '#000',
         }}
         source={require('../../../assets/animation.json')}
       />
-      <Button
-        title="Restart Animation"
-        onPress={() => {
-          animation.current?.reset();
-          animation.current?.play();
-        }}
-      />
-      <Button
-        title="Play"
-        onPress={() => {
-          animation.current?.play();
-        }}
-      />
-      <Button
-        title="Stop"
-        onPress={() => {
-          // stop
-          animation.current?.reset();
-        }}
-      />
+      {/*<Button*/}
+      {/*  title="Restart Animation"*/}
+      {/*  onPress={() => {*/}
+      {/*    animation.current?.reset();*/}
+      {/*    animation.current?.play();*/}
+      {/*  }}*/}
+      {/*/>*/}
+      {/*<Button*/}
+      {/*  title="Play"*/}
+      {/*  onPress={() => {*/}
+      {/*    animation.current?.play();*/}
+      {/*  }}*/}
+      {/*/>*/}
+      {/*<Button*/}
+      {/*  title="Stop"*/}
+      {/*  onPress={() => {*/}
+      {/*    // stop*/}
+      {/*    animation.current?.reset();*/}
+      {/*  }}*/}
+      {/*/>*/}
     </View>
   );
 };
@@ -53,7 +53,7 @@ export default Animation;
 
 const styles = StyleSheet.create({
   animationContainer: {
-    backgroundColor: '#eee',
+    backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,

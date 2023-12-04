@@ -3,12 +3,13 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { vars } from "nativewind";
-import { memo, useEffect } from "react";
+import { memo, useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { Inter_900Black } from '@expo-google-fonts/inter';
 import * as SplashScreen from 'expo-splash-screen';
 import { AmaticSC_400Regular, AmaticSC_700Bold } from "@expo-google-fonts/amatic-sc";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
+import SplashAnimation from "@/src/components/day4/splash-screen-component";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -23,9 +24,10 @@ export const unstable_settings = {
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 export default memo(function RootLayout() {
+  const [appReady, setAppReady] = useState(false);
   const [loaded, error] = useFonts({
     SpaceMono: require("@/src/assets/fonts/SpaceMono-Regular.ttf"),
     Inter: Inter_900Black,
@@ -34,19 +36,17 @@ export default memo(function RootLayout() {
     ...FontAwesome.font,
   });
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
+ useEffect(() => {
+   if(loaded || error) {
+     // SplashScreen.hideAsync();
+     // setAppReady(true);
+   }
+ }, [loaded, error])
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
+  if(!appReady) {
+    return (
+      <SplashAnimation />
+    );
   }
 
   return <RootLayoutNav />;

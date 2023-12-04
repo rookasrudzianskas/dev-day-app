@@ -4,27 +4,26 @@ import { Button, StyleSheet, View } from 'react-native';
 import LottieView from 'lottie-react-native';
 import {Stack} from "expo-router";
 
-const Splash = () => {
+const SplashAnimation = () => {
   // const animation = useRef(null);
 
   return (
     <View style={styles.animationContainer}>
-      <Stack.Screen options={{ title: 'Day 4 Splash Screen', headerShown: false}} />
       <LottieView
-        // autoPlay
+        autoPlay
         // ref={animation}
         style={{
           width: "80%",
           maxWidth: 400,
           backgroundColor: '#000',
         }}
-        source={require('../../../assets/animation.json')}
+        source={require('../../assets/animation.json')}
       />
     </View>
   );
 };
 
-export default Splash;
+export default SplashAnimation;
 
 const styles = StyleSheet.create({
   animationContainer: {
