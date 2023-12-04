@@ -1,17 +1,34 @@
 //@ts-nocheck
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
-import {Stack} from "expo-router";
+import {Text, View, StyleSheet, Button, SafeAreaView} from 'react-native';
+import {Stack, useRouter} from "expo-router";
+import MarkdownDisplay from "@/src/components/day3/markdown-display";
+
+const description = `
+Netflix navigation bar animation
+`;
 
 const Day4 = () => {
+  const router = useRouter();
+
   return (
-    <View>
-      <Stack.Screen options={{ title: 'Day 4 Splash Screens'}} />
-      <Text>
-        byrookas 🚀
-      </Text>
-    </View>
+    <SafeAreaView edges={['bottom']} style={{ flex: 1 }}>
+      <Stack.Screen options={{ title: 'Day 4 Splash Screen'}} />
+      <MarkdownDisplay>
+        {description}
+      </MarkdownDisplay>
+      <Button
+        title={'Go To Editor'}
+        className="mb-6"
+        onPress={() => router.push('/day4/animation')}>
+        Go To Editor
+      </Button>
+    </SafeAreaView>
   );
 };
 
 export default Day4;
+
+export const styles = StyleSheet.create({
+
+});
