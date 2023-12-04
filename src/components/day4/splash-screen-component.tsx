@@ -5,13 +5,10 @@ import LottieView from 'lottie-react-native';
 import {Stack} from "expo-router";
 
 const SplashAnimation = ({onAnimationFinish = (isCanceled) => {}}) => {
-  // const animation = useRef(null);
-
   return (
     <View style={styles.animationContainer}>
       <LottieView
         autoPlay
-        // ref={animation}
         onAnimationFinish={() => {
           onAnimationFinish();
         }}
