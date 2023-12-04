@@ -2,17 +2,17 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import LottieView from 'lottie-react-native';
-import Animated, {FadeOut} from 'react-native-reanimated';
+import Animated, {FadeOut, ZoomIn, ZoomOut} from 'react-native-reanimated';
 
 const AnimatedLottieView = Animated.createAnimatedComponent(LottieView);
 
 const SplashAnimation = ({onAnimationFinish = (isCanceled) => {}}) => {
   return (
-    <Animated.View
+    <View
       style={styles.animationContainer}
-      exiting={FadeOut.duration(300)}
     >
-      <LottieView
+      <AnimatedLottieView
+        exiting={ZoomOut.duration(300)}
         autoPlay
         onAnimationFinish={() => {
           onAnimationFinish();
@@ -25,7 +25,7 @@ const SplashAnimation = ({onAnimationFinish = (isCanceled) => {}}) => {
         }}
         source={require('../../assets/animation.json')}
       />
-    </Animated.View>
+    </View>
   );
 };
 
