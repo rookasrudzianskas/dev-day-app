@@ -5,7 +5,7 @@ import { Stack } from "expo-router";
 import { vars } from "nativewind";
 import { memo, useEffect, useState } from "react";
 import { View, StyleSheet } from "react-native";
-import {Inter_400Regular, Inter_600SemiBold, Inter_700Bold, Inter_900Black} from '@expo-google-fonts/inter';
+import {Inter_900Black} from '@expo-google-fonts/inter';
 import * as SplashScreen from 'expo-splash-screen';
 import { AmaticSC_400Regular, AmaticSC_700Bold } from "@expo-google-fonts/amatic-sc";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
@@ -32,13 +32,9 @@ export default memo(function RootLayout() {
   const [splashAnimationFinished, setSplashAnimationFinished] = useState(false);
   const [loaded, error] = useFonts({
     SpaceMono: require("@/src/assets/fonts/SpaceMono-Regular.ttf"),
-    Inter: Inter_400Regular,
-    InterSemi: Inter_600SemiBold,
-    InterBold: Inter_700Bold,
-    InterBlack: Inter_900Black,
-
-    Amatic: AmaticSC_400Regular,
-    AmaticBold: AmaticSC_700Bold,
+    Inter: Inter_900Black,
+    AmaticSC_400Regular: AmaticSC_400Regular,
+    AmaticSC_700Bold: AmaticSC_700Bold,
     ...FontAwesome.font,
   });
 
@@ -64,16 +60,16 @@ const theme = vars({
 
 function RootLayoutNav({showAnimatedSplashScreen, setSplashAnimationFinished}: any) {
 
-  if(showAnimatedSplashScreen) {
+  if (showAnimatedSplashScreen) {
     return (
       <SplashAnimation
-        onAnimationFinish={(isCanceled: any) => {
-          if(!isCanceled) {
+        onAnimationFinish={(isCancelled: any) => {
+          if (!isCancelled) {
             setSplashAnimationFinished(true);
           }
         }}
       />
-    )
+    );
   }
 
   return (
