@@ -47,8 +47,10 @@ export default memo(function RootLayout() {
   if(!appReady || !splashAnimationFinished) {
     return (
       <SplashAnimation
-        onAnimationFinish={() => {
-          setSplashAnimationFinished(true);
+        onAnimationFinish={(isCanceled: any) => {
+          if(!isCanceled) {
+            setSplashAnimationFinished(true);
+          }
         }}
       />
     );

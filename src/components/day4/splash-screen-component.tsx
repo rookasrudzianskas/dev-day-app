@@ -4,7 +4,7 @@ import { Button, StyleSheet, View } from 'react-native';
 import LottieView from 'lottie-react-native';
 import {Stack} from "expo-router";
 
-const SplashAnimation = ({onAnimationFinish = () => {}}) => {
+const SplashAnimation = ({onAnimationFinish = (isCanceled) => {}}) => {
   // const animation = useRef(null);
 
   return (
