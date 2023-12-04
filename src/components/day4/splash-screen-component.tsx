@@ -4,7 +4,7 @@ import { Button, StyleSheet, View } from 'react-native';
 import LottieView from 'lottie-react-native';
 import {Stack} from "expo-router";
 
-const SplashAnimation = () => {
+const SplashAnimation = ({onAnimationFinish = () => {}}) => {
   // const animation = useRef(null);
 
   return (
@@ -12,6 +12,10 @@ const SplashAnimation = () => {
       <LottieView
         autoPlay
         // ref={animation}
+        onAnimationFinish={() => {
+          onAnimationFinish();
+        }}
+        loop={false}
         style={{
           width: "80%",
           maxWidth: 400,

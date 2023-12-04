@@ -28,6 +28,7 @@ export const unstable_settings = {
 
 export default memo(function RootLayout() {
   const [appReady, setAppReady] = useState(false);
+  const [splashAnimationFinished, setSplashAnimationFinished] = useState(false);
   const [loaded, error] = useFonts({
     SpaceMono: require("@/src/assets/fonts/SpaceMono-Regular.ttf"),
     Inter: Inter_900Black,
@@ -43,9 +44,13 @@ export default memo(function RootLayout() {
    }
  }, [loaded, error])
 
-  if(!appReady) {
+  if(!appReady || !splashAnimationFinished) {
     return (
-      <SplashAnimation />
+      <SplashAnimation
+        onAnimationFinish={() => {
+          setSplashAnimationFinished(true);
+        }}
+      />
     );
   }
 
