@@ -39,7 +39,7 @@ const Airbnb = () => {
     handleOnEnd: () => {
       console.log('handleOnEnd');
     },
-  })
+  });
 
   return (
     <>
