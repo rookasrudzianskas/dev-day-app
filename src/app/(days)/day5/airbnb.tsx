@@ -29,11 +29,16 @@ const Airbnb = () => {
     console.log('handleSheetChanges', index);
   }, []);
 
-  const gestureHandler = Gesture.Pan({}).onBegin((event) => {
-    console.log(event);
-  })
-  .onUpdate((event) => {
-    console.log(event);
+  const gestureHandler = () => ({
+    handleOnStart: () => {
+      console.log('handleOnStart');
+    },
+    handleOnActive: () => {
+      console.log('handleOnActive');
+    },
+    handleOnEnd: () => {
+      console.log('handleOnEnd');
+    },
   })
 
   return (
