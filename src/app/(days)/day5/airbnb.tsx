@@ -4,7 +4,10 @@ import {Text, View, StyleSheet} from 'react-native';
 import {Stack} from "expo-router";
 import MapView, {Marker} from "react-native-maps";
 import {APARTMENTS} from "@/src/assets/data/day5/data";
+import CustomMarker from "@/src/components/day5/CustomMarker";
+import ApartmentListItem from "@/src/components/day5/ApartmentListItem";
 const Airbnb = () => {
+  const isSelected = false;
   return (
     <>
       <Stack.Screen options={{ title: 'Day 5 Animated Maps', headerShown: false}} />
@@ -20,22 +23,11 @@ const Airbnb = () => {
           }}
         >
           {APARTMENTS.map((apartment, index) => (
-            <Marker
-              key={index}
-              coordinate={{
-                latitude: apartment.latitude,
-                longitude: apartment.longitude,
-            }}
-              title={apartment.title}
-              description={`$${apartment.price} / night`}
-              // image={{uri: 'custom_pin'}}
-            >
-              <View>
-                <Text>{apartment.price}</Text>
-              </View>
-            </Marker>
+            <CustomMarker apartment={apartment} isSelected={isSelected} key={index} />
           ))}
         </MapView>
+
+        <ApartmentListItem apartment={APARTMENTS[0]} />
       </View>
     </>
   );
