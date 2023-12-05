@@ -5,7 +5,7 @@ import {Stack, useRouter} from "expo-router";
 import MarkdownDisplay from "@/src/components/day3/markdown-display";
 
 const description = `
-Animated Maps
+# Animated Maps
 `;
 
 const Day5 = () => {
@@ -18,9 +18,9 @@ const Day5 = () => {
         {description}
       </MarkdownDisplay>
       <Button
-        title={'Go To Editor'}
+        title={'Go To Airbnb Maps'}
         className="mb-6"
-        onPress={() => router.push('/day5/animation')}>
+        onPress={() => router.push('/day5/airbnb')}>
         Go To Editor
       </Button>
     </SafeAreaView>
