@@ -10,10 +10,10 @@ const ApartmentListItem = ({apartment}: any) => {
         style={{width: '35%', height: 150}}
         className="rounded-l-md mr-4"
       />
-      <View className="max-w-[40%] mt-3">
+      <View className="max-w-[55%] mt-3">
         <Text style={styles.title} className="text-gray-900">{apartment.title}</Text>
-        <Text className="text-gray-500">{apartment.address}</Text>
-        <View className="flex flex-row justify-between my-auto mt-10">
+        <Text className="text-gray-500">This is a random apartament, not a real one. Just for </Text>
+        <View className="flex flex-row justify-between my-auto mt-7">
           <Text className="text-gray-500 font-semibold">${apartment.price}</Text>
           <Text className="text-gray-500">★ {apartment.rating}({apartment.numberOfStars})</Text>
         </View>
@@ -27,10 +27,6 @@ export default ApartmentListItem;
 const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
-    position: 'absolute',
-    bottom: 50,
-    left: 10,
-    right: 10,
   },
   title: {
     fontSize: 14,
