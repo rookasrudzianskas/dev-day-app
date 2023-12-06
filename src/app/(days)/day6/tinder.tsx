@@ -1,9 +1,16 @@
 //@ts-nocheck
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import TinderCard from "@/src/components/day6/tinder-card";
 import {Stack} from "expo-router";
-import {interpolate, useDerivedValue, useSharedValue, withDecay, withSpring} from "react-native-reanimated";
+import {
+  interpolate, runOnJS,
+  useAnimatedReaction,
+  useDerivedValue,
+  useSharedValue,
+  withDecay,
+  withSpring
+} from "react-native-reanimated";
 import {Gesture, GestureDetector} from "react-native-gesture-handler";
 
 const profile = {
@@ -42,14 +49,15 @@ const USERS = [
 
 const Tinder = () => {
   const activeIndex = useSharedValue(0);
+  const [index, setIndex] = useState(0);
 
-  // useDerivedValue(() => {
-  //   activeIndex.value = interpolate(
-  //       Math.abs(translationX.value),
-  //       [0, 500],
-  //       [0, activeIndex.value + 1]
-  //   )
-  // });
+  useAnimatedReaction(() => {
+    return activeIndex.value, (value, prev) => {
+      if(value !== index) {
+        runOnJS(setIndex)(Math.floor(value));
+      }
+    }
+  });
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>

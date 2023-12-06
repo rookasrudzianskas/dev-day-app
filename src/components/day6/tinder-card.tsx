@@ -49,7 +49,7 @@ const TinderCard = ({ profile, numberOfCards, curIndex, activeIndex }) => {
       activeIndex.value = interpolate(
         Math.abs(translationX.value),
         [0, 500],
-        [0, activeIndex.value + 0.8]
+        [curIndex, curIndex + 0.8]
       )
     })
     .onUpdate((event) => {
@@ -61,7 +61,8 @@ const TinderCard = ({ profile, numberOfCards, curIndex, activeIndex }) => {
         translationX.value = withSpring(Math.sign(event.velocityX) * 500, {
           velocity: event.velocityX,
         });
-        activeIndex.value = withSpring(curIndex + 1)
+        // activeIndex.value = withSpring(curIndex + 1)
+        activeIndex.value = curIndex + 1;
       } else {
         translationX.value = withSpring(0);
       }
