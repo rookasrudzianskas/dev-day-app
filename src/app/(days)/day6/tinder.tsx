@@ -11,7 +11,6 @@ import {
   withDecay,
   withSpring
 } from "react-native-reanimated";
-import {Gesture, GestureDetector} from "react-native-gesture-handler";
 
 const profile = {
   image: 'https://i.ytimg.com/vi/_RO6Q1qhm0c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLABkbMcse-DOfCGn10eMuiVwg9boQ',
