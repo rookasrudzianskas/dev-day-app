@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useEffect, useState} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, Button} from 'react-native';
 import TinderCard from "@/src/components/day6/tinder-card";
 import {Stack} from "expo-router";
 import {
@@ -67,6 +67,10 @@ const Tinder = () => {
     }
   }, [index])
 
+  const onResponse = (isYes: "YES" | "NO") => {
+    console.log(isYes);
+  }
+
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Stack.Screen options={{ title: 'Day 6 Tinder', headerShown: false}} />
@@ -77,8 +81,23 @@ const Tinder = () => {
           numberOfCards={USERS.length}
           curIndex={index}
           activeIndex={activeIndex}
+          onResponse={onResponse}
         />
       ))}
+
+      <View>
+        <Button
+          title={'Go To Tinder'}
+          onPress={() => (activeIndex.value = activeIndex.value + 1)}>
+
+        </Button>
+        <Button
+          title={'Go To Tinder'}
+          onPress={() => (activeIndex.value = activeIndex.value - 1)}
+        >
+
+        </Button>
+      </View>
     </View>
   );
 };

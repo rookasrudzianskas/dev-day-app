@@ -2,14 +2,21 @@
 import React from 'react';
 import {Text, View, StyleSheet, Image, Dimensions} from 'react-native';
 import {LinearGradient} from "expo-linear-gradient";
-import {interpolate, useAnimatedStyle, useDerivedValue, useSharedValue, withSpring} from "react-native-reanimated";
+import {
+  interpolate,
+  runOnJS,
+  useAnimatedStyle,
+  useDerivedValue,
+  useSharedValue,
+  withSpring
+} from "react-native-reanimated";
 import Animated from "react-native-reanimated";
 import {Gesture, GestureDetector} from "react-native-gesture-handler";
 
 export const tinderCardWidth = Dimensions.get('screen').width * 0.8;
 const screenWidth = Dimensions.get('screen').width;
 
-const TinderCard = ({ profile, numberOfCards, curIndex, activeIndex }) => {
+const TinderCard = ({ profile, numberOfCards, curIndex, activeIndex, onResponse }) => {
   const isActive  = activeIndex.value - curIndex < 1;
   const translationX = useSharedValue(0);
 
@@ -63,6 +70,7 @@ const TinderCard = ({ profile, numberOfCards, curIndex, activeIndex }) => {
         });
         // activeIndex.value = withSpring(curIndex + 1)
         activeIndex.value = curIndex + 1;
+        runOnJS(onResponse)(event.velocityX > 0 ? "YES" : "NO");
       } else {
         translationX.value = withSpring(0);
       }
