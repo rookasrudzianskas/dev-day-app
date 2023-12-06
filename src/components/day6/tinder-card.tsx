@@ -68,7 +68,6 @@ const TinderCard = ({ profile, numberOfCards, curIndex, activeIndex, onResponse 
         translationX.value = withSpring(Math.sign(event.velocityX) * 500, {
           velocity: event.velocityX,
         });
-        // activeIndex.value = withSpring(curIndex + 1)
         activeIndex.value = curIndex + 1;
         runOnJS(onResponse)(event.velocityX > 0 ? "YES" : "NO");
       } else {
