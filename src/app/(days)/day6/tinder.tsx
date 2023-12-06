@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import TinderCard from "@/src/components/day6/tinder-card";
 import {Stack} from "expo-router";
@@ -50,21 +50,29 @@ const USERS = [
 const Tinder = () => {
   const activeIndex = useSharedValue(0);
   const [index, setIndex] = useState(0);
+  const [users, setUsers] = useState(USERS);
 
-  useAnimatedReaction(() => {
-    return activeIndex.value, (value, prev) => {
-      if(value !== index) {
+  useAnimatedReaction(() => activeIndex.value, (value, prev) => {
+      if(Math.floor(value) !== index) {
         runOnJS(setIndex)(Math.floor(value));
       }
-    }
   });
+
+  useEffect(() => {
+    if(index > USERS.length - 2) {
+      setUsers((usrs) => [
+        ...usrs,
+        ...USERS.reverse(),
+      ]);
+    }
+  }, [index])
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Stack.Screen options={{ title: 'Day 6 Tinder', headerShown: false}} />
       {USERS.map((user, index) => (
         <TinderCard
-          key={user.id}
+          key={`user-${user.id}-${index}`}
           profile={user}
           numberOfCards={USERS.length}
           curIndex={index}
