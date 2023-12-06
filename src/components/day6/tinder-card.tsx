@@ -7,7 +7,14 @@ export const tinderCardWidth = Dimensions.get('screen').width * 0.8;
 
 const TinderCard = ({ profile, numberOfCards, curIndex }) => {
   return (
-    <View style={[styles.card, {zIndex: numberOfCards - curIndex}]}>
+    <View style={[styles.card, {
+      zIndex: numberOfCards - curIndex,
+      transform: [
+        { translateY: -curIndex * 30 },
+        { scale: 1 - curIndex * 0.05},
+      ],
+      opacity: 1 - curIndex * 0.2,
+    }]}>
       <Image
         style={[StyleSheet.absoluteFillObject, styles.image]}
         source={{ uri: profile.image }}
