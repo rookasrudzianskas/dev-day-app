@@ -13,13 +13,13 @@ const TinderCard = ({ profile, numberOfCards, curIndex, activeIndex }) => {
   const isActive  = activeIndex.value - curIndex < 1;
   const translationX = useSharedValue(0);
 
-  useDerivedValue(() => {
-    activeIndex.value = interpolate(
-      Math.abs(translationX.value),
-      [0, 500],
-      [0, activeIndex.value + 1]
-    )
-  });
+  // useDerivedValue(() => {
+  //   activeIndex.value = interpolate(
+  //     Math.abs(translationX.value),
+  //     [0, 500],
+  //     [0, activeIndex.value + 1]
+  //   )
+  // });
 
   const animatedCard = useAnimatedStyle(() => ({
     opacity: interpolate(activeIndex.value, [curIndex - 1, curIndex, curIndex + 1], [1 - 1 / 5, 1, 1]),
@@ -45,6 +45,12 @@ const TinderCard = ({ profile, numberOfCards, curIndex, activeIndex }) => {
     .onFinalize((event) => console.log("Final"))
     .onChange((event) => {
       translationX.value = event.translationX;
+
+      activeIndex.value = interpolate(
+        Math.abs(translationX.value),
+        [0, 500],
+        [0, activeIndex.value + 0.8]
+      )
     })
     .onUpdate((event) => {
 
@@ -55,7 +61,7 @@ const TinderCard = ({ profile, numberOfCards, curIndex, activeIndex }) => {
         translationX.value = withSpring(Math.sign(event.velocityX) * 500, {
           velocity: event.velocityX,
         });
-        activeIndex.value = withSpring(activeIndex.value + 1)
+        activeIndex.value = withSpring(curIndex + 1)
       } else {
         translationX.value = withSpring(0);
       }
