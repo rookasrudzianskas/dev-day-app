@@ -20,14 +20,6 @@ const TinderCard = ({ profile, numberOfCards, curIndex, activeIndex, onResponse 
   const isActive  = activeIndex.value - curIndex < 1;
   const translationX = useSharedValue(0);
 
-  // useDerivedValue(() => {
-  //   activeIndex.value = interpolate(
-  //     Math.abs(translationX.value),
-  //     [0, 500],
-  //     [0, activeIndex.value + 1]
-  //   )
-  // });
-
   const animatedCard = useAnimatedStyle(() => ({
     opacity: interpolate(activeIndex.value, [curIndex - 1, curIndex, curIndex + 1], [1 - 1 / 5, 1, 1]),
     transform: [
