@@ -47,7 +47,6 @@ const TinderCard = ({ profile, numberOfCards, curIndex, activeIndex, onResponse 
   }));
 
   const gesture = Gesture.Pan()
-    // .enabled(activeIndex.value !== curIndex)
     .onBegin((event) => console.log("Begin"))
     .onFinalize((event) => console.log("Final"))
     .onChange((event) => {
