@@ -7,8 +7,8 @@ const Day2 = () => {
   const router = useRouter();
   return (
     <View className="flex flex-1 items-center justify-center">
-      <Stack.Screen options={{ title: 'Day 2 Tinder'}} />
-      <Button title={'Go To Tinder'} onPress={() => router.push('/day2/onboarding')}></Button>
+      <Stack.Screen options={{ title: 'Day 6 Tinder'}} />
+      <Button title={'Go To Tinder'} onPress={() => router.push('/day6/tinder')}></Button>
     </View>
   );
 };
