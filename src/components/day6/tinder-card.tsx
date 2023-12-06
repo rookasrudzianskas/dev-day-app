@@ -2,12 +2,24 @@
 import React from 'react';
 import {Text, View, StyleSheet, Image, Dimensions} from 'react-native';
 import {LinearGradient} from "expo-linear-gradient";
-import {interpolate, useAnimatedStyle, useSharedValue} from "react-native-reanimated";
+import {interpolate, useAnimatedStyle, useDerivedValue, useSharedValue, withSpring} from "react-native-reanimated";
 import Animated from "react-native-reanimated";
+import {Gesture, GestureDetector} from "react-native-gesture-handler";
 
 export const tinderCardWidth = Dimensions.get('screen').width * 0.8;
+const screenWidth = Dimensions.get('screen').width;
 
 const TinderCard = ({ profile, numberOfCards, curIndex, activeIndex }) => {
+  const isActive  = activeIndex.value - curIndex < 1;
+  const translationX = useSharedValue(0);
+
+  useDerivedValue(() => {
+    activeIndex.value = interpolate(
+      Math.abs(translationX.value),
+      [0, 500],
+      [0, activeIndex.value + 1]
+    )
+  });
 
   const animatedCard = useAnimatedStyle(() => ({
     opacity: interpolate(activeIndex.value, [curIndex - 1, curIndex, curIndex + 1], [1 - 1 / 5, 1, 1]),
@@ -17,29 +29,59 @@ const TinderCard = ({ profile, numberOfCards, curIndex, activeIndex }) => {
       },
       {
         translateY: interpolate(activeIndex.value, [curIndex - 1, curIndex, curIndex + 1], [-30, 0, 0]),
+      },
+      {
+        translateX: translationX.value,
+      },
+      {
+        rotateZ: `${interpolate(translationX.value, [-screenWidth / 2, 0, screenWidth / 2], [-15, 0, 15])}deg`,
       }
     ]
   }));
 
+  const gesture = Gesture.Pan()
+    // .enabled(activeIndex.value !== curIndex)
+    .onBegin((event) => console.log("Begin"))
+    .onFinalize((event) => console.log("Final"))
+    .onChange((event) => {
+      translationX.value = event.translationX;
+    })
+    .onUpdate((event) => {
+
+    })
+    .onStart((event) => console.log("Start"))
+    .onEnd((event) => {
+      if(Math.abs(event.velocityX) > 400) {
+        translationX.value = withSpring(Math.sign(event.velocityX) * 500, {
+          velocity: event.velocityX,
+        });
+        activeIndex.value = withSpring(activeIndex.value + 1)
+      } else {
+        translationX.value = withSpring(0);
+      }
+    });
+
   return (
-    <Animated.View style={[styles.card, animatedCard, {
-      zIndex: numberOfCards - curIndex,
-    }]}>
-      <Image
-        style={[StyleSheet.absoluteFillObject, styles.image]}
-        source={{ uri: profile.image }}
-      />
+    <GestureDetector gesture={gesture}>
+      <Animated.View style={[styles.card, animatedCard, {
+        zIndex: numberOfCards - curIndex,
+      }]}>
+        <Image
+          style={[StyleSheet.absoluteFillObject, styles.image]}
+          source={{ uri: profile.image }}
+        />
 
-      <LinearGradient
-        // Background Linear Gradient
-        colors={['transparent', 'rgba(0,0,0,0.8)']}
-        style={[StyleSheet.absoluteFillObject, { top: '50%', borderBottomLeftRadius: 15, borderBottomRightRadius: 15 }]}
-      />
+        <LinearGradient
+          // Background Linear Gradient
+          colors={['transparent', 'rgba(0,0,0,0.8)']}
+          style={[StyleSheet.absoluteFillObject, { top: '50%', borderBottomLeftRadius: 15, borderBottomRightRadius: 15 }]}
+        />
 
-      <View style={styles.container}>
-        <Text style={styles.name}>{profile.name}</Text>
-      </View>
-    </Animated.View>
+        <View style={styles.container}>
+          <Text style={styles.name}>{profile.name}</Text>
+        </View>
+      </Animated.View>
+    </GestureDetector>
   );
 };
 
