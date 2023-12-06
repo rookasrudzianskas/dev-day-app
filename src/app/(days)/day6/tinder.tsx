@@ -8,8 +8,6 @@ import {
   useAnimatedReaction,
   useDerivedValue,
   useSharedValue,
-  withDecay,
-  withSpring
 } from "react-native-reanimated";
 
 const profile = {
