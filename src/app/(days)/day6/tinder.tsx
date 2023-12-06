@@ -2,6 +2,7 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import TinderCard from "@/src/components/day6/tinder-card";
+import {Stack} from "expo-router";
 
 const profile = {
   image: 'https://i.ytimg.com/vi/_RO6Q1qhm0c/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLABkbMcse-DOfCGn10eMuiVwg9boQ',
@@ -39,11 +40,12 @@ const USERS = [
 
 const Tinder = () => {
   return (
-    <>
-      {USERS.map((user) => (
-        <TinderCard key={user.id} profile={user} />
+    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Stack.Screen options={{ title: 'Day 6 Tinder', headerShown: false}} />
+      {USERS.map((user, index) => (
+        <TinderCard key={user.id} profile={user} numberOfCards={USERS.length} curIndex={index} />
       ))}
-    </>
+    </View>
   );
 };
 

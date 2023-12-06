@@ -5,9 +5,9 @@ import {LinearGradient} from "expo-linear-gradient";
 
 export const tinderCardWidth = Dimensions.get('screen').width * 0.8;
 
-const TinderCard = ({ profile }) => {
+const TinderCard = ({ profile, numberOfCards, curIndex }) => {
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, {zIndex: numberOfCards - curIndex}]}>
       <Image
         style={[StyleSheet.absoluteFillObject, styles.image]}
         source={{ uri: profile.image }}
@@ -30,6 +30,8 @@ export default TinderCard;
 
 const styles = StyleSheet.create({
   card: {
+    position: 'absolute',
+
     width: tinderCardWidth,
     // height: tinderCardWidth * 1.67,
     aspectRatio: 1 / 1.67,
