@@ -6,7 +6,6 @@ import {Stack} from "expo-router";
 import {
   interpolate, runOnJS,
   useAnimatedReaction,
-  useDerivedValue,
   useSharedValue,
 } from "react-native-reanimated";
 
