@@ -10,17 +10,20 @@ export const tinderCardWidth = Dimensions.get('screen').width * 0.8;
 const TinderCard = ({ profile, numberOfCards, curIndex, activeIndex }) => {
 
   const animatedCard = useAnimatedStyle(() => ({
-    opacity: interpolate(activeIndex.value, [curIndex - 1, curIndex, curIndex + 1], [1 - 1 / 5, 1, 1])
+    opacity: interpolate(activeIndex.value, [curIndex - 1, curIndex, curIndex + 1], [1 - 1 / 5, 1, 1]),
+    transform: [
+      {
+        scale: interpolate(activeIndex.value, [curIndex - 1, curIndex, curIndex + 1], [0.95, 1, 1]),
+      },
+      {
+        translateY: interpolate(activeIndex.value, [curIndex - 1, curIndex, curIndex + 1], [-30, 0, 0]),
+      }
+    ]
   }));
 
   return (
     <Animated.View style={[styles.card, animatedCard, {
       zIndex: numberOfCards - curIndex,
-      transform: [
-        { translateY: -curIndex * 30 },
-        { scale: 1 - curIndex * 0.05},
-      ],
-      opacity: 1 - curIndex * 0.2,
     }]}>
       <Image
         style={[StyleSheet.absoluteFillObject, styles.image]}
