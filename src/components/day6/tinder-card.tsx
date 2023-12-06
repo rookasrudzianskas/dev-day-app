@@ -11,7 +11,7 @@ const TinderCard = ({ profile, numberOfCards, curIndex, activeIndex }) => {
 
   const animatedCard = useAnimatedStyle(() => ({
     opacity: interpolate(activeIndex.value, [curIndex - 1, curIndex, curIndex + 1], [1 - 1 / 5, 1, 1])
-  }))
+  }));
 
   return (
     <Animated.View style={[styles.card, animatedCard, {
