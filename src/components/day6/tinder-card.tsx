@@ -17,7 +17,6 @@ export const tinderCardWidth = Dimensions.get('screen').width * 0.8;
 const screenWidth = Dimensions.get('screen').width;
 
 const TinderCard = ({ profile, numberOfCards, curIndex, activeIndex, onResponse }) => {
-  const isActive  = activeIndex.value - curIndex < 1;
   const translationX = useSharedValue(0);
 
   const animatedCard = useAnimatedStyle(() => ({
