@@ -20,6 +20,7 @@ import MemoListItem from "@/src/components/day7/memo-list-item";
 
 export default function MemosScreen() {
   const [recording, setRecording] = useState<Recording>();
+  // @ts-ignore
   const [memos, setMemos] = useState<Memo[]>([]);
 
   const [audioMetering, setAudioMetering] = useState<number[]>([]);
