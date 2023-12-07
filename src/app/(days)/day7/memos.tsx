@@ -1,105 +1,115 @@
-// @ts-nocheck
-import * as React from 'react';
-import {Text, View, StyleSheet, Button, FlatList, TouchableOpacity} from 'react-native';
+import { useState } from 'react';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Button,
+  FlatList,
+  Pressable,
+} from 'react-native';
 import { Audio } from 'expo-av';
-import {Recording} from "expo-av/build/Audio/Recording";
-import {useState} from "react";
-import {interpolate, useAnimatedStyle, useSharedValue, withTiming} from "react-native-reanimated";
-import Animated from "react-native-reanimated";
+import { Recording } from 'expo-av/build/Audio';
+import Animated, {
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from 'react-native-reanimated';
 import MemoListItem from "@/src/components/day7/memo-list-item";
 
-export default function Memos() {
+export default function MemosScreen() {
   const [recording, setRecording] = useState<Recording>();
-  const [memos, setMemos] = useState<string[]>([]);
-  const metering = useSharedValue(0);
+  const [memos, setMemos] = useState<Memo[]>([]);
 
-  const animatedCircleStyle = useAnimatedStyle(() => ({
-    width: withTiming(recording ? '70%' : '100%', { duration: 1000 }),
-    height: withTiming(recording ? '70%' : '100%', { duration: 1000 }),
-    borderRadius: withTiming(recording ? 5 : 35, { duration: 1000 }),
-  }))
-
-  const animatedRecordWave = useAnimatedStyle(() => {
-    const size = interpolate(metering.value, [-160, -60, 0], [0, 0, 100]);
-    return {
-      top: size,
-      bottom: size,
-      left: size,
-      right: size
-    }
-  })
+  const [audioMetering, setAudioMetering] = useState<number[]>([]);
+  const metering = useSharedValue(-100);
 
   async function startRecording() {
     try {
-      console.log('Requesting permissions..');
+      setAudioMetering([]);
+
       await Audio.requestPermissionsAsync();
       await Audio.setAudioModeAsync({
         allowsRecordingIOS: true,
         playsInSilentModeIOS: true,
       });
 
-      console.log('Starting recording..');
       const { recording } = await Audio.Recording.createAsync(
-        Audio.RecordingOptionsPresets.HIGH_QUALITY
+        Audio.RecordingOptionsPresets.HIGH_QUALITY,
+        undefined,
+        100
       );
       setRecording(recording);
-      console.log('Recording started');
 
       recording.setOnRecordingStatusUpdate((status) => {
-        metering.value = status.metering || -1;
-      })
+        if (status.metering) {
+          metering.value = status.metering;
+          setAudioMetering((curVal) => [...curVal, status.metering || -100]);
+        }
+      });
     } catch (err) {
       console.error('Failed to start recording', err);
     }
   }
 
   async function stopRecording() {
-    if(!recording) return;
+    if (!recording) {
+      return;
+    }
+
     console.log('Stopping recording..');
     setRecording(undefined);
     await recording.stopAndUnloadAsync();
-    await Audio.setAudioModeAsync(
-      {
-        allowsRecordingIOS: false,
-      }
-    );
+    await Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+    });
     const uri = recording.getURI();
     console.log('Recording stopped and stored at', uri);
-    if(uri) {
-      setMemos((existingMemos) => ([uri, ...existingMemos]));
+    metering.value = -100;
+    if (uri) {
+      setMemos((existingMemos) => [
+        { uri, metering: audioMetering },
+        ...existingMemos,
+      ]);
     }
   }
+
+  const animatedRedCircle = useAnimatedStyle(() => ({
+    width: withTiming(recording ? '60%' : '100%'),
+    borderRadius: withTiming(recording ? 5 : 35),
+  }));
+
+  const animatedRecordWave = useAnimatedStyle(() => {
+    const size = withTiming(
+      interpolate(metering.value, [-160, -60, 0], [0, 0, -30]),
+      { duration: 100 }
+    );
+    return {
+      top: size,
+      bottom: size,
+      left: size,
+      right: size,
+    };
+  });
 
   return (
     <View style={styles.container}>
       <FlatList
         data={memos}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => {
-          return (
-            <MemoListItem
-              uri={item}
-            />
-          )
-        }}
-        keyExtractor={(item) => item}
+        renderItem={({ item }) => <MemoListItem uri={item} />}
       />
-      <View
-        className={'flex flex-row justify-center mb-7'}
-      >
 
+      <View style={styles.footer}>
         <View>
-          <Animated.View style={[styles.recordingWaves, animatedRecordWave]} />
-          <TouchableOpacity
-            className={'bg-orange-500 p-2 h-16 border-gray-500 border-2 flex items-center justify-center w-16' +
-              ' rounded-full'}
+          <Animated.View style={[styles.recordWave, animatedRecordWave]} />
+          <Pressable
+            style={styles.recordButton}
             onPress={recording ? stopRecording : startRecording}
           >
-            <Animated.View className="border-2 h-20 w-20 border-white rounded-full">
-            </Animated.View>
-          </TouchableOpacity>
+            <Animated.View style={[styles.redCircle, animatedRedCircle]} />
+          </Pressable>
         </View>
-
       </View>
     </View>
   );
@@ -110,16 +120,38 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: '#ecf0f1',
-    padding: 10,
   },
-  recordingWaves: {
-    ...StyleSheet.absoluteFillObject,
+  footer: {
+    backgroundColor: 'white',
+    height: 150,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  recordButton: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+
+    borderWidth: 3,
+    borderColor: 'gray',
+    padding: 3,
+
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+  },
+  recordWave: {
     backgroundColor: '#FF000055',
+    position: 'absolute',
     top: -20,
+    bottom: -20,
     left: -20,
     right: -20,
-    bottom: -20,
-    zIndex: -1000,
-    borderRadius: 100,
-  }
+    borderRadius: 1000,
+  },
+
+  redCircle: {
+    backgroundColor: 'orangered',
+    aspectRatio: 1,
+  },
 });
