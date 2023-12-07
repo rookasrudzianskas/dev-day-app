@@ -8,9 +8,12 @@ const MemoListItem = ({uri}: {uri: string}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity>
-        <FontAwesome5 name="play" size={20} color="black" />
+        <FontAwesome5 name={'play'} size={20} color="black" />
       </TouchableOpacity>
-      <Text>{uri}</Text>
+      <View style={styles.playbackContainer}>
+        <View style={styles.playbackBackground}/>
+        <View style={styles.playbackIndicator}/>
+      </View>
     </View>
   );
 };
@@ -25,7 +28,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 15,
     borderRadius: 10,
-    gap: 10,
+    gap: 15,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -35,5 +38,24 @@ export const styles = StyleSheet.create({
     shadowRadius: 3.84,
 
     elevation: 5,
+  },
+  playbackContainer: {
+    // backgroundColor: 'gray',
+    flex: 1,
+    height: 30,
+    justifyContent: 'center',
+  },
+  playbackBackground: {
+    backgroundColor: 'gainsboro',
+    height: 3,
+    width: '100%',
+    borderRadius: 5,
+  },
+  playbackIndicator: {
+    width: 10,
+    aspectRatio: 1,
+    backgroundColor: 'royalblue',
+    borderRadius: 10,
+    position: 'absolute',
   }
 })
