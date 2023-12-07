@@ -98,7 +98,7 @@ export default function MemosScreen() {
     <View style={styles.container}>
       <FlatList
         data={memos}
-        renderItem={({ item }) => <MemoListItem uri={item} />}
+        renderItem={({ item }) => <MemoListItem memo={item} />}
       />
 
       <View style={styles.footer}>
