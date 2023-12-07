@@ -1,24 +1,31 @@
 //@ts-nocheck
 import React, {useEffect, useState} from 'react';
 import {Text, View, StyleSheet, Button, TouchableOpacity} from 'react-native';
-import {Audio} from "expo-av";
+import {Audio, AVPlaybackStatus} from "expo-av";
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const MemoListItem = ({uri}: {uri: string}) => {
-  const progress = 50;
   const [sound, setSound] = useState();
+  const [status, setStatus] = useState<AVPlaybackStatus | null>(null);
 
   const loadSound = async () => {
     console.log('Loading Sound');
     const { sound } = await Audio.Sound.createAsync({
       uri: uri,
-    });
+    },
+      undefined,
+      onPlaybackStatusUpdate
+    );
     setSound(sound);
   }
 
   useEffect(() => {
     loadSound();
-  }, [uri])
+  }, [uri]);
+
+  async function onPlaybackStatusUpdate(status: AVPlaybackStatus) {
+    setStatus(status);
+  }
 
   async function playSound() {
     if(!sound) return;
@@ -35,6 +42,9 @@ const MemoListItem = ({uri}: {uri: string}) => {
       : undefined;
   }, [sound]);
 
+  const isPlaying = status?.isLoaded ? status.isPlaying : false
+  const progress = status?.isLoaded ? status.positionMillis / status.durationMillis * 100 : 0;
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -42,7 +52,13 @@ const MemoListItem = ({uri}: {uri: string}) => {
         onPress={playSound}
         style={{marginRight: 15}}
       >
-        <FontAwesome5 name={'play'} size={20} color="black" />
+        <FontAwesome5 name={
+          isPlaying
+            ? 'pause-circle'
+            : 'play-circle'
+        }
+                      size={20}
+                      color="gray" />
       </TouchableOpacity>
       <View style={styles.playbackContainer}>
         <View style={styles.playbackBackground}/>
