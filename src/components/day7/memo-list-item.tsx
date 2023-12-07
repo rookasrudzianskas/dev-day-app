@@ -1,18 +1,50 @@
 //@ts-nocheck
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View, StyleSheet, Button, TouchableOpacity} from 'react-native';
 import {Audio} from "expo-av";
 import { FontAwesome5 } from '@expo/vector-icons';
 
 const MemoListItem = ({uri}: {uri: string}) => {
+  const progress = 50;
+  const [sound, setSound] = useState();
+
+  const loadSound = async () => {
+    console.log('Loading Sound');
+    const { sound } = await Audio.Sound.createAsync( require('./assets/Hello.mp3')
+    );
+    setSound(sound);
+  }
+
+  useEffect(() => {
+    loadSound();
+  }, [uri])
+
+  async function playSound() {
+    if(!sound) return;
+    console.log('Playing Sound');
+    await sound.playAsync();
+  }
+
+  useEffect(() => {
+    return sound
+      ? () => {
+        console.log('Unloading Sound');
+        sound.unloadAsync();
+      }
+      : undefined;
+  }, [sound]);
+
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={playSound}
+        style={{marginRight: 15}}
+      >
         <FontAwesome5 name={'play'} size={20} color="black" />
       </TouchableOpacity>
       <View style={styles.playbackContainer}>
         <View style={styles.playbackBackground}/>
-        <View style={styles.playbackIndicator}/>
+        <View style={[styles.playbackIndicator, {left: `${progress}%`}]}/>
       </View>
     </View>
   );
