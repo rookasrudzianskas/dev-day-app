@@ -20,7 +20,7 @@ const Day3 = () => {
       <Button
         title={'Go To Voice Editor'}
         className="mb-6"
-        onPress={() => router.push('/day3/editor')}>
+        onPress={() => router.push('/day7/memos')}>
         Go To Voice Editor
       </Button>
     </SafeAreaView>
