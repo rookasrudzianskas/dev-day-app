@@ -10,8 +10,9 @@ const MemoListItem = ({uri}: {uri: string}) => {
 
   const loadSound = async () => {
     console.log('Loading Sound');
-    const { sound } = await Audio.Sound.createAsync( require('./assets/Hello.mp3')
-    );
+    const { sound } = await Audio.Sound.createAsync({
+      uri: uri,
+    });
     setSound(sound);
   }
 
@@ -37,6 +38,7 @@ const MemoListItem = ({uri}: {uri: string}) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
+        activeOpacity={0.7}
         onPress={playSound}
         style={{marginRight: 15}}
       >
