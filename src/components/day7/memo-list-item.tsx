@@ -83,10 +83,6 @@ const MemoListItem = ({ memo }: { memo: Memo }) => {
 
   const animatedIndicatorStyle = useAnimatedStyle(() => ({
     left: `${progress * 100}%`,
-    // withTiming(`${progress * 100}%`, {
-    //   duration:
-    //     (status?.isLoaded && status.progressUpdateIntervalMillis) || 100,
-    // }),
   }));
 
   let numLines = 50;
