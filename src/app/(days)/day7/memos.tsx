@@ -20,12 +20,12 @@ export default function Memos() {
   }))
 
   const animatedRecordWave = useAnimatedStyle(() => {
-    const size = interpolate(metering.value, [-160, 0], [100, 0]);
+    const size = interpolate(metering.value, [-160, -60, 0], [0, 0, 100]);
     return {
-      top: -10,
-      bottom: -10,
-      left: -10,
-      right: -10
+      top: size,
+      bottom: size,
+      left: size,
+      right: size
     }
   })
 
