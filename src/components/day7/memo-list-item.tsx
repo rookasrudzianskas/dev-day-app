@@ -1,8 +1,10 @@
 //@ts-nocheck
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Text, View, StyleSheet, Button, TouchableOpacity} from 'react-native';
 import {Audio, AVPlaybackStatus} from "expo-av";
 import { FontAwesome5 } from '@expo/vector-icons';
+import {useAnimatedStyle, withTiming} from "react-native-reanimated";
+import Animated from "react-native-reanimated";
 
 const MemoListItem = ({uri}: {uri: string}) => {
   const [sound, setSound] = useState();
@@ -13,7 +15,7 @@ const MemoListItem = ({uri}: {uri: string}) => {
     const { sound } = await Audio.Sound.createAsync({
       uri: uri,
     },
-      undefined,
+      { progressUpdateIntervalMillis: 50 },
       onPlaybackStatusUpdate
     );
     setSound(sound);
@@ -23,14 +25,28 @@ const MemoListItem = ({uri}: {uri: string}) => {
     loadSound();
   }, [uri]);
 
-  async function onPlaybackStatusUpdate(status: AVPlaybackStatus) {
-    setStatus(status);
+  const onPlaybackStatusUpdate = async(newStatus: AVPlaybackStatus) => {
+    setStatus(newStatus);
+
+    // if (!newStatus.isLoaded || !sound) {
+    //   return;
+    // }
+
+    if (newStatus.didJustFinish) {
+      // sound?.replayAsync();
+      await sound?.setPositionAsync(0);
+    }
   }
 
   async function playSound() {
     if(!sound) return;
     console.log('Playing Sound');
-    await sound.playAsync();
+
+    if(status?.isLoaded && status?.isPlaying) {
+      await sound.stopAsync();
+    } else {
+      await sound.replayAsync();
+    }
   }
 
   useEffect(() => {
@@ -44,6 +60,15 @@ const MemoListItem = ({uri}: {uri: string}) => {
 
   const isPlaying = status?.isLoaded ? status.isPlaying : false
   const progress = status?.isLoaded ? status.positionMillis / status.durationMillis * 100 : 0;
+  const duration = status?.isLoaded ? `${Math.floor(status.durationMillis / 1000 / 60)}:${Math.floor(status.durationMillis / 1000 % 60)}` : '0:00';
+
+  const animatedIndicatorStyle = useAnimatedStyle(() => ({
+    left: `${progress}%`,
+    // left: withTiming(``,
+    //   {
+    //     duration: (status?.isLoaded && status.progressUpdateIntervalMillis) || 100,
+    //   }),
+  }))
 
   return (
     <View style={styles.container}>
@@ -57,12 +82,13 @@ const MemoListItem = ({uri}: {uri: string}) => {
             ? 'pause-circle'
             : 'play-circle'
         }
-                      size={20}
-                      color="gray" />
+        size={20}
+        color="gray" />
       </TouchableOpacity>
       <View style={styles.playbackContainer}>
         <View style={styles.playbackBackground}/>
-        <View style={[styles.playbackIndicator, {left: `${progress}%`}]}/>
+        <Animated.View style={[styles.playbackIndicator, animatedIndicatorStyle]}/>
+        <Text className="absolute right-0 -bottom-1 text-gray-400 font-semibold text-xs">{duration}</Text>
       </View>
     </View>
   );
