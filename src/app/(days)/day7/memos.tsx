@@ -2,9 +2,10 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { Audio } from 'expo-av';
+import {Recording} from "expo-av/build/Audio/Recording";
 
 export default function Memos() {
-  const [recording, setRecording] = React.useState();
+  const [recording, setRecording] = React.useState<Recording>();
 
   async function startRecording() {
     try {
@@ -16,7 +17,8 @@ export default function Memos() {
       });
 
       console.log('Starting recording..');
-      const { recording } = await Audio.Recording.createAsync( Audio.RecordingOptionsPresets.HIGH_QUALITY
+      const { recording } = await Audio.Recording.createAsync(
+        Audio.RecordingOptionsPresets.HIGH_QUALITY
       );
       setRecording(recording);
       console.log('Recording started');
@@ -26,6 +28,7 @@ export default function Memos() {
   }
 
   async function stopRecording() {
+    if(!recording) return;
     console.log('Stopping recording..');
     setRecording(undefined);
     await recording.stopAndUnloadAsync();
