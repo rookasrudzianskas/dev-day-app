@@ -34,6 +34,12 @@ const CameraScreen = () => {
     }
   }, [hasPermission, requestPermission]);
 
+  const uploadPhoto = async () => {
+    if(!photo) return;
+    const result = await fetch(`file://${photo.path}`)
+    const data = await result.blob();
+  }
+
   if(!hasPermission) {
     return (
       <View className="h-screen w-full items-center justify-center">
