@@ -16,6 +16,7 @@ const CameraScreen = () => {
   const { hasPermission, requestPermission } = useCameraPermission();
   const { microphoneHasPermission, microphoneRequestPermission } = useMicrophonePermission()
 
+  const [isRecording, setIsRecording] = useState(false);
   const [isActive, setIsActive] = useState(false);
   const [photo, setPhoto] = useState<PhotoFile>(undefined);
   const camera = useRef<Camera>(null)
@@ -72,9 +73,16 @@ const CameraScreen = () => {
 
   const onStartRecording = async () => {
     if (!camera.current) return;
+    setIsRecording(true)
     camera.current.startRecording({
-      onRecordingFinished: (video) => console.log(video),
-      onRecordingError: (error) => console.error(error)
+      onRecordingFinished: (video) => {
+        console.log('onRecordingFinished', video)
+        setIsRecording(false)
+      },
+      onRecordingError: (error) => {
+        console.warn('onRecordingError', error)
+        setIsRecording(false)
+      }
     })
   }
 
@@ -152,7 +160,7 @@ const CameraScreen = () => {
               bottom: 50,
               width: 75,
               height: 65,
-              backgroundColor: 'white',
+              backgroundColor: isRecording ? 'red' : 'white',
               alignSelf: 'center',
               borderRadius: 75
             }}
