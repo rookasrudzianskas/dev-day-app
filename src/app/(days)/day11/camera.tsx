@@ -65,6 +65,11 @@ const CameraScreen = () => {
   if (device == null) return <NoCameraDeviceError />
 
   const onTakePicturePressed = async () => {
+    if(isRecording) {
+      camera.current?.stopRecording();
+      return;
+    }
+
     const photo = await camera.current?.takePhoto({
       flash: flash ? 'on' : 'off',
     });
