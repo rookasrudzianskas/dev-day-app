@@ -28,7 +28,6 @@ type MainWeather = {
   sea_level: number;
   grnd_level: number;
 };
-
 type Weather = {
   name: string;
   main: MainWeather;
@@ -41,7 +40,6 @@ type Weather = {
     }
   ];
 };
-
 export type WeatherForecast = {
   main: MainWeather;
   dt: number;
