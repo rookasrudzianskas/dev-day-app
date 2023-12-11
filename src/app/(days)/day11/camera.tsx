@@ -8,7 +8,6 @@ import {useIsFocused} from "@react-navigation/core";
 const CameraScreen = () => {
   const { hasPermission, requestPermission } = useCameraPermission();
   const [isActive, setIsActive] = useState(false);
-
   const device = useCameraDevice('back', {
     physicalDevices: [
       'ultra-wide-angle-camera',
@@ -16,7 +15,6 @@ const CameraScreen = () => {
       'telephoto-camera'
     ]
   });
-
   useFocusEffect(() => {
     useCallback(() => {
       setIsActive(true);
@@ -25,13 +23,11 @@ const CameraScreen = () => {
       }
     }, [])
   });
-
   useEffect(() => {
     if(!hasPermission) {
       requestPermission();
     }
   }, [hasPermission, requestPermission]);
-
   if(!hasPermission) {
     return (
       <View className="h-screen w-full items-center justify-center">
@@ -42,7 +38,6 @@ const CameraScreen = () => {
       </View>
     );
   }
-
   if (device == null) return <NoCameraDeviceError />
 
   return (
