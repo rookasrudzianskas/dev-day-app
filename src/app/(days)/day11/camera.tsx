@@ -4,13 +4,14 @@ import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {Stack, useFocusEffect} from "expo-router";
 import {Camera, PhotoFile, useCameraDevice, useCameraPermission} from "react-native-vision-camera";
 import {useIsFocused} from "@react-navigation/core";
+import {MaterialIcons} from "@expo/vector-icons";
 
 const CameraScreen = () => {
   const { hasPermission, requestPermission } = useCameraPermission();
   const [isActive, setIsActive] = useState(false);
   const [photo, setPhoto] = useState<PhotoFile>(undefined);
   const camera = useRef<Camera>(null)
-  const [flash, setFlash] = useState(false);
+  const [flash, setFlash] = useState("off");
   const device = useCameraDevice('back', {
     physicalDevices: [
       'ultra-wide-angle-camera',
@@ -26,11 +27,13 @@ const CameraScreen = () => {
       }
     }, [])
   });
+
   useEffect(() => {
     if(!hasPermission) {
       requestPermission();
     }
   }, [hasPermission, requestPermission]);
+
   if(!hasPermission) {
     return (
       <View className="h-screen w-full items-center justify-center">
@@ -82,7 +85,21 @@ const CameraScreen = () => {
         </>
       ) : (
         <>
-
+          <View>
+            {flash === 'on' ? (
+              <View style={{position: 'absolute', right: 10, top: 50, padding: 10, borderRadius: 5}}>
+                <MaterialIcons name="flash-on" size={24} color="white" />
+              </View>
+            ): flash === 'auto' ? (
+              <View style={{position: 'absolute', right: 10, top: 50, padding: 10, borderRadius: 5}}>
+                <MaterialIcons name="flash-auto" size={24} color="white" />
+              </View>
+            ) : (
+              <View style={{position: 'absolute', right: 10, top: 50, padding: 10, borderRadius: 5}}>
+                <MaterialIcons name="flash-off" size={24} color="white" />
+              </View>
+            )}
+          </View>
           <TouchableOpacity
             style={{
               position: 'absolute',
@@ -95,7 +112,6 @@ const CameraScreen = () => {
             }}
             onPress={onTakePicturePressed}
           >
-
           </TouchableOpacity>
         </>
       )}
