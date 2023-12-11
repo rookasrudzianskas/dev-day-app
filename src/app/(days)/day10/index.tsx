@@ -20,7 +20,7 @@ const Day3 = () => {
       <Button
         title={'Go To Auth'}
         className="mb-6"
-        onPress={() => router.push('/day10/auth')}>
+        onPress={() => router.push('/day10/protected')}>
         Go To Auth
       </Button>
     </SafeAreaView>
