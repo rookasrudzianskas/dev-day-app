@@ -4,8 +4,8 @@
   "version": "1.0.2-alpha.25",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "web:build": "npx expo export -p web",
     "web:deploy": "netlify deploy --dir dist",
@@ -18,7 +18,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@aws-amplify/react-native": "^1.0.6",
+    "@aws-amplify/react-native": "^1.0.5",
     "@changesets/cli": "^2.26.2",
     "@expo-google-fonts/amatic-sc": "^0.2.3",
     "@expo-google-fonts/inter": "^0.2.3",

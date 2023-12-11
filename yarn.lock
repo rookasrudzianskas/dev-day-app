@@ -109,7 +109,7 @@
     lodash "^4.17.21"
     tslib "^2.5.0"
 
-"@aws-amplify/react-native@^1.0.6":
+"@aws-amplify/react-native@^1.0.5":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@aws-amplify/react-native/-/react-native-1.0.6.tgz#08095e3bc4c81213f998631075b0c4d7ec4c975c"
   integrity sha512-Hbntr6R9Yj6pu5mnJz9b9rqpQgtt++5tkew/flEO7c2rI8gsPdeF1uvjfkGhJUsT5H1qKPXsAke+RaJz8wdWhQ==

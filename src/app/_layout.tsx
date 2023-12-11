@@ -11,7 +11,11 @@ import { AmaticSC_400Regular, AmaticSC_700Bold } from "@expo-google-fonts/amatic
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import SplashAnimation from "@/src/components/day4/splash-screen-component";
 import Animated, {FadeIn} from "react-native-reanimated";
+import { Amplify } from 'aws-amplify';
+import amplifyconfig from '../../src/amplifyconfiguration.json';
+import awsExports from '../../src/aws-exports';
 
+// Amplify.configure(awsExports);
 SplashScreen.preventAutoHideAsync();
 
 export {
