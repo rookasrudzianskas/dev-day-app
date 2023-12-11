@@ -1,6 +1,6 @@
 //@ts-nocheck
-import React, {useCallback, useEffect, useState} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Stack, useFocusEffect} from "expo-router";
 import {Camera, useCameraDevice, useCameraPermission} from "react-native-vision-camera";
 import {useIsFocused} from "@react-navigation/core";
@@ -8,6 +8,7 @@ import {useIsFocused} from "@react-navigation/core";
 const CameraScreen = () => {
   const { hasPermission, requestPermission } = useCameraPermission();
   const [isActive, setIsActive] = useState(false);
+  const camera = useRef<Camera>(null)
   const device = useCameraDevice('back', {
     physicalDevices: [
       'ultra-wide-angle-camera',
@@ -40,14 +41,36 @@ const CameraScreen = () => {
   }
   if (device == null) return <NoCameraDeviceError />
 
+  const onTakePicturePressed = async () => {
+    const photo = await camera.current?.takePhoto();
+    console.log(photo);
+  }
+
   return (
     <View>
       <Stack.Screen options={{ headerShown: false }} />
       <Camera
+        ref={camera}
+        photo={true}
         style={StyleSheet.absoluteFill}
         device={device}
         isActive={isActive}
       />
+
+      <TouchableOpacity
+        style={{
+          position: 'absolute',
+          bottom: 50,
+          width: 75,
+          height: 65,
+          backgroundColor: 'white',
+          alignSelf: 'center',
+          borderRadius: 75
+      }}
+        onPress={onTakePicturePressed}
+      >
+
+      </TouchableOpacity>
     </View>
   );
 };
