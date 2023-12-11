@@ -10,6 +10,7 @@ const CameraScreen = () => {
   const [isActive, setIsActive] = useState(false);
   const [photo, setPhoto] = useState<PhotoFile>(undefined);
   const camera = useRef<Camera>(null)
+  const [flash, setFlash] = useState(false);
   const device = useCameraDevice('back', {
     physicalDevices: [
       'ultra-wide-angle-camera',
@@ -43,7 +44,9 @@ const CameraScreen = () => {
   if (device == null) return <NoCameraDeviceError />
 
   const onTakePicturePressed = async () => {
-    const photo = await camera.current?.takePhoto();
+    const photo = await camera.current?.takePhoto({
+      flash: flash ? 'on' : 'off',
+    });
     setPhoto(photo);
   }
 
