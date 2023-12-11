@@ -3,9 +3,11 @@ import React, {useEffect} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {Stack} from "expo-router";
 import {Camera, useCameraDevice, useCameraPermission} from "react-native-vision-camera";
+import {useIsFocused} from "@react-navigation/core";
 
 const CameraScreen = () => {
   const { hasPermission, requestPermission } = useCameraPermission();
+
   const device = useCameraDevice('back', {
     physicalDevices: [
       'ultra-wide-angle-camera',
@@ -13,7 +15,7 @@ const CameraScreen = () => {
       'telephoto-camera'
     ]
   });
-  
+
   useEffect(() => {
     if(!hasPermission) {
       requestPermission();
