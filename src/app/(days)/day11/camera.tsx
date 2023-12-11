@@ -103,7 +103,7 @@ const CameraScreen = () => {
         photo={true}
         style={StyleSheet.absoluteFill}
         device={device}
-        isActive={isActive && !photo}
+        isActive={isActive && !photo && !video}
         video={true}
         audio={true}
       />
@@ -144,7 +144,7 @@ const CameraScreen = () => {
         </>
       )}
 
-      {photo ? (
+      {photo && (
         <>
           <Image
             source={{ uri: photo.path }}
@@ -175,7 +175,9 @@ const CameraScreen = () => {
             />
           </View>
         </>
-      ) : (
+      )}
+
+      {!photo && !video && (
         <>
           <View>
             {flash === 'on' ? (
