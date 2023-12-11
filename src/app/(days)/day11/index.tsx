@@ -18,10 +18,10 @@ const Day11 = () => {
         {description}
       </MarkdownDisplay>
       <Button
-        title={'Go To Editor'}
+        title={'Go To Camera'}
         className="mb-6"
         onPress={() => router.push('/day11/camera')}>
-        Go To Editor
+        Go To Camera
       </Button>
     </SafeAreaView>
   );

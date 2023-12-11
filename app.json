@@ -19,7 +19,12 @@
       "supportsTablet": true,
       "userInterfaceStyle": "automatic",
       "requireFullScreen": true,
-      "bundleIdentifier": "com.rooookas.nativewind-expo-router"
+      "bundleIdentifier": "com.rooookas.nativewind-expo-router",
+      "infoPlist": {
+        "NSFaceIDUsageDescription": "Allow $(PRODUCT_NAME) to use Face ID.",
+        "NSCameraUsageDescription": "$(PRODUCT_NAME) needs access to your Camera.",
+        "NSMicrophoneUsageDescription": "$(PRODUCT_NAME) needs access to your Microphone."
+      }
     },
     "android": {
       "userInterfaceStyle": "automatic",
@@ -32,8 +37,12 @@
         "android.permission.MODIFY_AUDIO_SETTINGS",
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION",
-        "android.permission.FOREGROUND_SERVICE"
-      ]
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.USE_FINGERPRINT",
+        "android.permission.CAMERA"
+      ],
+      "package": "com.rooookas.nativewindexporouter"
     },
     "web": {
       "bundler": "metro",
@@ -65,7 +74,15 @@
         {
           "faceIDPermission": "Allow $(PRODUCT_NAME) to use Face ID."
         }
-      ]
+      ],
+      [
+        "react-native-vision-camera",
+        {
+          "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera.",
+          "enableMicrophonePermission": true,
+          "microphonePermissionText": "$(PRODUCT_NAME) needs access to your Microphone."
+        }
+      ],
     ],
     "experiments": {
       "tsconfigPaths": true,
@@ -74,6 +91,9 @@
     "extra": {
       "router": {
         "origin": false
+      },
+      "eas": {
+        "projectId": "acf6348d-24c2-4848-b4b6-349def5bc53e"
       }
     }
   }
