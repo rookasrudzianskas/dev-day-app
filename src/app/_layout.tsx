@@ -107,3 +107,18 @@ function RootLayoutNav({showAnimatedSplashScreen, setSplashAnimationFinished}: a
     </GestureHandlerRootView>
   );
 }
+
+// return (
+//   <Authenticator.Provider>
+//     <ThemeProvider theme={theme}>
+//       <GestureHandlerRootView style={{ flex: 1 }}>
+//         <Animated.View style={{ flex: 1 }} entering={FadeIn}>
+//           <Stack screenOptions={{}}>
+//             <Stack.Screen name="index" options={{ title: 'DEVember' }} />
+//           </Stack>
+//         </Animated.View>
+//       </GestureHandlerRootView>
+//     </ThemeProvider>
+//   </Authenticator.Provider>
+// );
+}
