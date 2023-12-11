@@ -16,10 +16,10 @@ const CameraScreen = () => {
 
   if(!hasPermission) {
     return (
-      <View>
+      <View className="h-screen w-full items-center justify-center">
         <Stack.Screen options={{ headerShown: false }} />
         <Text>
-          byrookas 🚀
+          Does not have permission
         </Text>
       </View>
     );
