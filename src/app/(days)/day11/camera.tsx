@@ -50,6 +50,13 @@ const CameraScreen = () => {
   return (
     <View>
       <Stack.Screen options={{ headerShown: false }} />
+      <Camera
+        ref={camera}
+        photo={true}
+        style={StyleSheet.absoluteFill}
+        device={device}
+        isActive={isActive && !photo}
+      />
 
       {photo ? (
         <>
@@ -72,13 +79,6 @@ const CameraScreen = () => {
         </>
       ) : (
         <>
-          <Camera
-            ref={camera}
-            photo={true}
-            style={StyleSheet.absoluteFill}
-            device={device}
-            isActive={isActive}
-          />
 
           <TouchableOpacity
             style={{
