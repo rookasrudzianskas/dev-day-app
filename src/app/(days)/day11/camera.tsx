@@ -1,12 +1,13 @@
 //@ts-nocheck
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
-import {Stack} from "expo-router";
+import {Stack, useFocusEffect} from "expo-router";
 import {Camera, useCameraDevice, useCameraPermission} from "react-native-vision-camera";
 import {useIsFocused} from "@react-navigation/core";
 
 const CameraScreen = () => {
   const { hasPermission, requestPermission } = useCameraPermission();
+  const [isActive, setIsActive] = useState(false);
 
   const device = useCameraDevice('back', {
     physicalDevices: [
@@ -14,6 +15,15 @@ const CameraScreen = () => {
       'wide-angle-camera',
       'telephoto-camera'
     ]
+  });
+
+  useFocusEffect(() => {
+    useCallback(() => {
+      setIsActive(true);
+      return () => {
+        setIsActive(false);
+      }
+    }, [])
   });
 
   useEffect(() => {
@@ -41,7 +51,7 @@ const CameraScreen = () => {
       <Camera
         style={StyleSheet.absoluteFill}
         device={device}
-        isActive={true}
+        isActive={isActive}
       />
     </View>
   );
