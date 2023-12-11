@@ -6,8 +6,14 @@ import {Camera, useCameraDevice, useCameraPermission} from "react-native-vision-
 
 const CameraScreen = () => {
   const { hasPermission, requestPermission } = useCameraPermission();
-  const device = useCameraDevice('back')
-
+  const device = useCameraDevice('back', {
+    physicalDevices: [
+      'ultra-wide-angle-camera',
+      'wide-angle-camera',
+      'telephoto-camera'
+    ]
+  });
+  
   useEffect(() => {
     if(!hasPermission) {
       requestPermission();
