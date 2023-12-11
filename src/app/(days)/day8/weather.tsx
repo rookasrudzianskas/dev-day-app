@@ -12,6 +12,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import { Stack } from 'expo-router';
 import LottieView from 'lottie-react-native';
 import { StatusBar } from 'expo-status-bar';
+import ForecastItem from "@/src/components/day8/forecast-item";
 
 const BASE_URL = `https://api.openweathermap.org/data/2.5`;
 const OPEN_WEATHER_KEY = process.env.EXPO_PUBLIC_OPEN_WEATHER_KEY;
@@ -99,7 +100,11 @@ const WeatherScreen = () => {
   };
 
   if (!weather) {
-    return <ActivityIndicator />;
+    return (
+      <View className="h-screen items-center justify-center w-full">
+        <ActivityIndicator />
+      </View>
+    );
   }
 
   return (
@@ -113,40 +118,40 @@ const WeatherScreen = () => {
 
       <Stack.Screen options={{ headerShown: false }} />
 
-      {/*<View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>*/}
-      {/*  <LottieView*/}
-      {/*    source={*/}
-      {/*      weather.weather[0].main === 'Rain'*/}
-      {/*        ? require('@assets/lottie/rain.json')*/}
-      {/*        : require('@assets/lottie/sunny.json')*/}
-      {/*    }*/}
-      {/*    style={{*/}
-      {/*      width: 200,*/}
-      {/*      aspectRatio: 1,*/}
-      {/*    }}*/}
-      {/*    loop*/}
-      {/*    autoPlay*/}
-      {/*  />*/}
-      {/*  <Text style={styles.location}>{weather.name}</Text>*/}
-      {/*  <Text style={styles.temp}>{Math.round(weather.main.temp)}°</Text>*/}
-      {/*  <Text style={styles.location}>{weather.weather[0].main}</Text>*/}
-      {/*</View>*/}
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <LottieView
+          source={
+            weather.weather[0].main === 'Rain'
+              ? require('../../../assets/lottie/rain.json')
+              : require('../../../assets/lottie/sunny.json')
+          }
+          style={{
+            width: 200,
+            aspectRatio: 1,
+          }}
+          loop
+          autoPlay
+        />
+        <Text style={styles.location}>{weather.name}</Text>
+        <Text style={styles.temp}>{Math.round(weather.main.temp)}°</Text>
+        <Text style={styles.location}>{weather.weather[0].main}</Text>
+      </View>
 
-      {/*<FlatList*/}
-      {/*  data={forecast}*/}
-      {/*  horizontal*/}
-      {/*  showsHorizontalScrollIndicator={false}*/}
-      {/*  style={{*/}
-      {/*    flexGrow: 0,*/}
-      {/*    height: 150,*/}
-      {/*    marginBottom: 40,*/}
-      {/*  }}*/}
-      {/*  contentContainerStyle={{*/}
-      {/*    gap: 10,*/}
-      {/*    paddingHorizontal: 10,*/}
-      {/*  }}*/}
-      {/*  renderItem={({ item }) => <ForecastItem forecast={item} />}*/}
-      {/*/>*/}
+      <FlatList
+        data={forecast}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        style={{
+          flexGrow: 0,
+          height: 150,
+          marginBottom: 40,
+        }}
+        contentContainerStyle={{
+          gap: 10,
+          paddingHorizontal: 10,
+        }}
+        renderItem={({ item }) => <ForecastItem forecast={item} />}
+      />
 
       <StatusBar style="light" />
     </ImageBackground>
@@ -165,7 +170,7 @@ const styles = StyleSheet.create({
     color: 'lightgray',
   },
   temp: {
-    fontFamily: 'InterBlack',
+    fontFamily: 'Inter',
     fontSize: 150,
     color: '#FEFEFE',
   },
