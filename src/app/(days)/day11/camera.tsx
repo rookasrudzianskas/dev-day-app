@@ -1,16 +1,17 @@
 //@ts-nocheck
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity, Image, Pressable} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, Image, Pressable, Button} from 'react-native';
 import {Stack, useFocusEffect} from "expo-router";
 import {
   Camera,
   PhotoFile,
   useCameraDevice,
   useCameraPermission,
-  useMicrophonePermission
+  useMicrophonePermission, VideoFile
 } from "react-native-vision-camera";
 import {useIsFocused} from "@react-navigation/core";
 import {MaterialIcons} from "@expo/vector-icons";
+import {Video} from "expo-av";
 
 const CameraScreen = () => {
   const { hasPermission, requestPermission } = useCameraPermission();
@@ -21,6 +22,8 @@ const CameraScreen = () => {
   const [photo, setPhoto] = useState<PhotoFile>(undefined);
   const camera = useRef<Camera>(null)
   const [flash, setFlash] = useState("off");
+  const [video, setVideo] = useState<VideoFile>(undefined);
+
   const device = useCameraDevice('back', {
     physicalDevices: [
       'ultra-wide-angle-camera',
@@ -82,6 +85,7 @@ const CameraScreen = () => {
     camera.current.startRecording({
       onRecordingFinished: (video) => {
         console.log('onRecordingFinished', video)
+        setVideo(video);
         setIsRecording(false)
       },
       onRecordingError: (error) => {
@@ -103,6 +107,42 @@ const CameraScreen = () => {
         video={true}
         audio={true}
       />
+
+      {video && (
+        <>
+          <Video
+            source={{ uri: video.path }}
+            style={{ width: '100%', height: '100%' }}
+            shouldPlay
+            isLooping
+            useNativeControls
+          />
+          <TouchableOpacity
+            style={{
+              position: 'absolute',
+              bottom: 50,
+              width: 75,
+              height: 65,
+              backgroundColor: 'white',
+              alignSelf: 'center',
+              borderRadius: 75
+            }}
+            onPress={() => setVideo(undefined)}
+          />
+          <View style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            paddingBottom: 50,
+          }}>
+            <Button
+              title={'Upload'}
+              onPress={uploadVideo}
+            />
+          </View>
+        </>
+      )}
 
       {photo ? (
         <>
