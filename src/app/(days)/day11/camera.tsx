@@ -70,6 +70,14 @@ const CameraScreen = () => {
     setPhoto(photo);
   }
 
+  const onStartRecording = async () => {
+    if (!camera.current) return;
+    camera.current.startRecording({
+      onRecordingFinished: (video) => console.log(video),
+      onRecordingError: (error) => console.error(error)
+    })
+  }
+
   return (
     <View>
       <Stack.Screen options={{ headerShown: false }} />
@@ -79,6 +87,8 @@ const CameraScreen = () => {
         style={StyleSheet.absoluteFill}
         device={device}
         isActive={isActive && !photo}
+        video={true}
+        audio={true}
       />
 
       {photo ? (
@@ -136,6 +146,7 @@ const CameraScreen = () => {
             )}
           </View>
           <TouchableOpacity
+            onLongPress={onStartRecording}
             style={{
               position: 'absolute',
               bottom: 50,
