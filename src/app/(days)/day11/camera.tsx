@@ -52,10 +52,24 @@ const CameraScreen = () => {
       <Stack.Screen options={{ headerShown: false }} />
 
       {photo ? (
-        <Image
-          source={{ uri: photo.path }}
-          style={{ width: '100%', height: '100%' }}
-        />
+        <>
+          <Image
+            source={{ uri: photo.path }}
+            style={{ width: '100%', height: '100%' }}
+          />
+          <TouchableOpacity
+            style={{
+              position: 'absolute',
+              bottom: 50,
+              width: 75,
+              height: 65,
+              backgroundColor: 'white',
+              alignSelf: 'center',
+              borderRadius: 75
+            }}
+            onPress={() => setPhoto(undefined)}
+          />
+        </>
       ) : (
         <>
           <Camera
