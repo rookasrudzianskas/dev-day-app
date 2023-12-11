@@ -2,12 +2,20 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity, Image, Pressable} from 'react-native';
 import {Stack, useFocusEffect} from "expo-router";
-import {Camera, PhotoFile, useCameraDevice, useCameraPermission} from "react-native-vision-camera";
+import {
+  Camera,
+  PhotoFile,
+  useCameraDevice,
+  useCameraPermission,
+  useMicrophonePermission
+} from "react-native-vision-camera";
 import {useIsFocused} from "@react-navigation/core";
 import {MaterialIcons} from "@expo/vector-icons";
 
 const CameraScreen = () => {
   const { hasPermission, requestPermission } = useCameraPermission();
+  const { microphoneHasPermission, microphoneRequestPermission } = useMicrophonePermission()
+
   const [isActive, setIsActive] = useState(false);
   const [photo, setPhoto] = useState<PhotoFile>(undefined);
   const camera = useRef<Camera>(null)
@@ -32,6 +40,9 @@ const CameraScreen = () => {
     if(!hasPermission) {
       requestPermission();
     }
+    if(!microphoneHasPermission) {
+      microphoneRequestPermission();
+    }
   }, [hasPermission, requestPermission]);
 
   const uploadPhoto = async () => {
@@ -40,7 +51,7 @@ const CameraScreen = () => {
     const data = await result.blob();
   }
 
-  if(!hasPermission) {
+  if(!hasPermission || !microphoneHasPermission) {
     return (
       <View className="h-screen w-full items-center justify-center">
         <Stack.Screen options={{ headerShown: false }} />
