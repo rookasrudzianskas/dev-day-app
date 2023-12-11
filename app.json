@@ -80,9 +80,10 @@
         {
           "cameraPermissionText": "$(PRODUCT_NAME) needs access to your Camera.",
           "enableMicrophonePermission": true,
+          "enableCodeScanner": true,
           "microphonePermissionText": "$(PRODUCT_NAME) needs access to your Microphone."
         }
-      ],
+      ]
     ],
     "experiments": {
       "tsconfigPaths": true,

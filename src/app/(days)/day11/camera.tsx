@@ -6,7 +6,7 @@ import {
   Camera,
   PhotoFile,
   useCameraDevice,
-  useCameraPermission,
+  useCameraPermission, useCodeScanner,
   useMicrophonePermission, VideoFile
 } from "react-native-vision-camera";
 import {useIsFocused} from "@react-navigation/core";
@@ -83,6 +83,7 @@ const CameraScreen = () => {
     if (!camera.current) return;
     setIsRecording(true)
     camera.current.startRecording({
+      flash: flash ? 'on' : 'off',
       onRecordingFinished: (video) => {
         console.log('onRecordingFinished', video)
         setVideo(video);
@@ -95,12 +96,20 @@ const CameraScreen = () => {
     })
   }
 
+  const codeScanner = useCodeScanner({
+    codeTypes: ['qr', 'ean-13'],
+    onCodeScanned: (codes) => {
+      console.log(`Scanned ${codes.length} codes!`)
+    }
+  });
+
   return (
     <View>
       <Stack.Screen options={{ headerShown: false }} />
       <Camera
         ref={camera}
         photo={true}
+        codeScanner={codeScanner}
         style={StyleSheet.absoluteFill}
         device={device}
         isActive={isActive && !photo && !video}
