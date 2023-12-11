@@ -121,4 +121,4 @@ function RootLayoutNav({showAnimatedSplashScreen, setSplashAnimationFinished}: a
 //     </ThemeProvider>
 //   </Authenticator.Provider>
 // );
-}
+// }
