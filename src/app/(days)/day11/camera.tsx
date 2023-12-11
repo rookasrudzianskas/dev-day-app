@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, Image, Pressable} from 'react-native';
 import {Stack, useFocusEffect} from "expo-router";
 import {Camera, PhotoFile, useCameraDevice, useCameraPermission} from "react-native-vision-camera";
 import {useIsFocused} from "@react-navigation/core";
@@ -87,17 +87,23 @@ const CameraScreen = () => {
         <>
           <View>
             {flash === 'on' ? (
-              <View style={{position: 'absolute', right: 10, top: 50, padding: 10, borderRadius: 5}}>
+              <Pressable
+                setFlash={() => setFlash('on')}
+                style={{position: 'absolute', right: 10, top: 50, padding: 10, borderRadius: 5}}>
                 <MaterialIcons name="flash-on" size={24} color="white" />
-              </View>
+              </Pressable>
             ): flash === 'auto' ? (
-              <View style={{position: 'absolute', right: 10, top: 50, padding: 10, borderRadius: 5}}>
+              <Pressable
+                setFlash={() => setFlash('auto')}
+                style={{position: 'absolute', right: 10, top: 50, padding: 10, borderRadius: 5}}>
                 <MaterialIcons name="flash-auto" size={24} color="white" />
-              </View>
+              </Pressable>
             ) : (
-              <View style={{position: 'absolute', right: 10, top: 50, padding: 10, borderRadius: 5}}>
+              <Pressable
+                setFlash={() => setFlash('off')}
+                style={{position: 'absolute', right: 10, top: 50, padding: 10, borderRadius: 5}}>
                 <MaterialIcons name="flash-off" size={24} color="white" />
-              </View>
+              </Pressable>
             )}
           </View>
           <TouchableOpacity
