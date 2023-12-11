@@ -12,10 +12,9 @@ import {GestureHandlerRootView} from "react-native-gesture-handler";
 import SplashAnimation from "@/src/components/day4/splash-screen-component";
 import Animated, {FadeIn} from "react-native-reanimated";
 import { Amplify } from 'aws-amplify';
-import amplifyconfig from '../../src/amplifyconfiguration.json';
-import awsExports from '../../src/aws-exports';
 import { ThemeProvider, Theme } from '@aws-amplify/ui-react-native';
 import { Authenticator } from '@aws-amplify/ui-react-native';
+import BiometricProvider from "@/src/components/day10/biometrics-provider";
 
 // Amplify.configure(awsExports);
 SplashScreen.preventAutoHideAsync();
@@ -96,15 +95,17 @@ function RootLayoutNav({showAnimatedSplashScreen, setSplashAnimationFinished}: a
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1}}>
-      {/* @ts-ignore */}
-      <Animated.View entering={FadeIn} style={[theme, StyleSheet.absoluteFill]}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-        </Stack>
-      </Animated.View>
-    </GestureHandlerRootView>
+    <BiometricProvider>
+      <GestureHandlerRootView style={{ flex: 1}}>
+        {/* @ts-ignore */}
+        <Animated.View entering={FadeIn} style={[theme, StyleSheet.absoluteFill]}>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+          </Stack>
+        </Animated.View>
+      </GestureHandlerRootView>
+    </BiometricProvider>
   );
 }
 
