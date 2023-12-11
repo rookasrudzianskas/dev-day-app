@@ -11,5 +11,3 @@ A
 src/app/about.tsx,5/8/5861c1c570b2125f538c1328e4b526c4f207bec3
 N
 src/components/DayListItem.tsx,6/f/6fc2ea2a14458999b70881c507818fcd5de54899
-J
-src/app/(tabs)/_layout.tsx,f/5/f5c53a14c63defbaa5267fb115d53f4d908fa2a9

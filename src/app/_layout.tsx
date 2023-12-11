@@ -14,9 +14,28 @@ import Animated, {FadeIn} from "react-native-reanimated";
 import { Amplify } from 'aws-amplify';
 import amplifyconfig from '../../src/amplifyconfiguration.json';
 import awsExports from '../../src/aws-exports';
+import { ThemeProvider, Theme } from '@aws-amplify/ui-react-native';
+import { Authenticator } from '@aws-amplify/ui-react-native';
 
 // Amplify.configure(awsExports);
 SplashScreen.preventAutoHideAsync();
+
+const themeDesign: Theme = {
+  tokens: {
+    colors: {
+      brand: {
+        primary: 'red',
+      },
+
+      background: {
+        primary: '{colors.gray}',
+      },
+      font: {
+        primary: 'black',
+      },
+    },
+  },
+};
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -78,6 +97,7 @@ function RootLayoutNav({showAnimatedSplashScreen, setSplashAnimationFinished}: a
 
   return (
     <GestureHandlerRootView style={{ flex: 1}}>
+      {/* @ts-ignore */}
       <Animated.View entering={FadeIn} style={[theme, StyleSheet.absoluteFill]}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
