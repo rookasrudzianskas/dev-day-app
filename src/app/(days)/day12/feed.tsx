@@ -21,10 +21,7 @@ const Feed = () => {
 
       <Video
         ref={video}
-        style={[StyleSheet.absoluteFill, {
-          width: '100%',
-          height: '100%',
-        }]}
+        style={[StyleSheet.absoluteFill, styles.video]}
         source={{
           uri: POSTS[0].video,
         }}
@@ -34,6 +31,10 @@ const Feed = () => {
         isLooping
         onPlaybackStatusUpdate={status => setStatus(() => status)}
       />
+
+      <View>
+
+      </View>
     </View>
   );
 };
@@ -41,7 +42,14 @@ const Feed = () => {
 export default Feed;
 
 const styles = StyleSheet.create({
+  container: {
+
+  },
   video: {
+    width: '100%',
+    height: '100%',
+  },
+  content: {
 
   }
 });
