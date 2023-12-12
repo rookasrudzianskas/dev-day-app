@@ -50,7 +50,14 @@ const Feed = () => {
           colors={['transparent', 'rgba(0,0,0,0.8)']}
           style={[StyleSheet.absoluteFillObject, styles.overlay]}
         />
-        {!status.isPlaying && <Ionicons style={{position: 'absolute', alignSelf: 'center', top: '50%'}} name="ios-play" size={70} color="rgba(255, 255, 255, 0.6)" />}
+        {!status.isPlaying &&
+          <Ionicons
+            style={{position: 'absolute', alignSelf: 'center', top: '50%'}}
+            name="ios-play"
+            size={70}
+            color="rgba(255, 255, 255, 0.6)"
+          />
+        }
         <SafeAreaView style={{ flex: 1}}>
           <View style={styles.footer}>
             {/*   Bottom */}
