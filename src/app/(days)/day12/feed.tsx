@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, {useRef, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {Text, View, StyleSheet, SafeAreaView, TouchableOpacity, Dimensions, FlatList} from 'react-native';
 import {Stack} from "expo-router";
 import {ResizeMode, Video} from "expo-av";
@@ -32,13 +32,28 @@ const POSTS = [
 ]
 
 const Feed = () => {
+  const [activePostId, setActivePostId] = useState(POSTS[0].id);
+
+  const onViewableItemsChanged = useCallback(({ changed, viewableItems }) => {
+    if(viewableItems && viewableItems.length > 0 && viewableItems[0].isViewable) {
+      setActivePostId(viewableItems[0].item.id);
+    }
+  }, []);
+
   return (
     <View className="flex-1 bg-black">
       <Stack.Screen options={{headerShown: false}} />
       <StatusBar style="auto" />
       <FlatList
         data={POSTS}
-        renderItem={({item}) => <VideoCard post={item} />}
+        renderItem={({item}) => <VideoCard
+          post={item}
+          activePostId={activePostId}
+        />}
+        viewabilityConfig={{
+          itemVisiblePercentThreshold: 50,
+        }}
+        onViewableItemsChanged={onViewableItemsChanged}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         pagingEnabled

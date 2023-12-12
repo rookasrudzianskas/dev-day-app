@@ -1,17 +1,30 @@
 //@ts-nocheck
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity, SafeAreaView, useWindowDimensions} from 'react-native';
 import {ResizeMode, Video} from "expo-av";
 import {LinearGradient} from "expo-linear-gradient";
 import {Ionicons} from "@expo/vector-icons";
 
-const VideoCard = ({post}) => {
+const VideoCard = ({post, activePostId}) => {
   const video = useRef(null);
   const [status, setStatus] = useState({});
   const {height} = useWindowDimensions();
 
+  const isPlaying = status.isPlaying && status?.isLoaded;
+
+  useEffect(() => {
+    if(!video.current) return;
+    if(activePostId !== post.id) {
+      video.current.pauseAsync();
+    }
+    if(activePostId === post.id) {
+      video.current.playAsync();
+    }
+  }, [activePostId, video.current])
+
   const onPress = () => {
-    if(status.isPlaying) {
+    if(!video.current) return;
+    if(isPlaying) {
       video.current.pauseAsync();
     } else {
       video.current.playAsync();
