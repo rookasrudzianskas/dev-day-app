@@ -76,14 +76,13 @@ const Feed = () => {
         viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         onEndReached={onEndReached}
         onEndReachedThreshold={3}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => `${item.id}-${index}`}
         showsVerticalScrollIndicator={false}
         pagingEnabled
         // snapToInterval={Dimensions.get('window').height - 48 - 70}
         snapToAlignment={'start'}
         decelerationRate={'fast'}
       />
-      {/*<VideoCard post={POSTS[0]} />*/}
     </View>
   );
 };
