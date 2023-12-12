@@ -1,84 +1,53 @@
 //@ts-nocheck
 import React, {useRef, useState} from 'react';
-import {Text, View, StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native';
+import {Text, View, StyleSheet, SafeAreaView, TouchableOpacity, Dimensions, FlatList} from 'react-native';
 import {Stack} from "expo-router";
 import {ResizeMode, Video} from "expo-av";
 import {StatusBar} from "expo-status-bar";
 import {Ionicons} from "@expo/vector-icons";
 import {LinearGradient} from "expo-linear-gradient";
+import VideoCard from "@/src/components/day12/video-card";
 
 const POSTS = [
   {
     id: 1,
     video: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/vertical-videos/2.mp4',
     caption: 'Caption 1 @Rokas 1',
-  }
+  },
+  {
+    id: 2,
+    video: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/vertical-videos/4.mp4',
+    caption: 'Caption 1 @Rokas 1',
+  },
+  {
+    id: 3,
+    video: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/vertical-videos/3.mp4',
+    caption: 'Caption 1 @Rokas 1',
+  },
+  {
+    id: 4,
+    video: 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/vertical-videos/1.mp4',
+    caption: 'Caption 1 @Rokas 1',
+  },
 ]
 
 const Feed = () => {
-  const video = useRef(null);
-  const [status, setStatus] = useState({});
 
-  const onPress = () => {
-    if(status.isPlaying) {
-      video.current.pauseAsync();
-    } else {
-      video.current.playAsync();
-    }
-  }
 
   return (
     <View className="flex-1">
       <Stack.Screen options={{headerShown: false}} />
       <StatusBar style="auto" />
-      <Video
-        ref={video}
-        style={[StyleSheet.absoluteFill, styles.video]}
-        source={{
-          uri: POSTS[0].video,
-        }}
-        useNativeControls={false}
-        resizeMode={ResizeMode.COVER}
-        autoPlay={true}
-        isLooping
-        onPlaybackStatusUpdate={status => setStatus(() => status)}
+      <FlatList
+        data={POSTS}
+        renderItem={({item}) => <VideoCard post={item} />}
+        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+        snapToInterval={Dimensions.get('window').height - 48 - 70}
+        snapToAlignment={'start'}
+        decelerationRate={'fast'}
       />
-
-      <TouchableOpacity onPress={onPress} activeOpacity={0.9} style={styles.content}>
-        <LinearGradient
-          // Background Linear Gradient
-          colors={['transparent', 'rgba(0,0,0,0.8)']}
-          style={[StyleSheet.absoluteFillObject, styles.overlay]}
-        />
-        {!status.isPlaying &&
-          <Ionicons
-            style={{position: 'absolute', alignSelf: 'center', top: '50%'}}
-            name="ios-play"
-            size={70}
-            color="rgba(255, 255, 255, 0.6)"
-          />
-        }
-        <SafeAreaView style={{ flex: 1}}>
-          <View style={styles.footer}>
-            {/*   Bottom */}
-            <View style={styles.leftColumn}>
-              <Text style={styles.caption}>{POSTS[0].caption}</Text>
-            </View>
-            {/* vertical columns */}
-            <View style={styles.rightColumn}>
-              <TouchableOpacity activeOpacity={0.8}>
-                <Ionicons name="ios-heart" size={34} color="white" />
-              </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.8}>
-                <Ionicons name="md-share-social" size={34} color="white" />
-              </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.8}>
-                <Ionicons name="bookmark" size={34} color="white" />
-              </TouchableOpacity>
-            </View>
-          </View>
-        </SafeAreaView>
-      </TouchableOpacity>
+      {/*<VideoCard post={POSTS[0]} />*/}
     </View>
   );
 };
