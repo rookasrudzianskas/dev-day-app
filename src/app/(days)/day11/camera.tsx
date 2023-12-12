@@ -1,228 +1,230 @@
-//@ts-nocheck
-import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity, Image, Pressable, Button} from 'react-native';
-import {Stack, useFocusEffect} from "expo-router";
+import { Stack } from 'expo-router';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
+  View,
+  Text,
+  ActivityIndicator,
+  StyleSheet,
+  Pressable,
+  Image,
+  Button,
+} from 'react-native';
+import {
+  useCameraPermission,
+  useMicrophonePermission,
+  useCameraDevice,
   Camera,
   PhotoFile,
-  useCameraDevice,
-  useCameraPermission, useCodeScanner,
-  useMicrophonePermission, VideoFile
-} from "react-native-vision-camera";
-import {useIsFocused} from "@react-navigation/core";
-import {MaterialIcons} from "@expo/vector-icons";
-import {Video} from "expo-av";
+  TakePhotoOptions,
+  VideoFile,
+  useCodeScanner,
+} from 'react-native-vision-camera';
+import { useFocusEffect } from 'expo-router';
+import { FontAwesome5, Ionicons } from '@expo/vector-icons';
+import { Video } from 'expo-av';
 
 const CameraScreen = () => {
-  const { hasPermission, requestPermission } = useCameraPermission();
-  const { microphoneHasPermission, microphoneRequestPermission } = useMicrophonePermission()
-
-  const [isRecording, setIsRecording] = useState(false);
-  const [isActive, setIsActive] = useState(false);
-  const [photo, setPhoto] = useState<PhotoFile>(undefined);
-  const camera = useRef<Camera>(null)
-  const [flash, setFlash] = useState("off");
-  const [video, setVideo] = useState<VideoFile>(undefined);
-
   const device = useCameraDevice('back', {
-    physicalDevices: [
-      'ultra-wide-angle-camera',
-      'wide-angle-camera',
-      'telephoto-camera'
-    ]
+    physicalDevices: ['ultra-wide-angle-camera'],
   });
-  useFocusEffect(() => {
+  const codeScanner = useCodeScanner({
+    codeTypes: ['qr', 'ean-13'],
+    onCodeScanned: (codes) => {
+      console.log(`Scanned ${codes.length} codes!`);
+      console.log(codes[0]);
+    },
+  });
+
+  const { hasPermission, requestPermission } = useCameraPermission();
+  const {
+    hasPermission: microphonePermission,
+    requestPermission: requestMicrophonePermission,
+  } = useMicrophonePermission();
+
+  const [isActive, setIsActive] = useState(false);
+  const [flash, setFlash] = useState<TakePhotoOptions['flash']>('off');
+  const [isRecording, setIsRecording] = useState(false);
+
+  const [photo, setPhoto] = useState<PhotoFile>();
+  const [video, setVideo] = useState<VideoFile>();
+
+  const camera = useRef<Camera>(null);
+
+  const [mode, setMode] = useState('camera');
+
+  useFocusEffect(
     useCallback(() => {
       setIsActive(true);
       return () => {
         setIsActive(false);
-      }
+      };
     }, [])
-  });
+  );
 
   useEffect(() => {
-    if(!hasPermission) {
+    if (!hasPermission) {
       requestPermission();
     }
-    if(!microphoneHasPermission) {
-      microphoneRequestPermission();
+
+    if (!microphonePermission) {
+      requestMicrophonePermission();
     }
-  }, [hasPermission, requestPermission]);
-
-  const uploadPhoto = async () => {
-    if(!photo) return;
-    const result = await fetch(`file://${photo.path}`)
-    const data = await result.blob();
-  }
-
-  if(!hasPermission || !microphoneHasPermission) {
-    return (
-      <View className="h-screen w-full items-center justify-center">
-        <Stack.Screen options={{ headerShown: false }} />
-        <Text>
-          Does not have permission
-        </Text>
-      </View>
-    );
-  }
-  if (device == null) return <NoCameraDeviceError />
+  }, [hasPermission, microphonePermission]);
 
   const onTakePicturePressed = async () => {
-    if(isRecording) {
+    if (isRecording) {
       camera.current?.stopRecording();
       return;
     }
 
     const photo = await camera.current?.takePhoto({
-      flash: flash ? 'on' : 'off',
+      flash,
     });
     setPhoto(photo);
-  }
+  };
 
   const onStartRecording = async () => {
-    if (!camera.current) return;
-    setIsRecording(true)
+    if (!camera.current) {
+      return;
+    }
+    setIsRecording(true);
     camera.current.startRecording({
-      flash: flash ? 'on' : 'off',
+      flash: flash === 'on' ? 'on' : 'off',
       onRecordingFinished: (video) => {
-        console.log('onRecordingFinished', video)
+        console.log(video);
+        setIsRecording(false);
         setVideo(video);
-        setIsRecording(false)
       },
       onRecordingError: (error) => {
-        console.warn('onRecordingError', error)
-        setIsRecording(false)
-      }
-    })
+        console.error(error);
+        setIsRecording(false);
+      },
+    });
+  };
+
+  const uploadPhoto = async () => {
+    if (!photo) {
+      return;
+    }
+
+    const result = await fetch(`file://${photo.path}`);
+    const data = await result.blob();
+    // console.log(data);
+    // upload data to your network storage (ex: s3, supabase storage, etc)
+  };
+
+  if (!hasPermission || !microphonePermission) {
+    return <ActivityIndicator />;
   }
 
-  const codeScanner = useCodeScanner({
-    codeTypes: ['qr', 'ean-13'],
-    onCodeScanned: (codes) => {
-      console.log(`Scanned ${codes.length} codes!`)
-    }
-  });
-
+  if (!device) {
+    return <Text>Camera device not found</Text>;
+  }
+  console.log('QR camer: ', mode === 'qr' && isActive && !photo && !video);
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <Stack.Screen options={{ headerShown: false }} />
-      <Camera
-        ref={camera}
-        photo={true}
-        codeScanner={codeScanner}
-        style={StyleSheet.absoluteFill}
-        device={device}
-        isActive={isActive && !photo && !video}
-        video={true}
-        audio={true}
-      />
+
+      {mode === 'qr' ? (
+        <Camera
+          device={device}
+          codeScanner={codeScanner}
+          style={StyleSheet.absoluteFill}
+          isActive={mode === 'qr' && isActive && !photo && !video}
+        />
+      ) : (
+        <Camera
+          ref={camera}
+          style={StyleSheet.absoluteFill}
+          device={device}
+          isActive={isActive && !photo && !video && mode === 'camera'}
+          photo
+          video
+          audio
+        />
+      )}
 
       {video && (
         <>
           <Video
-            source={{ uri: video.path }}
-            style={{ width: '100%', height: '100%' }}
-            shouldPlay
-            isLooping
-            useNativeControls
-          />
-          <TouchableOpacity
-            style={{
-              position: 'absolute',
-              bottom: 50,
-              width: 75,
-              height: 65,
-              backgroundColor: 'white',
-              alignSelf: 'center',
-              borderRadius: 75
+            style={StyleSheet.absoluteFill}
+            source={{
+              uri: video.path,
             }}
-            onPress={() => setVideo(undefined)}
+            useNativeControls
+            isLooping
           />
-          <View style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            paddingBottom: 50,
-          }}>
-            <Button
-              title={'Upload'}
-              onPress={uploadVideo}
-            />
-          </View>
         </>
       )}
 
       {photo && (
         <>
-          <Image
-            source={{ uri: photo.path }}
-            style={{ width: '100%', height: '100%' }}
+          <Image source={{ uri: photo.path }} style={StyleSheet.absoluteFill} />
+          <FontAwesome5
+            onPress={() => setPhoto(undefined)}
+            name="arrow-left"
+            size={25}
+            color="white"
+            style={{ position: 'absolute', top: 50, left: 30 }}
           />
-          <TouchableOpacity
+          <View
             style={{
               position: 'absolute',
-              bottom: 50,
-              width: 75,
-              height: 65,
-              backgroundColor: 'white',
-              alignSelf: 'center',
-              borderRadius: 75
+              bottom: 0,
+              left: 0,
+              right: 0,
+              paddingBottom: 50,
+              backgroundColor: 'rgba(0, 0, 0, 0.40)',
             }}
-            onPress={() => setPhoto(undefined)}
-          />
-          <View style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            paddingBottom: 50,
-          }}>
-            <Button
-              title={'Upload'}
-              onPress={uploadPhoto}
-            />
+          >
+            <Button title="Upload" onPress={uploadPhoto} />
           </View>
         </>
       )}
 
       {!photo && !video && (
         <>
-          <View>
-            {flash === 'on' ? (
-              <Pressable
-                setFlash={() => setFlash('on')}
-                style={{position: 'absolute', right: 10, top: 50, padding: 10, borderRadius: 5}}>
-                <MaterialIcons name="flash-on" size={24} color="white" />
-              </Pressable>
-            ): flash === 'auto' ? (
-              <Pressable
-                setFlash={() => setFlash('auto')}
-                style={{position: 'absolute', right: 10, top: 50, padding: 10, borderRadius: 5}}>
-                <MaterialIcons name="flash-auto" size={24} color="white" />
-              </Pressable>
-            ) : (
-              <Pressable
-                setFlash={() => setFlash('off')}
-                style={{position: 'absolute', right: 10, top: 50, padding: 10, borderRadius: 5}}>
-                <MaterialIcons name="flash-off" size={24} color="white" />
-              </Pressable>
-            )}
+          <View
+            style={{
+              position: 'absolute',
+              right: 10,
+              top: 50,
+              padding: 10,
+              borderRadius: 5,
+              backgroundColor: 'rgba(0, 0, 0, 0.40)',
+              gap: 30,
+            }}
+          >
+            <Ionicons
+              name={flash === 'off' ? 'ios-flash-off' : 'ios-flash'}
+              onPress={() =>
+                setFlash((curValue) => (curValue === 'off' ? 'on' : 'off'))
+              }
+              size={30}
+              color="white"
+            />
+
+            <Ionicons
+              name={mode === 'camera' ? 'qr-code-sharp' : 'camera'}
+              onPress={() => setMode(mode === 'qr' ? 'camera' : 'qr')}
+              size={30}
+              color="white"
+            />
           </View>
-          <TouchableOpacity
+
+          <Pressable
+            onPress={onTakePicturePressed}
             onLongPress={onStartRecording}
             style={{
               position: 'absolute',
+              alignSelf: 'center',
               bottom: 50,
               width: 75,
-              height: 65,
+              height: 75,
               backgroundColor: isRecording ? 'red' : 'white',
-              alignSelf: 'center',
-              borderRadius: 75
+              borderRadius: 75,
             }}
-            onPress={onTakePicturePressed}
-          >
-          </TouchableOpacity>
+          />
         </>
       )}
     </View>
