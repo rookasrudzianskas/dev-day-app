@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useRef, useState} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity, SafeAreaView} from 'react-native';
+import {Text, View, StyleSheet, TouchableOpacity, SafeAreaView, useWindowDimensions} from 'react-native';
 import {ResizeMode, Video} from "expo-av";
 import {LinearGradient} from "expo-linear-gradient";
 import {Ionicons} from "@expo/vector-icons";
@@ -8,6 +8,7 @@ import {Ionicons} from "@expo/vector-icons";
 const VideoCard = ({post}) => {
   const video = useRef(null);
   const [status, setStatus] = useState({});
+  const {height} = useWindowDimensions();
 
   const onPress = () => {
     if(status.isPlaying) {
@@ -18,7 +19,7 @@ const VideoCard = ({post}) => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {height}]}>
       <Video
         ref={video}
         className={"h-screen"}
@@ -76,7 +77,8 @@ export default VideoCard;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+
   },
   video: {
     // width: '100%',

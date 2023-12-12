@@ -32,10 +32,8 @@ const POSTS = [
 ]
 
 const Feed = () => {
-
-
   return (
-    <View className="flex-1">
+    <View className="flex-1 bg-black">
       <Stack.Screen options={{headerShown: false}} />
       <StatusBar style="auto" />
       <FlatList
