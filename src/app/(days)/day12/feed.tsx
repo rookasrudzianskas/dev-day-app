@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useRef, useState} from 'react';
-import {Text, View, StyleSheet, SafeAreaView} from 'react-native';
+import {Text, View, StyleSheet, SafeAreaView, TouchableOpacity} from 'react-native';
 import {Stack} from "expo-router";
 import {ResizeMode, Video} from "expo-av";
 import {StatusBar} from "expo-status-bar";
@@ -19,6 +19,14 @@ const Feed = () => {
   const video = useRef(null);
   const [status, setStatus] = useState({});
 
+  const onPress = () => {
+    if(status.isPlaying) {
+      video.current.pauseAsync();
+    } else {
+      video.current.playAsync();
+    }
+  }
+
   return (
     <View className="flex-1">
       <Stack.Screen options={{headerShown: false}} />
@@ -36,7 +44,7 @@ const Feed = () => {
         onPlaybackStatusUpdate={status => setStatus(() => status)}
       />
 
-      <View style={styles.content}>
+      <TouchableOpacity onPress={onPress} activeOpacity={0.9} style={styles.content}>
         <LinearGradient
           // Background Linear Gradient
           colors={['transparent', 'rgba(0,0,0,0.8)']}
@@ -50,13 +58,19 @@ const Feed = () => {
             </View>
             {/* vertical columns */}
             <View style={styles.rightColumn}>
-              <Ionicons name="ios-heart" size={34} color="white" />
-              <Ionicons name="md-share-social" size={34} color="white" />
-              <Ionicons name="bookmark" size={34} color="white" />
+              <TouchableOpacity activeOpacity={0.8}>
+                <Ionicons name="ios-heart" size={34} color="white" />
+              </TouchableOpacity>
+              <TouchableOpacity activeOpacity={0.8}>
+                <Ionicons name="md-share-social" size={34} color="white" />
+              </TouchableOpacity>
+              <TouchableOpacity activeOpacity={0.8}>
+                <Ionicons name="bookmark" size={34} color="white" />
+              </TouchableOpacity>
             </View>
           </View>
         </SafeAreaView>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };
