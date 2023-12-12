@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, {useCallback, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Text, View, StyleSheet, SafeAreaView, TouchableOpacity, Dimensions, FlatList} from 'react-native';
 import {Stack} from "expo-router";
 import {ResizeMode, Video} from "expo-av";
@@ -33,12 +33,32 @@ const POSTS = [
 
 const Feed = () => {
   const [activePostId, setActivePostId] = useState(POSTS[0].id);
+  const [posts, setPosts] = useState<any>([]);
 
-  const onViewableItemsChanged = useCallback(({ changed, viewableItems }) => {
-    if(viewableItems && viewableItems.length > 0 && viewableItems[0].isViewable) {
-      setActivePostId(viewableItems[0].item.id);
-    }
+  useEffect(() => {
+    const fetchPosts = async () => {
+      // fetch posts from the server
+      setPosts(POSTS);
+    };
+
+    fetchPosts();
   }, []);
+
+  const viewabilityConfigCallbackPairs = useRef([
+    {
+      viewabilityConfig: { itemVisiblePercentThreshold: 50 },
+      onViewableItemsChanged: ({ changed, viewableItems }) => {
+        if (viewableItems.length > 0 && viewableItems[0].isViewable) {
+          setActivePostId(viewableItems[0].item.id);
+        }
+      },
+    },
+  ]);
+
+  const onEndReached = () => {
+    // fetch more posts from database
+    setPosts((currentPosts) => [...currentPosts, ...POSTS]);
+  };
 
   return (
     <View className="flex-1 bg-black">
@@ -53,7 +73,9 @@ const Feed = () => {
         viewabilityConfig={{
           itemVisiblePercentThreshold: 50,
         }}
-        onViewableItemsChanged={onViewableItemsChanged}
+        viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
+        onEndReached={onEndReached}
+        onEndReachedThreshold={3}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         pagingEnabled
