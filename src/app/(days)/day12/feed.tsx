@@ -30,6 +30,7 @@ const Feed = () => {
         }}
         useNativeControls={false}
         resizeMode={ResizeMode.COVER}
+        autoPlay={true}
         isLooping
         onPlaybackStatusUpdate={status => setStatus(() => status)}
       />
