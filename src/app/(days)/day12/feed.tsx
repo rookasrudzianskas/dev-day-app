@@ -41,7 +41,8 @@ const Feed = () => {
         renderItem={({item}) => <VideoCard post={item} />}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
-        snapToInterval={Dimensions.get('window').height - 48 - 70}
+        pagingEnabled
+        // snapToInterval={Dimensions.get('window').height - 48 - 70}
         snapToAlignment={'start'}
         decelerationRate={'fast'}
       />
