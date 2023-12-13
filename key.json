@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "boring-app-408013",
+  "private_key_id": "69415c934976fe1e7075a67655067708866b2840",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDlauwnE7dRPxPe\nd+rIeK4KUIk3qDoegJklSg9RPlLKgSRMJuv9XX7lpJ5L7LRa8UOz3sNX8ITGWR/J\n2RiXNcXi9grnDqgxeBkbwsb04/OPxJvKGcy2FkwkSm9vPEzBMwE7WtPtAZVJF6eG\nfW+V9K6Uy2TOhpFb/sBdE0IOU2HjMr9ePvh3gVB2NBFBXlC1Qbv/6rmZ4DxSXy65\nnLh80MGxuMPwKYjx0O0uncD6aphBsRoiENFd/6F3e5ki9pk/g0UEosbUw0pmX3/W\nlq5ySktrPWZBxv5iaWwQLB0K+0ZOlEqKjQ5E75vZko8WX52oxM0ZjbiMQCiGBUuD\nLoNsWV9zAgMBAAECggEATguk0NplN6+Eu98BsTdUxc+GDrgdJXlMICJkuZfBJIDw\nbzOifqwK2ma5L00UQgfnp042GDmLgcqaBNnlArPZYQ+gv9/9me6oZAhMFM1jc1pI\nQWWrfZpyRrpH1Iin9+W5Go8Yn301Yws4A4myp0n5Bkd3QMcItkog+MjvZN4648Yf\ntJRemgYp/k5atby9dZmX3Wwi8foIWHmfyeriaA5Nj8gxxRFrd7piu8qiBeSgaq/R\nMl20NdNvEoEwZhQLvy3tl5zeuxsuRtMRUPVWxO0KQiuP966CBUPN8h2BKGo0FYXB\ntHJhkij5ta5R7R6Sf82dYcn3yf8ljhQzuEFHrLxksQKBgQD/Ywhi/Lu93PmAn+kJ\nXWQPTbt3e0E+L0dVyPFbovf6LHjP9ztQxXsN8d3OFSPBZ/sp7UNgYUNBhw9aRHTI\nU6fLwKV3ODo/TDtXCj4/ensP4L3LnrcgUYbmfkLqvSak6hq+BeQMG2thWxQd2D7z\nk+pjjMDr9U374X/BlVIdtRjDmwKBgQDl9+2rKlE7mj8oYYfMKuxYAG/mYq1vEnSc\nVG6j29ka81t4UMHYZZadrqmVTtyCO6oRHNnzVz6Bg656JlMJ8LfVwARbczkBtZ7S\n/W/HwiGpns0nka8EUQEqdUTG5gxt3NXIzGa1ef2Hrsbsemp6Q7M1k3eduvp+J1IF\nA+JYlGztCQKBgCB66OMl/36bLwRD0jCFtycXHMOKYnbVLn5jiwa7iExCAa95YwrX\nwtm4LBx8pcqAPfpMGaiVVidsVPCHCk88DHgmbSTnesj4Ggfs3pPWMPaI/7p42hN7\nKuv/nOUb32FUAMiwGRvNFPAR1FIjYYY7BrFYgmTAEwX43PWy1vm+QYMHAoGBAMjZ\n1Gt1Z0NuQZEsNaW9K3Tk1NbcAmwLK2vKVmOoxSLDv3UC23r7pyOLBDQSj4bzQ2L0\n1uqwnTgS4ZVv2YDKDFWVAnk41mZG0TOoBDPsuufheX8Av2I+uYzypSIulFZz1Qgu\nddo0dJlHrhemB09Hx8KYTJWnU9ZQ01LsBImnAMe5AoGAUBM9KW+VuOV4nmKdnzfx\no3jo1RhioI28tuYXphTPqPOlee7WNAcL9qAJGpnv8xZWw7cj+S2YJHayj1zAM6dJ\n1/3zUVpDairmaV+32Jw8vx6tRHhtvcg/wa6/5B/ZehmsFSFUGahDpumfkKOZTrSR\nNBIzlh3HASydhA8uajWJpTc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "playstore@boring-app-408013.iam.gserviceaccount.com",
+  "client_id": "113228866587031266692",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/playstore%40boring-app-408013.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

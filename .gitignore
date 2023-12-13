@@ -9,6 +9,10 @@ eas.json
 .eas-build-state.json
 .eas-build-state.json.lock
 
+key.json
+/key.json
+.key.json
+
 # Expo
 .expo/
 dist/
