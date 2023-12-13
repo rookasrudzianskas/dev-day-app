@@ -3,6 +3,12 @@
 # dependencies
 node_modules/
 
+.eas.json
+eas.json
+.eas-build-cache/
+.eas-build-state.json
+.eas-build-state.json.lock
+
 # Expo
 .expo/
 dist/
