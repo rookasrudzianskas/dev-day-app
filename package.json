@@ -1,7 +1,7 @@
 {
   "name": "nativewind-expo-router",
   "main": "index",
-  "version": "1.0.2-alpha.25",
+  "version": "1.0.2-alpha.26",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",

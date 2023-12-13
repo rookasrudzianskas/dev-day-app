@@ -23,8 +23,6 @@ C
 src/app/_layout.tsx,8/4/84557afa2ad91837dda31d3cc20d3981b4ca5cf3
 N
 src/app/(days)/day11/index.tsx,5/5/559c50a71f70f1cd4674983639ec51c1791f4ce0
-<
-package.json,7/0/7030d0b2f71b999ff89a343de08c414af32fc93a
 P
  src/app/(days)/day11/_layout.tsx,7/c/7ce5250c5f7986e2584dfad9d094ab0368be3895
 N
