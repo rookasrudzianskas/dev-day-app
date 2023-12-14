@@ -24,6 +24,7 @@ const AppWithNotificationsLayout = () => {
   const router = useRouter();
 
   useEffect(() => {
+    let isMounted = true;
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
@@ -35,10 +36,19 @@ const AppWithNotificationsLayout = () => {
       redirect(response.notification);
     });
 
+    Notifications.getLastNotificationResponseAsync()
+      .then(response => {
+        if (!isMounted || !response?.notification) {
+          return;
+        }
+        redirect(response?.notification);
+      });
+
     return () => {
       Notifications.removeNotificationSubscription(notificationListener.current);
       Notifications.removeNotificationSubscription(responseListener.current);
     };
+    isMounted = false;
   }, []);
 
   const redirect = (notification: Notifications.Notification) => {
