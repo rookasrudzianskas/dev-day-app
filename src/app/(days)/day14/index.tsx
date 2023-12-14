@@ -3,7 +3,7 @@ import React from 'react';
 import {Text, View, StyleSheet, Button, SafeAreaView} from 'react-native';
 import {Stack, useRouter} from "expo-router";
 import MarkdownDisplay from "@/src/components/day3/markdown-display";
-
+// eas build --platform ios --profile development
 const description = `
 # Expo Notifications
 `;
