@@ -11,7 +11,7 @@ async function schedulePushNotification() {
       body: 'Here is the notification body',
       data: {
         data: 'goes here',
-        url: '/day6',
+        url: '/day14/notifications'
       },
     },
     trigger: { seconds: 2 },
