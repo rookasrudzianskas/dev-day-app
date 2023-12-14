@@ -9,9 +9,12 @@ async function schedulePushNotification() {
     content: {
       title: "You've got mail! 📬",
       body: 'Here is the notification body',
-      data: { data: 'goes here' },
+      data: {
+        data: 'goes here',
+        url: '/day6',
+      },
     },
-    trigger: { seconds: 10 },
+    trigger: { seconds: 2 },
   });
 }
 
