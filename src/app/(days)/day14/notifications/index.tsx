@@ -17,7 +17,7 @@ async function schedulePushNotification() {
 
 const NotificationsScreen = () => {
   return (
-    <View className="h-screen flex items-center justify-center">
+    <View className="flex items-center justify-center">
       <Stack.Screen options={{ title: 'Notifications'}} />
       <Text className="text-lg font-semibold">
         Notifications

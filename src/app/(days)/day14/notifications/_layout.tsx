@@ -45,7 +45,7 @@ const AppWithNotificationsLayout = () => {
   return (
     <>
       {notification && (
-        <View className={"h-screen items-center justify-center max-w-sm mx-auto"}>
+        <View className={"mt-36 items-center justify-center max-w-sm mx-auto"}>
           <Text>Your expo push token: {expoPushToken}</Text>
           <View style={{ alignItems: 'center', justifyContent: 'center' }}>
             <Text>Title: {notification && notification.request.content.title} </Text>
