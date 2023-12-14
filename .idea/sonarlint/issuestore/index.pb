@@ -31,3 +31,24 @@ N
 app.json,6/5/65596286f14dbaba6a5081a2edaae69700cc3c3b
 N
 src/app/(days)/day12/index.tsx,5/0/500ecb2e852c6f1b18d99ff9d7d17e40be66845b
+S
+#src/components/day12/video-card.tsx,9/e/9ea71743a820140287ca7bbef9f8d247586e313b
+M
+src/app/(days)/day12/feed.tsx,c/a/ca36c396d7229012d49a955de046978a324890dc
+N
+src/app/(days)/day13/index.tsx,5/1/516e163e6bf5a190e99aec8bdad16950f2e20e8e
+X
+(android/app/src/main/AndroidManifest.xml,e/f/ef79bfd51db69a15dbf5807c05bb249bdccb0556
+O
+src/app/(days)/day11/camera.tsx,a/a/aa09bb60035a33c96ff831eb738b701b94891b33
+<
+package.json,7/0/7030d0b2f71b999ff89a343de08c414af32fc93a
+8
+eas.json,b/2/b2c6faa35c1c551556c81b82f88d4b81f53d18f0
+J
+src/app/(tabs)/_layout.tsx,f/5/f5c53a14c63defbaa5267fb115d53f4d908fa2a9
+:
+
+.gitignore,a/5/a5cc2925ca8258af241be7e5b0381edf30266302
+8
+key.json,4/4/4409d9b2903acafe962369c81262bd72a35b7f1c

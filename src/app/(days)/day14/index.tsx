@@ -20,7 +20,7 @@ const Day14 = () => {
       <Button
         title={'Go To Notifications'}
         className="mb-6"
-        onPress={() => router.push('/day13/feed')}>
+        onPress={() => router.push('/day14/notifications')}>
         Go To Notifications
       </Button>
     </SafeAreaView>
