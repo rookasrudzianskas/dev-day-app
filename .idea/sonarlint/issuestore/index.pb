@@ -35,8 +35,6 @@ M
 src/app/(days)/day12/feed.tsx,c/a/ca36c396d7229012d49a955de046978a324890dc
 N
 src/app/(days)/day13/index.tsx,5/1/516e163e6bf5a190e99aec8bdad16950f2e20e8e
-X
-(android/app/src/main/AndroidManifest.xml,e/f/ef79bfd51db69a15dbf5807c05bb249bdccb0556
 O
 src/app/(days)/day11/camera.tsx,a/a/aa09bb60035a33c96ff831eb738b701b94891b33
 <
