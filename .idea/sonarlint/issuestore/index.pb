@@ -27,8 +27,6 @@ P
  src/app/(days)/day11/_layout.tsx,7/c/7ce5250c5f7986e2584dfad9d094ab0368be3895
 N
 src/app/(days)/day11/image.tsx,2/8/28da733fc4bfa5245523a991801a5696da1fce32
-8
-app.json,6/5/65596286f14dbaba6a5081a2edaae69700cc3c3b
 N
 src/app/(days)/day12/index.tsx,5/0/500ecb2e852c6f1b18d99ff9d7d17e40be66845b
 S

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "540842853840",
+    "project_id": "dev-day-app",
+    "storage_bucket": "dev-day-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:540842853840:android:4393d7a1b09fb0c7d3a5d5",
+        "android_client_info": {
+          "package_name": "com.nativewindexporouter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtuSe-O518sAkboloya7T8ixz6smOQftE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

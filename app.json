@@ -42,7 +42,8 @@
         "android.permission.USE_FINGERPRINT",
         "android.permission.CAMERA"
       ],
-      "package": "com.rooookas.nativewindexporouter"
+      "package": "com.rooookas.nativewindexporouter",
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "bundler": "metro",
