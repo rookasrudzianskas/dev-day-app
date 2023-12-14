@@ -25,22 +25,37 @@ const AppWithNotificationsLayout = () => {
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
-  //   notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-  //     setNotification(notification);
-  //   });
-  //
-  //   responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-  //     console.log(response);
-  //   });
-  //
-  //   return () => {
-  //     Notifications.removeNotificationSubscription(notificationListener.current);
-  //     Notifications.removeNotificationSubscription(responseListener.current);
-  //   };
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
   }, []);
 
+  console.log('expoPushToken', expoPushToken);
+  console.log('notification', notification)
+
   return (
-    <Slot />
+    <>
+      {notification && (
+        <View className={"h-screen items-center justify-center max-w-sm mx-auto"}>
+          <Text>Your expo push token: {expoPushToken}</Text>
+          <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <Text>Title: {notification && notification.request.content.title} </Text>
+            <Text>Body: {notification && notification.request.content.body}</Text>
+            <Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
+          </View>
+        </View>
+      )}
+      <Slot />
+    </>
   );
 };
 
