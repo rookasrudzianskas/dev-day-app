@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React from 'react';
-import {Slot} from "expo-router";
+import {Slot, useRouter} from "expo-router";
 import { useState, useEffect, useRef } from 'react';
 import {Text, View, Button, Platform, Alert} from 'react-native';
 import * as Device from 'expo-device';
@@ -21,6 +21,7 @@ const AppWithNotificationsLayout = () => {
   const [notification, setNotification] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
+  const router = useRouter();
 
   useEffect(() => {
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
@@ -30,7 +31,8 @@ const AppWithNotificationsLayout = () => {
     });
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
+      // console.log(response);
+      redirect(response.notification);
     });
 
     return () => {
@@ -38,6 +40,14 @@ const AppWithNotificationsLayout = () => {
       Notifications.removeNotificationSubscription(responseListener.current);
     };
   }, []);
+
+  const redirect = (notification: Notifications.Notification) => {
+    const url = notification.request.content.data?.url;
+    if (url) {
+      router.push(url);
+    }
+  }
+
 
   console.log('expoPushToken', expoPushToken);
   console.log('notification', notification)
