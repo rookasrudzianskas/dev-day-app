@@ -75,6 +75,9 @@ const TodoScreen = () => {
         <View className="flex flex-row items-center justify-center space-x-3">
           <TextInput
             placeholder="Add new task"
+            autoCapitalize="none"
+            autoFocus={true}
+            autoCorrect={false}
             placeholderTextColor="#4B5563"
             className="bg-neutral-800 text-neutral-50 flex-1 rounded-md py-2 px-3 mt-2"
             onChangeText={text => setNewTask(text)}
