@@ -42,6 +42,7 @@ const TASKS = [
 const TodoScreen = () => {
   const [tasks, setTasks] = useState(TASKS);
   const [newTask, setNewTask] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   return (
     <View className="pt-10 px-5 bg-black flex-1" style={styles.page}>
@@ -60,6 +61,8 @@ const TodoScreen = () => {
           autoFocus={true}
           autoCorrect={false}
           placeholderTextColor="#4B5563"
+          onChangeText={text => setSearchQuery(text)}
+          value={searchQuery}
           className="bg-neutral-800 text-neutral-50 flex-1 h-12 rounded-md py-2 px-3 mt-4"
         />
       </View>
