@@ -50,6 +50,10 @@ const TodoScreen = () => {
       setTasks(TASKS);
       return;
     }
+    if(searchQuery.length === 0) {
+      setTasks(TASKS);
+      return;
+    }
   }, [searchQuery]);
 
   return (
@@ -58,9 +62,6 @@ const TodoScreen = () => {
         headerShown: false,
         title: 'TODO',
         headerBackTitleVisible: false,
-        // headerSearchBarOptions: {
-        //   hideWhenScrolling: true,
-        // },
       }} />
       <View className="h-12">
         <TextInput
