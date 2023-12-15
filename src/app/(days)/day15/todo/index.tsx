@@ -46,6 +46,10 @@ const TodoScreen = () => {
 
   useEffect(() => {
     const filteredTasks = TASKS.filter(task => task.task.toLowerCase().includes(searchQuery.toLowerCase()));
+    if(filteredTasks.length === 0) {
+      setTasks(TASKS);
+      return;
+    }
   }, [searchQuery]);
 
   return (
