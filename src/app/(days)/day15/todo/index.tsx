@@ -13,6 +13,8 @@ import {
 import { Stack } from 'expo-router';
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import NewTaskInput from "@/src/components/day15/new-task-input";
+import Swipeable from 'react-native-gesture-handler/Swipeable';
+import TaskListItem from "@/src/components/day15/task-list-item";
 
 const TASKS = [
   {
@@ -51,32 +53,11 @@ const TodoScreen = () => {
         data={tasks}
         showsVerticalScrollIndicator={false}
         renderItem={({item}) => (
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => {
-            const newTasks = tasks.map(task => {
-              if (task.id === item.id) {
-                return {
-                  ...task,
-                  isFinished: !task.isFinished
-                }
-              }
-              return task;
-            });
-            setTasks(newTasks);
-          }} className="flex flex-row items-center border border-neutral-500 py-1 px-2 my-2 rounded-md">
-            {item.isFinished ? (
-              <MaterialCommunityIcons name="checkbox-intermediate" className="mr-2" size={24} color="white" />
-            ) : (
-              <MaterialCommunityIcons name="checkbox-blank-outline" className="mr-2" size={24} color="white" />
-            )}
-            <Text
-              style={{
-                textDecorationLine: item.isFinished ? 'line-through' : 'none',
-                color: item.isFinished ? '#4B5563' : '#fff'
-              }}
-              className="text-neutral-50">{item.task}</Text>
-          </TouchableOpacity>
+          <TaskListItem
+            item={item}
+            tasks={tasks}
+            setTasks={setTasks}
+          />
         )}
         keyExtractor={item => item.id}
       />
