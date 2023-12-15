@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   View,
@@ -43,6 +43,10 @@ const TodoScreen = () => {
   const [tasks, setTasks] = useState(TASKS);
   const [newTask, setNewTask] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    const filteredTasks = TASKS.filter(task => task.task.toLowerCase().includes(searchQuery.toLowerCase()));
+  }, [searchQuery]);
 
   return (
     <View className="pt-10 px-5 bg-black flex-1" style={styles.page}>
