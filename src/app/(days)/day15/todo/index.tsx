@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
+import {Text, View, StyleSheet, FlatList, TouchableOpacity, TextInput} from 'react-native';
 import { Stack } from 'expo-router';
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 
@@ -29,7 +29,7 @@ const TASKS = [
 
 const TodoScreen = () => {
   const [tasks, setTasks] = useState(TASKS);
-
+  const [newTask, setNewTask] = useState('');
   return (
     <View className="pt-16 px-5 bg-black flex-1" style={styles.page}>
       <Stack.Screen options={{ headerShown: false }} />
@@ -69,6 +69,35 @@ const TodoScreen = () => {
         )}
         keyExtractor={item => item.id}
       />
+
+      <View className="mb-10 pb-10">
+        <Text className="text-neutral-50 text-lg">Add new task</Text>
+        <View className="flex flex-row items-center justify-center space-x-3">
+          <TextInput
+            placeholder="Add new task"
+            placeholderTextColor="#4B5563"
+            className="bg-neutral-800 text-neutral-50 flex-1 rounded-md py-2 px-3 mt-2"
+            onChangeText={text => setNewTask(text)}
+            value={newTask}
+          />
+          <View className="flex items-center justify-center">
+            <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => {
+                if(!newTask) return;
+                setTasks([...tasks, {
+                  id: tasks.length + 1,
+                  task: newTask,
+                  isFinished: false
+                }]);
+                setNewTask('');
+              }}
+              className="bg-neutral-700 py-2 ml-3 px-3 flex items-center justify-center mt-2 rounded-md">
+              <Text className="text-neutral-50">Add</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
     </View>
   );
 };
