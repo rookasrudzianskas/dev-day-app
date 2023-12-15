@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useState} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, FlatList} from 'react-native';
 import { Stack } from 'expo-router';
 
 const TASKS = [
@@ -29,11 +29,21 @@ const TASKS = [
 const TodoScreen = () => {
   const [tasks, setTasks] = useState(TASKS);
   return (
-    <View style={styles.page}>
-      <Stack.Screen options={{ title: 'TODO' }} />
-      <Text>
-        byrookas 🚀
-      </Text>
+    <View className="pt-16 px-5 bg-black flex-1" style={styles.page}>
+      <Stack.Screen options={{ headerShown: false }} />
+      <View className="mb-1">
+        <Text className="text-3xl text-neutral-50">Hello, Rokas</Text>
+      </View>
+      <FlatList
+        data={tasks}
+        showsVerticalScrollIndicator={false}
+        renderItem={({item}) => (
+          <View>
+            <Text className="text-neutral-50">{item.task}</Text>
+          </View>
+        )}
+        keyExtractor={item => item.id}
+      />
     </View>
   );
 };
