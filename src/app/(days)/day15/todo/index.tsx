@@ -85,7 +85,8 @@ const TodoScreen = () => {
           />
           <View className="flex items-center justify-center">
             <TouchableOpacity
-              activeOpacity={0.8}
+              disabled={!newTask}
+              activeOpacity={!newTask ? 1 : 0.8}
               onPress={() => {
                 if(!newTask) return;
                 setTasks([...tasks, {
@@ -95,7 +96,7 @@ const TodoScreen = () => {
                 }]);
                 setNewTask('');
               }}
-              className="bg-neutral-700 py-2 ml-3 px-3 flex items-center justify-center mt-2 rounded-md">
+              className={`bg-neutral-700 py-2 ml-3 px-3 flex items-center justify-center mt-2 rounded-md ${!newTask && 'bg-neutral-900 text-neutral-500'}`}>
               <Text className="text-neutral-50">Add</Text>
             </TouchableOpacity>
           </View>
