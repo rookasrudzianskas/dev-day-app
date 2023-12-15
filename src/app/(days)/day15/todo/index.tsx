@@ -1,13 +1,14 @@
 //@ts-nocheck
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, FlatList} from 'react-native';
+import {Text, View, StyleSheet, FlatList, TouchableOpacity} from 'react-native';
 import { Stack } from 'expo-router';
+import {MaterialCommunityIcons} from "@expo/vector-icons";
 
 const TASKS = [
   {
     id: 1,
     task: 'Learn React Native',
-    isFinished: false
+    isFinished: true
   },
   {
     id: 2,
@@ -28,6 +29,7 @@ const TASKS = [
 
 const TodoScreen = () => {
   const [tasks, setTasks] = useState(TASKS);
+
   return (
     <View className="pt-16 px-5 bg-black flex-1" style={styles.page}>
       <Stack.Screen options={{ headerShown: false }} />
@@ -38,9 +40,32 @@ const TodoScreen = () => {
         data={tasks}
         showsVerticalScrollIndicator={false}
         renderItem={({item}) => (
-          <View>
-            <Text className="text-neutral-50">{item.task}</Text>
-          </View>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => {
+            const newTasks = tasks.map(task => {
+              if (task.id === item.id) {
+                return {
+                  ...task,
+                  isFinished: !task.isFinished
+                }
+              }
+              return task;
+            });
+            setTasks(newTasks);
+          }} className="flex flex-row items-center border border-neutral-500 py-1 px-2 my-2 rounded-md">
+            {item.isFinished ? (
+              <MaterialCommunityIcons name="checkbox-intermediate" className="mr-2" size={24} color="white" />
+            ) : (
+              <MaterialCommunityIcons name="checkbox-blank-outline" className="mr-2" size={24} color="white" />
+            )}
+            <Text
+              style={{
+                textDecorationLine: item.isFinished ? 'line-through' : 'none',
+                color: item.isFinished ? '#4B5563' : '#fff'
+              }}
+              className="text-neutral-50">{item.task}</Text>
+          </TouchableOpacity>
         )}
         keyExtractor={item => item.id}
       />
