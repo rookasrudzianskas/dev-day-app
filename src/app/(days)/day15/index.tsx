@@ -8,7 +8,7 @@ const description = `
 # TODO application
 `;
 
-const Day3 = () => {
+const Day15 = () => {
   const router = useRouter();
 
   return (
@@ -21,13 +21,13 @@ const Day3 = () => {
         title={'Go To Todo'}
         className="mb-6"
         onPress={() => router.push('/day15/todo')}>
-        Go To Editor
+        Go To Todo
       </Button>
     </SafeAreaView>
   );
 };
 
-export default Day3;
+export default Day15;
 
 export const styles = StyleSheet.create({
 
