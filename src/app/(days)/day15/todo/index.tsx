@@ -40,6 +40,7 @@ const TASKS = [
 const TodoScreen = () => {
   const [tasks, setTasks] = useState(TASKS);
   const [newTask, setNewTask] = useState('');
+
   return (
     <View className="pt-16 px-5 bg-black flex-1" style={styles.page}>
       <Stack.Screen options={{ headerShown: false }} />
