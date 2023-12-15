@@ -9,7 +9,11 @@ const RightActions = ({progress, dragX, tasks, setTasks, item}) => {
   // const animatedStyles = useAnimatedStyle({
   //   transform: [
   //     {
-  //       translateX: dragX
+  //       translateX: dragX.interporale({
+  //        inputRange: [-100, 0],
+  //         outputRange: [0, 100],
+  //         extrapolate: 'clamp'
+  //       })
   //     }
   //   ]
   // });

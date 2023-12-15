@@ -44,9 +44,27 @@ const TodoScreen = () => {
   const [newTask, setNewTask] = useState('');
 
   return (
-    <View className="pt-16 px-5 bg-black flex-1" style={styles.page}>
-      <Stack.Screen options={{ headerShown: false }} />
-      <View className="mb-1">
+    <View className="pt-10 px-5 bg-black flex-1" style={styles.page}>
+      <Stack.Screen options={{
+        headerShown: false,
+        title: 'TODO',
+        headerBackTitleVisible: false,
+        // headerSearchBarOptions: {
+        //   hideWhenScrolling: true,
+        // },
+      }} />
+      <View className="h-12">
+        <TextInput
+          placeholder="Search"
+          autoCapitalize="none"
+          autoFocus={true}
+          autoCorrect={false}
+          placeholderTextColor="#4B5563"
+          className="bg-neutral-800 text-neutral-50 flex-1 h-12 rounded-md py-2 px-3 mt-4"
+        />
+      </View>
+
+      <View className="mb-1 mt-3">
         <Text className="text-3xl text-neutral-50">Hello, Rokas</Text>
       </View>
       <FlatList
