@@ -2,9 +2,21 @@
 import React from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {MaterialCommunityIcons} from "@expo/vector-icons";
+import Swipeable from "react-native-gesture-handler/Swipeable";
 
 const TaskListItem = ({item, tasks, setTasks}) => {
   return (
+    <Swipeable
+      renderRightActions={() => (
+        <TouchableOpacity activeOpacity={0.8} style={{
+          paddingHorizontal: 20,
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <MaterialCommunityIcons name="delete" size={24} color="white" />
+        </TouchableOpacity>
+      )}
+    >
     <TouchableOpacity
       activeOpacity={0.8}
       onPress={() => {
@@ -31,6 +43,7 @@ const TaskListItem = ({item, tasks, setTasks}) => {
         }}
         className="text-neutral-50">{item.task}</Text>
     </TouchableOpacity>
+    </Swipeable>
   );
 };
 
