@@ -1,6 +1,15 @@
 //@ts-nocheck
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, FlatList, TouchableOpacity, TextInput} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  TextInput,
+  Platform,
+  KeyboardAvoidingView
+} from 'react-native';
 import { Stack } from 'expo-router';
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import NewTaskInput from "@/src/components/day15/new-task-input";
@@ -71,7 +80,17 @@ const TodoScreen = () => {
         keyExtractor={item => item.id}
       />
 
-      <NewTaskInput setTasks={setTasks} setNewTask={setNewTask} tasks={tasks} newTask={newTask} />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        number={Platform.OS === 'ios' ? -500 : 0}
+        style={styles.container}>
+        <NewTaskInput
+          setTasks={setTasks}
+          setNewTask={setNewTask}
+          tasks={tasks}
+          newTask={newTask}
+        />
+      </KeyboardAvoidingView>
     </View>
   );
 };
@@ -81,5 +100,8 @@ export default TodoScreen;
 const styles = StyleSheet.create({
   page: {
 
-  }
+  },
+  container: {
+    // flex: 1,
+  },
 })
