@@ -3,16 +3,25 @@ import React from 'react';
 import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
+import {useAnimatedStyle} from "react-native-reanimated";
+import Animated from "react-native-reanimated";
+const RightActions = ({progress, dragX, tasks, setTasks, item}) => {
+  // const animatedStyles = useAnimatedStyle({
+  //   transform: [
+  //     {
+  //       translateX: dragX
+  //     }
+  //   ]
+  // });
 
-const RightActions = ({progress, dragX}) => {
   return (
     <TouchableOpacity
       activeOpacity={0.8}
-      style={{
+      style={[{
         paddingHorizontal: 20,
         justifyContent: 'center',
         alignItems: 'center'
-      }}
+      }]}
       onPress={() => {
         const newTasks = tasks.filter(task => task.id !== item.id);
         setTasks(newTasks);
@@ -30,6 +39,9 @@ const TaskListItem = ({item, tasks, setTasks}) => {
         <RightActions
           progress={progressAnimatedValue}
           dragX={dragAnimatedValue}
+          tasks={tasks}
+          setTasks={setTasks}
+          item={item}
         />
       )}
     >
