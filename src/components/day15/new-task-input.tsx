@@ -2,7 +2,7 @@
 import React from 'react';
 import {Text, View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 
-const NewTaskInput = ({setNewTask, newTask}) => {
+const NewTaskInput = ({setNewTask, setTasks, newTask, tasks}) => {
   return (
     <View className="mb-10 pb-10">
       <Text className="text-neutral-50 text-lg">Add new task</Text>

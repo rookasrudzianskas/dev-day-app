@@ -71,7 +71,7 @@ const TodoScreen = () => {
         keyExtractor={item => item.id}
       />
 
-      <NewTaskInput setNewTask={setNewTask} newTask={newTask} />
+      <NewTaskInput setTasks={setTasks} setNewTask={setNewTask} tasks={tasks} newTask={newTask} />
     </View>
   );
 };
