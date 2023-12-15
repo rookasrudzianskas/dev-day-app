@@ -4,17 +4,33 @@ import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
+const RightActions = ({progress, dragX}) => {
+  return (
+    <TouchableOpacity
+      activeOpacity={0.8}
+      style={{
+        paddingHorizontal: 20,
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
+      onPress={() => {
+        const newTasks = tasks.filter(task => task.id !== item.id);
+        setTasks(newTasks);
+      }}
+    >
+      <MaterialCommunityIcons name="delete" size={24} color="white" />
+    </TouchableOpacity>
+  )
+}
+
 const TaskListItem = ({item, tasks, setTasks}) => {
   return (
     <Swipeable
-      renderRightActions={() => (
-        <TouchableOpacity activeOpacity={0.8} style={{
-          paddingHorizontal: 20,
-          justifyContent: 'center',
-          alignItems: 'center'
-        }}>
-          <MaterialCommunityIcons name="delete" size={24} color="white" />
-        </TouchableOpacity>
+      renderRightActions={(progressAnimatedValue, dragAnimatedValue) => (
+        <RightActions
+          progress={progressAnimatedValue}
+          dragX={dragAnimatedValue}
+        />
       )}
     >
     <TouchableOpacity
