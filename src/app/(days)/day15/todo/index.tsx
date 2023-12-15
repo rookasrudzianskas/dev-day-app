@@ -82,7 +82,8 @@ const TodoScreen = () => {
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        number={Platform.OS === 'ios' ? -500 : 0}
+        // number={Platform.OS === 'ios' ? -500 : 0}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? -50 : -50}
         style={styles.container}>
         <NewTaskInput
           setTasks={setTasks}
