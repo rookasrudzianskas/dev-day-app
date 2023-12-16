@@ -20,9 +20,11 @@ import {useTasks} from "@/src/components/day16/TasksContextProvider";
 const TodoScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [tab, setTab] = useState<'All' | 'Todo' | 'Finished'>('All');
-  const {tasks, setTasks, onItemPressed, deleteTask} = useTasks();
+  const {tasks, setTasks, onItemPressed, deleteTask, getFilteredTasks} = useTasks();
 
   const headerHeight = useHeaderHeight();
+
+  const filteredTasks = getFilteredTasks(tab, searchQuery);
 
   return (
     <KeyboardAvoidingView
