@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   taskTitle: {
-    fontFamily: 'InterSemi',
+    fontFamily: 'Inter',
     fontSize: 15,
     flex: 1,
   },

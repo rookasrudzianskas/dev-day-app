@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   input: {
-    fontFamily: 'InterSemi',
+    fontFamily: 'Inter',
     color: 'dimgray',
     fontSize: 15,
     flex: 1,
