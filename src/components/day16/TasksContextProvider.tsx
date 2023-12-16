@@ -9,22 +9,67 @@ export type Task = {
 
 export type TasksContext = {
   tasks: Task[],
-  setTasks: (tasks: Task[]) => void
+  setTasks: (tasks: Task[]) => void,
+  onItemPressed: (index: number) => void,
+  deleteTask?: (index: number) => void,
+  getFilteredTasks?: (tab: string, searchQuery: string) => Task[]
 }
 
 export const TasksContext = createContext<TasksContext>({
   tasks: [],
-  setTasks: () => {}
+  setTasks: () => {},
+  onItemPressed: (index: number) => {},
+  deleteTask: (index: number) => {},
+  getFilteredTasks: (tab: string, searchQuery: string) => [],
 });
 
 const TasksContextProvider = ({ children }: PropsWithChildren) => {
   const [tasks, setTasks] = useState<Task[]>(dummyTasks);
 
+  const onItemPressed = (index: number) => {
+    setTasks((currentTasks) => {
+      const updatedTasks = [...currentTasks];
+      updatedTasks[index].isFinished = !updatedTasks[index].isFinished;
+      return updatedTasks;
+    });
+  };
+
+  const deleteTask = (index: number) => {
+    setTasks((currentTasks) => {
+      const updatedTasks = [...currentTasks];
+      updatedTasks.splice(index, 1);
+      return updatedTasks;
+    });
+  };
+
+  const getFilteredTasks = (tab: string, searchQuery: string) => {
+    return tasks.filter((task) => {
+      if (task.isFinished && tab === 'Todo') {
+        return false;
+      }
+      if (!task.isFinished && tab === 'Finished') {
+        return false;
+      }
+
+      if (!searchQuery) {
+        return true;
+      }
+
+      return task.title
+        .toLowerCase()
+        .trim()
+        .includes(searchQuery.toLowerCase().trim());
+    });
+  }
+
   return (
     <TasksContext.Provider
       value={{
         tasks,
-        setTasks
+        setTasks,
+        onItemPressed,
+        deleteTask,
+        getFilteredTasks,
       }}>
       {children}
     </TasksContext.Provider>

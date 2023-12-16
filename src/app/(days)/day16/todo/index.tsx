@@ -1,3 +1,4 @@
+// @ts-nocheck
 import {
   StyleSheet,
   FlatList,
@@ -17,46 +18,11 @@ import NewTaskInput from "@/src/components/day16/new-task-input";
 import {useTasks} from "@/src/components/day16/TasksContextProvider";
 
 const TodoScreen = () => {
-  // const [tasks, setTasks] = useState<Task[]>(dummyTasks);
   const [searchQuery, setSearchQuery] = useState('');
   const [tab, setTab] = useState<'All' | 'Todo' | 'Finished'>('All');
-  const {tasks, setTasks} = useTasks();
+  const {tasks, setTasks, onItemPressed, deleteTask} = useTasks();
 
   const headerHeight = useHeaderHeight();
-
-  const filteredTasks = tasks.filter((task) => {
-    if (task.isFinished && tab === 'Todo') {
-      return false;
-    }
-    if (!task.isFinished && tab === 'Finished') {
-      return false;
-    }
-
-    if (!searchQuery) {
-      return true;
-    }
-
-    return task.title
-      .toLowerCase()
-      .trim()
-      .includes(searchQuery.toLowerCase().trim());
-  });
-
-  const onItemPressed = (index: number) => {
-    setTasks((currentTasks) => {
-      const updatedTasks = [...currentTasks];
-      updatedTasks[index].isFinished = !updatedTasks[index].isFinished;
-      return updatedTasks;
-    });
-  };
-
-  const deleteTask = (index: number) => {
-    setTasks((currentTasks) => {
-      const updatedTasks = [...currentTasks];
-      updatedTasks.splice(index, 1);
-      return updatedTasks;
-    });
-  };
 
   return (
     <KeyboardAvoidingView
