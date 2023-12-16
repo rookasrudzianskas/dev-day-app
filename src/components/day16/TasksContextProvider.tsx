@@ -3,6 +3,7 @@ import {createContext, PropsWithChildren, useContext, useState} from "react";
 import {dummyTasks} from "@/src/components/day16/data";
 
 export type Task = {
+  id: string;
   title: string;
   isFinished: boolean;
 };
@@ -11,8 +12,9 @@ export type TasksContext = {
   tasks: Task[],
   setTasks: (tasks: Task[]) => void,
   onItemPressed: (index: number) => void,
-  deleteTask?: (index: number) => void,
-  getFilteredTasks?: (tab: string, searchQuery: string) => Task[]
+  deleteTask: (index: number) => void,
+  getFilteredTasks?: (tab: string, searchQuery: string) => Task[],
+  addTask: (newTask: Task) => void,
 }
 
 export const TasksContext = createContext<TasksContext>({
@@ -21,6 +23,7 @@ export const TasksContext = createContext<TasksContext>({
   onItemPressed: (index: number) => {},
   deleteTask: (index: number) => {},
   getFilteredTasks: (tab: string, searchQuery: string) => [],
+  addTask: (newTask: Task) => {},
 });
 
 const TasksContextProvider = ({ children }: PropsWithChildren) => {
@@ -41,6 +44,10 @@ const TasksContextProvider = ({ children }: PropsWithChildren) => {
       return updatedTasks;
     });
   };
+
+  const addTask = (newTodo: Task) => {
+    setTasks((currentTasks) => [...currentTasks, newTodo])
+  }
 
   const getFilteredTasks = (tab: string, searchQuery: string) => {
     return tasks.filter((task) => {
@@ -70,6 +77,7 @@ const TasksContextProvider = ({ children }: PropsWithChildren) => {
         onItemPressed,
         deleteTask,
         getFilteredTasks,
+        addTask,
       }}>
       {children}
     </TasksContext.Provider>

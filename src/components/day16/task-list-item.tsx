@@ -61,6 +61,7 @@ const TaskListItem = ({ task, index }: TaskListItem) => {
       renderRightActions={(progressAnimatedValue, dragAnimatedValue) => (
         <RightActions
           dragAnimatedValue={dragAnimatedValue}
+          index={index}
         />
       )}
     >
