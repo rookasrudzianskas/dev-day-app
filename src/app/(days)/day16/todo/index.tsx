@@ -65,8 +65,7 @@ const TodoScreen = () => {
             <Reanimated.View layout={CurvedTransition}>
               <TaskListItem
                 task={item}
-                onItemPressed={() => onItemPressed(index)}
-                onDelete={() => deleteTask(index)}
+                index={index}
               />
             </Reanimated.View>
           )}
