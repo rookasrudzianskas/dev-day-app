@@ -65,7 +65,6 @@ const TodoScreen = () => {
             <Reanimated.View layout={CurvedTransition}>
               <TaskListItem
                 task={item}
-                index={index}
               />
             </Reanimated.View>
           )}

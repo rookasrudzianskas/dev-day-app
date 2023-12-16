@@ -50,10 +50,9 @@ const RightActions = ({
 
 type TaskListItem = {
   task: any;
-  index: number;
 };
 
-const TaskListItem = ({ task, index }: TaskListItem) => {
+const TaskListItem = ({ task }: TaskListItem) => {
   const { changeIsFinished, deleteTask} = useTasks();
 
   return (
