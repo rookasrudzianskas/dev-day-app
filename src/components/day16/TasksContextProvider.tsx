@@ -49,7 +49,7 @@ const TasksContextProvider = ({ children }: PropsWithChildren) => {
 
   const addTask = (title: string) => {
     const newTask: Task = {
-      id: '123',
+      id: Math.random().toString(),
       title,
       isFinished: false
     }

@@ -60,7 +60,7 @@ const TodoScreen = () => {
         <FlatList
           data={filteredTasks}
           contentContainerStyle={{ gap: 5, padding: 10 }}
-          keyExtractor={(item) => item.title}
+          keyExtractor={(item) => item.id}
           renderItem={({ item, index }) => (
             <Reanimated.View layout={CurvedTransition}>
               <TaskListItem
