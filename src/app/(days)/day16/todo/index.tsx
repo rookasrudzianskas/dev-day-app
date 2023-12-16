@@ -20,7 +20,7 @@ import {useTasks} from "@/src/components/day16/TasksContextProvider";
 const TodoScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [tab, setTab] = useState<'All' | 'Todo' | 'Finished'>('All');
-  const {tasks, setTasks, onItemPressed, deleteTask, getFilteredTasks} = useTasks();
+  const {tasks, setTasks, onItemPressed, deleteTask, getFilteredTasks, numberOfCompletedTasks, numberOfTasks} = useTasks();
 
   const headerHeight = useHeaderHeight();
 
@@ -35,6 +35,11 @@ const TodoScreen = () => {
         options={{
           title: 'Todo',
           headerBackTitleVisible: false,
+          headerRight: () => (
+            <View>
+              <Text>{numberOfCompletedTasks} / {numberOfTasks}</Text>
+            </View>
+          ),
           headerSearchBarOptions: {
             hideWhenScrolling: true,
             onChangeText: (e) => setSearchQuery(e.nativeEvent.text),
