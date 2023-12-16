@@ -1,6 +1,7 @@
 // write React Context Boilerplate code
 import {createContext, PropsWithChildren, useContext, useState} from "react";
 import {dummyTasks} from "@/src/components/day16/data";
+import { v4 as uuidv4 } from 'uuid';
 
 export type Task = {
   id: string;
@@ -12,7 +13,7 @@ export type TasksContext = {
   tasks: Task[],
   setTasks: (tasks: Task[]) => void,
   onItemPressed: (index: number) => void,
-  deleteTask: (index: number) => void,
+  deleteTask: (id: string) => void,
   getFilteredTasks?: (tab: string, searchQuery: string) => Task[],
   addTask: (title: string) => Task | undefined,
 }
@@ -21,7 +22,7 @@ export const TasksContext = createContext<TasksContext>({
   tasks: [],
   setTasks: () => {},
   onItemPressed: (index: number) => {},
-  deleteTask: (index: number) => {},
+  deleteTask: (id: string) => {},
   getFilteredTasks: (tab: string, searchQuery: string) => [],
   addTask: (title: string) => {
     return [] as any as Task;
@@ -39,13 +40,7 @@ const TasksContextProvider = ({ children }: PropsWithChildren) => {
     });
   };
 
-  const deleteTask = (index: number) => {
-    setTasks((currentTasks) => {
-      const updatedTasks = [...currentTasks];
-      updatedTasks.splice(index, 1);
-      return updatedTasks;
-    });
-  };
+  const deleteTask = (id: string) => setTasks((currentTasks) => currentTasks.filter((task) => task.id !== id));
 
   const addTask = (title: string) => {
     const newTask: Task = {

@@ -1,18 +1,18 @@
 import { Text, StyleSheet, Pressable, Animated, View } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import {useTasks} from "@/src/components/day16/TasksContextProvider";
+import {Task, useTasks} from "@/src/components/day16/TasksContextProvider";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
 const RightActions = ({
   dragAnimatedValue,
-  index
+  task
 }: {
   dragAnimatedValue: Animated.AnimatedInterpolation<string | number>;
-  index: number;
+  task: Task;
 }) => {
-  const { deleteTask} = useTasks();
+  const { deleteTask } = useTasks();
 
   const animatedStyles = {
     transform: [
@@ -39,7 +39,7 @@ const RightActions = ({
       ]}
     >
       <MaterialCommunityIcons
-        onPress={() => deleteTask(index)}
+        onPress={() => deleteTask(task.id)}
         name="delete"
         size={20}
         color="white"
@@ -61,7 +61,7 @@ const TaskListItem = ({ task, index }: TaskListItem) => {
       renderRightActions={(progressAnimatedValue, dragAnimatedValue) => (
         <RightActions
           dragAnimatedValue={dragAnimatedValue}
-          index={index}
+          task={task}
         />
       )}
     >
