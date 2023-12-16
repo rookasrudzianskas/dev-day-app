@@ -54,7 +54,7 @@ type TaskListItem = {
 };
 
 const TaskListItem = ({ task, index }: TaskListItem) => {
-  const { onItemPressed, deleteTask} = useTasks();
+  const { changeIsFinished, deleteTask} = useTasks();
 
   return (
     <Swipeable
@@ -65,7 +65,7 @@ const TaskListItem = ({ task, index }: TaskListItem) => {
         />
       )}
     >
-      <Pressable onPress={() => onItemPressed(index)} style={styles.taskContainer}>
+      <Pressable onPress={() => changeIsFinished(task.id)} style={styles.taskContainer}>
         <MaterialCommunityIcons
           name={
             task.isFinished

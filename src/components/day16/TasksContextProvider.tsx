@@ -12,7 +12,7 @@ export type Task = {
 export type TasksContext = {
   tasks: Task[],
   setTasks: (tasks: Task[]) => void,
-  onItemPressed: (index: number) => void,
+  changeIsFinished: (id: string) => void,
   deleteTask: (id: string) => void,
   getFilteredTasks?: (tab: string, searchQuery: string) => Task[],
   addTask: (title: string) => Task | undefined,
@@ -21,7 +21,7 @@ export type TasksContext = {
 export const TasksContext = createContext<TasksContext>({
   tasks: [],
   setTasks: () => {},
-  onItemPressed: (index: number) => {},
+  changeIsFinished: (id: string) => {},
   deleteTask: (id: string) => {},
   getFilteredTasks: (tab: string, searchQuery: string) => [],
   addTask: (title: string) => {
@@ -32,14 +32,7 @@ export const TasksContext = createContext<TasksContext>({
 const TasksContextProvider = ({ children }: PropsWithChildren) => {
   const [tasks, setTasks] = useState<Task[]>(dummyTasks);
 
-  const onItemPressed = (index: number) => {
-    setTasks((currentTasks) => {
-      const updatedTasks = [...currentTasks];
-      updatedTasks[index].isFinished = !updatedTasks[index].isFinished;
-      return updatedTasks;
-    });
-  };
-
+  const changeIsFinished = (id: string) => setTasks((currentTasks) => currentTasks.map((task) => task.id === id ? {...task, isFinished: !task.isFinished} : task));
   const deleteTask = (id: string) => setTasks((currentTasks) => currentTasks.filter((task) => task.id !== id));
 
   const addTask = (title: string) => {
@@ -77,7 +70,7 @@ const TasksContextProvider = ({ children }: PropsWithChildren) => {
       value={{
         tasks,
         setTasks,
-        onItemPressed,
+        changeIsFinished,
         deleteTask,
         getFilteredTasks,
         addTask,
