@@ -9,11 +9,13 @@ const TasksContextProvider = ({ children }: PropsWithChildren) => {
   return (
     <TasksContext.Provider
       value={{
-
+        hello: 'world',
       }}>
       {children}
     </TasksContext.Provider>
   )
 }
+
+export default TasksContextProvider;
 
 export const useTasksContext = () => useContext(TasksContext);
