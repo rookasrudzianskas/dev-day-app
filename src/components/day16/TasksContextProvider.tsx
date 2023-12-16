@@ -7,7 +7,15 @@ export type Task = {
   isFinished: boolean;
 };
 
-export const TasksContext = createContext({});
+export type TasksContext = {
+  tasks: Task[],
+  setTasks: (tasks: Task[]) => void
+}
+
+export const TasksContext = createContext<TasksContext>({
+  tasks: [],
+  setTasks: () => {}
+});
 
 const TasksContextProvider = ({ children }: PropsWithChildren) => {
   const [tasks, setTasks] = useState<Task[]>(dummyTasks);
