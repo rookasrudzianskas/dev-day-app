@@ -1,7 +1,9 @@
 // write React Context Boilerplate code
-import {createContext, PropsWithChildren, useContext, useState} from "react";
+import {createContext, PropsWithChildren, useContext, useEffect, useState} from "react";
 import {dummyTasks} from "@/src/components/day16/data";
 import { v4 as uuidv4 } from 'uuid';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {Alert} from "react-native";
 
 export type Task = {
   id: string;
@@ -16,6 +18,8 @@ export type TasksContext = {
   deleteTask: (id: string) => void,
   getFilteredTasks?: (tab: string, searchQuery: string) => Task[],
   addTask: (title: string) => Task | undefined,
+  saveData: () => void,
+  loadData: () => void,
 }
 
 export const TasksContext = createContext<TasksContext>({
@@ -26,11 +30,36 @@ export const TasksContext = createContext<TasksContext>({
   getFilteredTasks: (tab: string, searchQuery: string) => [],
   addTask: (title: string) => {
     return [] as any as Task;
-  }
+  },
+  saveData: () => {},
+  loadData: () => {},
 });
 
 const TasksContextProvider = ({ children }: PropsWithChildren) => {
   const [tasks, setTasks] = useState<Task[]>(dummyTasks);
+
+  const saveData = async () => {
+    try {
+      const jsonValue = JSON.stringify(tasks);
+      await AsyncStorage.setItem('tasks', jsonValue);
+    } catch (e) {
+      // saving error
+      Alert.alert('Error', 'Error saving data');
+    }
+  }
+
+  const loadData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('tasks');
+      if(jsonValue) {
+        const loadedTasks = JSON.parse(jsonValue) as Task[];
+        setTasks(loadedTasks);
+      }
+    } catch (e) {
+      // error reading value
+      Alert.alert('Error', 'Error loading data');
+    }
+  }
 
   const changeIsFinished = (id: string) => setTasks((currentTasks) => currentTasks.map((task) => task.id === id ? {...task, isFinished: !task.isFinished} : task));
   const deleteTask = (id: string) => setTasks((currentTasks) => currentTasks.filter((task) => task.id !== id));
@@ -44,6 +73,10 @@ const TasksContextProvider = ({ children }: PropsWithChildren) => {
     setTasks((currentTasks) => [...currentTasks, newTask])
     return newTask;
   }
+
+  useEffect(() => {
+    loadData();
+  }, [])
 
   const getFilteredTasks = (tab: string, searchQuery: string) => {
     return tasks.filter((task) => {
@@ -74,6 +107,8 @@ const TasksContextProvider = ({ children }: PropsWithChildren) => {
         deleteTask,
         getFilteredTasks,
         addTask,
+        saveData,
+        loadData,
       }}>
       {children}
     </TasksContext.Provider>
