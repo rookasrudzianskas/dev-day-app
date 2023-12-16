@@ -1,7 +1,7 @@
 // write React Context Boilerplate code
 import {createContext, PropsWithChildren, useContext, useState} from "react";
 
-const TasksContext = createContext({
+export const TasksContext = createContext({
 
 });
 

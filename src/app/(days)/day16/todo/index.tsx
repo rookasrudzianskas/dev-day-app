@@ -14,6 +14,7 @@ import Reanimated, { CurvedTransition } from 'react-native-reanimated';
 import { useHeaderHeight } from '@react-navigation/elements';
 import TaskListItem from "@/src/components/day16/task-list-item";
 import NewTaskInput from "@/src/components/day16/new-task-input";
+import {useTasksContext} from "@/src/components/day16/TasksContextProvider";
 
 export type Task = {
   title: string;
@@ -47,6 +48,7 @@ const TodoScreen = () => {
   const [tasks, setTasks] = useState<Task[]>(dummyTasks);
   const [searchQuery, setSearchQuery] = useState('');
   const [tab, setTab] = useState<'All' | 'Todo' | 'Finished'>('All');
+  const { hello } = useTasksContext();
 
   const headerHeight = useHeaderHeight();
 
