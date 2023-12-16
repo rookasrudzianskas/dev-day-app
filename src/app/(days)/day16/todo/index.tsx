@@ -15,7 +15,6 @@ import { useHeaderHeight } from '@react-navigation/elements';
 import TaskListItem from "@/src/components/day16/task-list-item";
 import NewTaskInput from "@/src/components/day16/new-task-input";
 import {useTasks} from "@/src/components/day16/TasksContextProvider";
-import { dummyTasks } from '@/src/components/day16/data';
 
 const TodoScreen = () => {
   // const [tasks, setTasks] = useState<Task[]>(dummyTasks);

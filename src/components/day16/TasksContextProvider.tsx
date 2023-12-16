@@ -7,9 +7,7 @@ export type Task = {
   isFinished: boolean;
 };
 
-export const TasksContext = createContext({
-
-});
+export const TasksContext = createContext({});
 
 const TasksContextProvider = ({ children }: PropsWithChildren) => {
   const [tasks, setTasks] = useState<Task[]>(dummyTasks);
