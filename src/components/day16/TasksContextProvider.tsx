@@ -19,6 +19,8 @@ export type TasksContext = {
   addTask: (title: string) => Task | undefined,
   saveData: () => void,
   loadData: () => void,
+  numberOfCompletedTasks: number,
+  numberOfTasks: number,
 }
 
 export const TasksContext = createContext<TasksContext>({
@@ -32,11 +34,15 @@ export const TasksContext = createContext<TasksContext>({
   },
   saveData: () => {},
   loadData: () => {},
+  numberOfCompletedTasks: 0,
+  numberOfTasks: 0,
 });
 
 const TasksContextProvider = ({ children }: PropsWithChildren) => {
   const [tasks, setTasks] = useState<Task[]>(dummyTasks);
   const [isLoaded, setIsLoaded] = useState(false);
+  const numberOfCompletedTasks = tasks.filter((task) => task.isFinished).length;
+  const numberOfTasks = tasks.length;
 
   const saveData = async () => {
     try {
@@ -117,6 +123,8 @@ const TasksContextProvider = ({ children }: PropsWithChildren) => {
         addTask,
         saveData,
         loadData,
+        numberOfCompletedTasks,
+        numberOfTasks,
       }}>
       {children}
     </TasksContext.Provider>
