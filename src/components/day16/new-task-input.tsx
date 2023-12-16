@@ -1,13 +1,12 @@
 import { View, TextInput, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
+import {useTasks} from "@/src/components/day16/TasksContextProvider";
 
-type NewTaskInput = {
-  onAdd: (newTask: any) => void;
-};
-
-const NewTaskInput = ({ onAdd }: any) => {
+const NewTaskInput = () => {
   const [newTask, setNewTask] = useState('');
+  const { addTask } = useTasks();
+
   return (
     <View style={styles.taskContainer}>
       <MaterialCommunityIcons
@@ -24,7 +23,7 @@ const NewTaskInput = ({ onAdd }: any) => {
           if (!newTask) {
             return;
           }
-          onAdd({ title: newTask, isFinished: false });
+          addTask(newTask);
           setNewTask('');
         }}
       />

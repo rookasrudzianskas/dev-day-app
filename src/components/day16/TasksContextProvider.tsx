@@ -14,7 +14,7 @@ export type TasksContext = {
   onItemPressed: (index: number) => void,
   deleteTask: (index: number) => void,
   getFilteredTasks?: (tab: string, searchQuery: string) => Task[],
-  addTask: (newTask: Task) => void,
+  addTask: (title: string) => Task | undefined,
 }
 
 export const TasksContext = createContext<TasksContext>({
@@ -23,7 +23,9 @@ export const TasksContext = createContext<TasksContext>({
   onItemPressed: (index: number) => {},
   deleteTask: (index: number) => {},
   getFilteredTasks: (tab: string, searchQuery: string) => [],
-  addTask: (newTask: Task) => {},
+  addTask: (title: string) => {
+    return [] as any as Task;
+  }
 });
 
 const TasksContextProvider = ({ children }: PropsWithChildren) => {
@@ -45,8 +47,14 @@ const TasksContextProvider = ({ children }: PropsWithChildren) => {
     });
   };
 
-  const addTask = (newTodo: Task) => {
-    setTasks((currentTasks) => [...currentTasks, newTodo])
+  const addTask = (title: string) => {
+    const newTask: Task = {
+      id: '123',
+      title,
+      isFinished: false
+    }
+    setTasks((currentTasks) => [...currentTasks, newTask])
+    return newTask;
   }
 
   const getFilteredTasks = (tab: string, searchQuery: string) => {

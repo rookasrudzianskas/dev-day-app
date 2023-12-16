@@ -71,9 +71,6 @@ const TodoScreen = () => {
           )}
           ListFooterComponent={() => (
             <NewTaskInput
-              onAdd={(newTodo: Task) =>
-                setTasks((currentTasks) => [...currentTasks, newTodo])
-              }
             />
           )}
         />
