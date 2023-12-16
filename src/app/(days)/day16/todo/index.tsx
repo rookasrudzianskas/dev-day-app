@@ -14,41 +14,14 @@ import Reanimated, { CurvedTransition } from 'react-native-reanimated';
 import { useHeaderHeight } from '@react-navigation/elements';
 import TaskListItem from "@/src/components/day16/task-list-item";
 import NewTaskInput from "@/src/components/day16/new-task-input";
-import {useTasksContext} from "@/src/components/day16/TasksContextProvider";
-
-export type Task = {
-  title: string;
-  isFinished: boolean;
-};
-
-const dummyTasks: Task[] = [
-  {
-    title: 'Setup Day15 structure',
-    isFinished: true,
-  },
-  {
-    title: 'Render a list of tasks',
-    isFinished: false,
-  },
-  {
-    title: 'Add a new task',
-    isFinished: false,
-  },
-  {
-    title: 'Change the status of a task',
-    isFinished: false,
-  },
-  {
-    title: 'Separate in 2 tabs: todo, and complete',
-    isFinished: false,
-  },
-];
+import {useTasks} from "@/src/components/day16/TasksContextProvider";
+import { dummyTasks } from '@/src/components/day16/data';
 
 const TodoScreen = () => {
-  const [tasks, setTasks] = useState<Task[]>(dummyTasks);
+  // const [tasks, setTasks] = useState<Task[]>(dummyTasks);
   const [searchQuery, setSearchQuery] = useState('');
   const [tab, setTab] = useState<'All' | 'Todo' | 'Finished'>('All');
-  const { hello } = useTasksContext();
+  const {tasks, setTasks} = useTasks();
 
   const headerHeight = useHeaderHeight();
 
