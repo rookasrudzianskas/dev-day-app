@@ -1,120 +1,151 @@
-//@ts-nocheck
-import React, {useEffect, useState} from 'react';
 import {
-  Text,
-  View,
   StyleSheet,
   FlatList,
-  TouchableOpacity,
-  TextInput,
+  KeyboardAvoidingView,
   Platform,
-  KeyboardAvoidingView
+  Text,
+  Button,
+  View,
 } from 'react-native';
+import { useState } from 'react';
 import { Stack } from 'expo-router';
-import {MaterialCommunityIcons} from "@expo/vector-icons";
-import NewTaskInput from "@/src/components/day15/new-task-input";
-import Swipeable from 'react-native-gesture-handler/Swipeable';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Reanimated, { CurvedTransition } from 'react-native-reanimated';
+import { useHeaderHeight } from '@react-navigation/elements';
 import TaskListItem from "@/src/components/day15/task-list-item";
+import NewTaskInput from "@/src/components/day15/new-task-input";
 
-const TASKS = [
+export type Task = {
+  title: string;
+  isFinished: boolean;
+};
+
+const dummyTasks: Task[] = [
   {
-    id: 1,
-    task: 'Learn React Native',
-    isFinished: true
+    title: 'Setup Day15 structure',
+    isFinished: true,
   },
   {
-    id: 2,
-    task: 'Learn React',
-    isFinished: false
+    title: 'Render a list of tasks',
+    isFinished: false,
   },
   {
-    id: 3,
-    task: 'Learn TypeScript',
-    isFinished: false
+    title: 'Add a new task',
+    isFinished: false,
   },
   {
-    id: 4,
-    task: 'Learn JavaScript',
-    isFinished: false
-  }
-]
+    title: 'Change the status of a task',
+    isFinished: false,
+  },
+  {
+    title: 'Separate in 2 tabs: todo, and complete',
+    isFinished: false,
+  },
+];
 
 const TodoScreen = () => {
-  const [tasks, setTasks] = useState(TASKS);
-  const [newTask, setNewTask] = useState('');
+  const [tasks, setTasks] = useState<Task[]>(dummyTasks);
   const [searchQuery, setSearchQuery] = useState('');
+  const [tab, setTab] = useState<'All' | 'Todo' | 'Finished'>('All');
 
-  useEffect(() => {
-    const filteredTasks = TASKS.filter(task => task.task.toLowerCase().includes(searchQuery.toLowerCase()));
-    if(filteredTasks.length === 0) {
-      setTasks(TASKS);
-      return;
+  const headerHeight = useHeaderHeight();
+
+  const filteredTasks = tasks.filter((task) => {
+    if (task.isFinished && tab === 'Todo') {
+      return false;
     }
-    if(searchQuery.length === 0) {
-      setTasks(TASKS);
-      return;
+    if (!task.isFinished && tab === 'Finished') {
+      return false;
     }
-  }, [searchQuery]);
+
+    if (!searchQuery) {
+      return true;
+    }
+
+    return task.title
+      .toLowerCase()
+      .trim()
+      .includes(searchQuery.toLowerCase().trim());
+  });
+
+  const onItemPressed = (index: number) => {
+    setTasks((currentTasks) => {
+      const updatedTasks = [...currentTasks];
+      updatedTasks[index].isFinished = !updatedTasks[index].isFinished;
+      return updatedTasks;
+    });
+  };
+
+  const deleteTask = (index: number) => {
+    setTasks((currentTasks) => {
+      const updatedTasks = [...currentTasks];
+      updatedTasks.splice(index, 1);
+      return updatedTasks;
+    });
+  };
 
   return (
-    <View className="pt-10 px-5 bg-black flex-1" style={styles.page}>
-      <Stack.Screen options={{
-        headerShown: false,
-        title: 'TODO',
-        headerBackTitleVisible: false,
-      }} />
-      <View className="h-12">
-        <TextInput
-          placeholder="Search"
-          autoCapitalize="none"
-          autoFocus={true}
-          autoCorrect={false}
-          placeholderTextColor="#4B5563"
-          onChangeText={text => setSearchQuery(text)}
-          value={searchQuery}
-          className="bg-neutral-800 text-neutral-50 flex-1 h-12 rounded-md py-2 px-3 mt-4"
-        />
-      </View>
-
-      <View className="mb-1 mt-3">
-        <Text className="text-3xl text-neutral-50">Hello, Rokas</Text>
-      </View>
-      <FlatList
-        data={tasks}
-        showsVerticalScrollIndicator={false}
-        renderItem={({item}) => (
-          <TaskListItem
-            item={item}
-            tasks={tasks}
-            setTasks={setTasks}
-          />
-        )}
-        keyExtractor={item => item.id}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.page}
+    >
+      <Stack.Screen
+        options={{
+          title: 'Todo',
+          headerBackTitleVisible: false,
+          headerSearchBarOptions: {
+            hideWhenScrolling: true,
+            onChangeText: (e) => setSearchQuery(e.nativeEvent.text),
+          },
+        }}
       />
 
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        // number={Platform.OS === 'ios' ? -500 : 0}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? -50 : -50}
-        style={styles.container}>
-        <NewTaskInput
-          setTasks={setTasks}
-          setNewTask={setNewTask}
-          tasks={tasks}
-          newTask={newTask}
+      <SafeAreaView
+        edges={['bottom']}
+        style={{ flex: 1, paddingTop: headerHeight + 35 }}
+      >
+        <View
+          style={{
+            flexDirection: 'row',
+            marginTop: 20,
+            justifyContent: 'space-around',
+          }}
+        >
+          <Button title="All" onPress={() => setTab('All')} />
+          <Button title="Todo" onPress={() => setTab('Todo')} />
+          <Button title="Finished" onPress={() => setTab('Finished')} />
+        </View>
+        <FlatList
+          data={filteredTasks}
+          contentContainerStyle={{ gap: 5, padding: 10 }}
+          keyExtractor={(item) => item.title}
+          renderItem={({ item, index }) => (
+            <Reanimated.View layout={CurvedTransition}>
+              <TaskListItem
+                task={item}
+                onItemPressed={() => onItemPressed(index)}
+                onDelete={() => deleteTask(index)}
+              />
+            </Reanimated.View>
+          )}
+          ListFooterComponent={() => (
+            <NewTaskInput
+              onAdd={(newTodo: Task) =>
+                setTasks((currentTasks) => [...currentTasks, newTodo])
+              }
+            />
+          )}
         />
-      </KeyboardAvoidingView>
-    </View>
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 };
 
-export default TodoScreen;
-
 const styles = StyleSheet.create({
   page: {
+    backgroundColor: 'white',
+    flex: 1,
+  },
+});
 
-  },
-  container: {
-    // flex: 1,
-  },
-})
+export default TodoScreen;

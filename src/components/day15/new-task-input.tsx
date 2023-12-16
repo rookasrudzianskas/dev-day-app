@@ -1,42 +1,50 @@
-//@ts-nocheck
-import React from 'react';
-import {Text, View, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
+import { View, TextInput, StyleSheet } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useState } from 'react';
 
-const NewTaskInput = ({setNewTask, setTasks, newTask, tasks}) => {
+type NewTaskInput = {
+  onAdd: (newTask: any) => void;
+};
+
+const NewTaskInput = ({ onAdd }: any) => {
+  const [newTask, setNewTask] = useState('');
   return (
-    <View className="mb-10 pb-10">
-      <Text className="text-neutral-50 text-lg">Add new task</Text>
-      <View className="flex flex-row items-center justify-center space-x-3">
-        <TextInput
-          placeholder="Add new task"
-          autoCapitalize="none"
-          autoFocus={true}
-          autoCorrect={false}
-          placeholderTextColor="#4B5563"
-          className="bg-neutral-800 text-neutral-50 flex-1 rounded-md py-2 px-3 mt-2"
-          onChangeText={text => setNewTask(text)}
-          value={newTask}
-        />
-        <View className="flex items-center justify-center">
-          <TouchableOpacity
-            disabled={!newTask}
-            activeOpacity={!newTask ? 1 : 0.8}
-            onPress={() => {
-              if(!newTask) return;
-              setTasks([...tasks, {
-                id: tasks.length + 1,
-                task: newTask,
-                isFinished: false
-              }]);
-              setNewTask('');
-            }}
-            className={`bg-neutral-700 py-2 ml-3 px-3 flex items-center justify-center mt-2 rounded-md ${!newTask && 'bg-neutral-900 text-neutral-500'}`}>
-            <Text className="text-neutral-50">Add</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+    <View style={styles.taskContainer}>
+      <MaterialCommunityIcons
+        name="checkbox-blank-circle-outline"
+        size={24}
+        color="dimgray"
+      />
+      <TextInput
+        value={newTask}
+        onChangeText={setNewTask}
+        style={styles.input}
+        placeholder="Todo..."
+        onEndEditing={() => {
+          if (!newTask) {
+            return;
+          }
+          onAdd({ title: newTask, isFinished: false });
+          setNewTask('');
+        }}
+      />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  taskContainer: {
+    padding: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  input: {
+    fontFamily: 'InterSemi',
+    color: 'dimgray',
+    fontSize: 15,
+    flex: 1,
+  },
+});
 
 export default NewTaskInput;
