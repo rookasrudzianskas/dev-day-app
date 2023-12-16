@@ -37,6 +37,7 @@ export const TasksContext = createContext<TasksContext>({
 
 const TasksContextProvider = ({ children }: PropsWithChildren) => {
   const [tasks, setTasks] = useState<Task[]>(dummyTasks);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const saveData = async () => {
     try {
@@ -58,6 +59,8 @@ const TasksContextProvider = ({ children }: PropsWithChildren) => {
     } catch (e) {
       // error reading value
       Alert.alert('Error', 'Error loading data');
+    } finally {
+      setIsLoaded(true);
     }
   }
 
@@ -76,7 +79,13 @@ const TasksContextProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     loadData();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    if(isLoaded) {
+      saveData();
+    }
+  }, [tasks]);
 
   const getFilteredTasks = (tab: string, searchQuery: string) => {
     return tasks.filter((task) => {
