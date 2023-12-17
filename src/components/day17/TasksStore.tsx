@@ -19,7 +19,6 @@ type TasksStore = {
 
 const useTasksStore = create<TasksStore>((set, get) => ({
   tasks: dummyTasks,
-
   numberOfCompletedTasks: () => {
     const tasks = get().tasks;
     return tasks.filter((task) => task.isFinished).length;
@@ -28,7 +27,6 @@ const useTasksStore = create<TasksStore>((set, get) => ({
     const tasks = get().tasks;
     return tasks.length;
   },
-
   addTask: (title: string) => {
     const newTask: Task = {
       id: Math.random().toString(),
