@@ -1,7 +1,6 @@
 import {createContext, PropsWithChildren, useContext, useEffect, useState} from "react";
 // import { v4 as uuidv4 } from 'uuid';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Alert} from "react-native";
 import {dummyTasks} from "@/src/components/day17/data";
 
 export type Task = {
