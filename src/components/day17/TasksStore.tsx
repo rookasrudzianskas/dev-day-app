@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import {dummyTasks} from "@/src/components/day17/data";
+import { persist, createJSONStorage } from 'zustand/middleware'
 
 export type Task = {
   id: string;
@@ -17,7 +18,8 @@ type TasksStore = {
   getFilteredTasks: (tab: string, searchQuery: string) => Task[];
 }
 
-const useTasksStore = create<TasksStore>((set, get) => ({
+const useTasksStore = create<TasksStore>(
+  persist((set, get) => ({
   tasks: dummyTasks,
   numberOfCompletedTasks: () => {
     const tasks = get().tasks;
@@ -74,6 +76,10 @@ const useTasksStore = create<TasksStore>((set, get) => ({
         .includes(searchQuery.toLowerCase().trim());
     });
   }
-}));
+}), {
+    name: 'tasks',
+    storage: createJSONStorage(() => sessionStorage),
+  })
+);
 
 export default useTasksStore

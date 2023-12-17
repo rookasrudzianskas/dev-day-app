@@ -17,8 +17,6 @@ export type TasksContext = {
   deleteTask: (id: string) => void,
   getFilteredTasks?: (tab: string, searchQuery: string) => Task[],
   addTask: (title: string) => Task | undefined,
-  saveData: () => void,
-  loadData: () => void,
   numberOfCompletedTasks: number,
   numberOfTasks: number,
 }
@@ -32,8 +30,6 @@ export const TasksContext = createContext<TasksContext>({
   addTask: (title: string) => {
     return [] as any as Task;
   },
-  saveData: () => {},
-  loadData: () => {},
   numberOfCompletedTasks: 0,
   numberOfTasks: 0,
 });
@@ -44,30 +40,30 @@ const TasksContextProvider = ({ children }: PropsWithChildren) => {
   const numberOfCompletedTasks = tasks.filter((task) => task.isFinished).length;
   const numberOfTasks = tasks.length;
 
-  const saveData = async () => {
-    try {
-      const jsonValue = JSON.stringify(tasks);
-      await AsyncStorage.setItem('tasks', jsonValue);
-    } catch (e) {
-      // saving error
-      Alert.alert('Error', 'Error saving data');
-    }
-  }
-
-  const loadData = async () => {
-    try {
-      const jsonValue = await AsyncStorage.getItem('tasks');
-      if(jsonValue) {
-        const loadedTasks = JSON.parse(jsonValue) as Task[];
-        setTasks(loadedTasks);
-      }
-    } catch (e) {
-      // error reading value
-      Alert.alert('Error', 'Error loading data');
-    } finally {
-      setIsLoaded(true);
-    }
-  }
+  // const saveData = async () => {
+  //   try {
+  //     const jsonValue = JSON.stringify(tasks);
+  //     await AsyncStorage.setItem('tasks', jsonValue);
+  //   } catch (e) {
+  //     // saving error
+  //     Alert.alert('Error', 'Error saving data');
+  //   }
+  // }
+  //
+  // const loadData = async () => {
+  //   try {
+  //     const jsonValue = await AsyncStorage.getItem('tasks');
+  //     if(jsonValue) {
+  //       const loadedTasks = JSON.parse(jsonValue) as Task[];
+  //       setTasks(loadedTasks);
+  //     }
+  //   } catch (e) {
+  //     // error reading value
+  //     Alert.alert('Error', 'Error loading data');
+  //   } finally {
+  //     setIsLoaded(true);
+  //   }
+  // }
 
   const changeIsFinished = (id: string) => setTasks((currentTasks) => currentTasks.map((task) => task.id === id ? {...task, isFinished: !task.isFinished} : task));
   const deleteTask = (id: string) => setTasks((currentTasks) => currentTasks.filter((task) => task.id !== id));
@@ -82,15 +78,15 @@ const TasksContextProvider = ({ children }: PropsWithChildren) => {
     return newTask;
   }
 
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  useEffect(() => {
-    if(isLoaded) {
-      saveData();
-    }
-  }, [tasks]);
+  // useEffect(() => {
+  //   loadData();
+  // }, []);
+  //
+  // useEffect(() => {
+  //   if(isLoaded) {
+  //     saveData();
+  //   }
+  // }, [tasks]);
 
   const getFilteredTasks = (tab: string, searchQuery: string) => {
     return tasks.filter((task) => {
@@ -121,8 +117,6 @@ const TasksContextProvider = ({ children }: PropsWithChildren) => {
         deleteTask,
         getFilteredTasks,
         addTask,
-        saveData,
-        loadData,
         numberOfCompletedTasks,
         numberOfTasks,
       }}>
