@@ -13,7 +13,6 @@ const RightActions = ({
   dragAnimatedValue: Animated.AnimatedInterpolation<string | number>;
   task: Task;
 }) => {
-  // const { deleteTask } = useTasks();
   const deleteTask = useTasksStore((state) => state.deleteTask);
 
   const animatedStyles = {
@@ -55,7 +54,7 @@ type TaskListItem = {
 };
 
 const TaskListItem = ({ task }: TaskListItem) => {
-  const { changeIsFinished, deleteTask} = useTasks();
+  const changeIsFinished = useTasksStore((state) => state.changeIsFinished);
 
   return (
     <Swipeable
