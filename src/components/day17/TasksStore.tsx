@@ -9,8 +9,8 @@ export type Task = {
 
 type TasksStore = {
   tasks: Task[],
-  numberOfCompletedTasks: number,
-  numberOfTasks: number,
+  numberOfCompletedTasks: () => number;
+  numberOfTasks: () => number;
   addTask: (title: string) => void,
   deleteTask: (id: string) => void,
   changeIsFinished: (id: string) => void,
@@ -20,8 +20,14 @@ type TasksStore = {
 const useTasksStore = create<TasksStore>((set, get) => ({
   tasks: dummyTasks,
 
-  numberOfCompletedTasks: get((state) => state.tasks).tasks.filter((task: Task) => task.isFinished).length,
-  numberOfTasks: get((state) => state.tasks).tasks.length,
+  numberOfCompletedTasks: () => {
+    const tasks = get().tasks;
+    return tasks.filter((task) => task.isFinished).length;
+  },
+  numberOfTasks: () => {
+    const tasks = get().tasks;
+    return tasks.length;
+  },
 
   addTask: (title: string) => {
     const newTask: Task = {

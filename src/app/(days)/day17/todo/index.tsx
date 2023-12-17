@@ -21,9 +21,10 @@ import useTasksStore from "@/src/components/day17/TasksStore";
 const TodoScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [tab, setTab] = useState<'All' | 'Todo' | 'Finished'>('All');
-  // const { setTasks, onItemPressed, deleteTask, numberOfCompletedTasks, numberOfTasks} = useTasks();
-  const numberOfCompletedTasks = useTasksStore((state) => state.numberOfCompletedTasks());
-  const numberOfTasks = useTasksStore((state) => state.numberOfTasks());
+  const { numberOfCompletedTasks, numberOfTasks } = useTasksStore((state) => ({
+    numberOfCompletedTasks: state.numberOfCompletedTasks(),
+    numberOfTasks: state.numberOfTasks(),
+  }));
 
   const getFilteredTasks = useTasksStore((state) => state.getFilteredTasks);
   const headerHeight = useHeaderHeight();
