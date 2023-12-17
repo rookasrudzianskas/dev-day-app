@@ -32,23 +32,25 @@ const useTasksStore = create((set, get) => ({
     ))
   },
   getFilteredTasks: (tab: string, searchQuery: string) => {
-    return tasks.filter((task) => {
-      if (task.isFinished && tab === 'Todo') {
-        return false;
-      }
-      if (!task.isFinished && tab === 'Finished') {
-        return false;
-      }
-
-      if (!searchQuery) {
-        return true;
-      }
-
-      return task.title
-        .toLowerCase()
-        .trim()
-        .includes(searchQuery.toLowerCase().trim());
-    });
+    const tasks = get().tasks;
+    // return tasks.filter((task: Task) => {
+    //   if (task.isFinished && tab === 'Todo') {
+    //     return false;
+    //   }
+    //   if (!task.isFinished && tab === 'Finished') {
+    //     return false;
+    //   }
+    //
+    //   if (!searchQuery) {
+    //     return true;
+    //   }
+    //
+    //   return task.title
+    //     .toLowerCase()
+    //     .trim()
+    //     .includes(searchQuery.toLowerCase().trim());
+    // });
+  }
 }));
 
 export default useTasksStore
