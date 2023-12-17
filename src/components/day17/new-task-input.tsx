@@ -1,7 +1,6 @@
 import { View, TextInput, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useState } from 'react';
-import {useTasks} from "@/src/components/day17/TasksContextProvider";
 import useTasksStore from "@/src/components/day17/TasksStore";
 
 const NewTaskInput = () => {
