@@ -10,8 +10,20 @@ const useTasksStore = create((set, get) => ({
       title,
       isFinished: false
     }
-    set((state: any) => ({tasks: [...state.tasks, newTask]}));
-  }
+    set((state: any) => (
+      {
+        tasks: [...state.tasks, newTask]
+      }
+      )
+    );
+  },
+  deleteTask: (id: string) => {
+    set((state: any) => (
+      {
+        tasks: state.tasks.filter((task: Task) => task.id !== id)
+      }
+    ))
+  },
 }));
 
 export default useTasksStore
