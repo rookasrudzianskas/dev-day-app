@@ -20,14 +20,12 @@ import useTasksStore from "@/src/components/day17/TasksStore";
 const TodoScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [tab, setTab] = useState<'All' | 'Todo' | 'Finished'>('All');
+  const headerHeight = useHeaderHeight();
+  const filteredTasks = useTasksStore((state) => state.getFilteredTasks(tab, searchQuery));
   const { numberOfCompletedTasks, numberOfTasks } = useTasksStore((state) => ({
     numberOfCompletedTasks: state.numberOfCompletedTasks(),
     numberOfTasks: state.numberOfTasks(),
   }));
-
-  const headerHeight = useHeaderHeight();
-
-  const filteredTasks = useTasksStore((state) => state.getFilteredTasks(tab, searchQuery));
 
   return (
     <KeyboardAvoidingView
