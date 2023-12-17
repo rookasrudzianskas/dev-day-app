@@ -1,6 +1,8 @@
 import { create } from 'zustand'
+import {dummyTasks} from "@/src/components/day17/data";
 
-const useStore = create((set) => ({
-  bears: 0,
-
+const useTasksStore = create((set) => ({
+  tasks: dummyTasks,
 }))
+
+export default useTasksStore

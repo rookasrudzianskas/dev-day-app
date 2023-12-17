@@ -16,11 +16,13 @@ import { useHeaderHeight } from '@react-navigation/elements';
 import TaskListItem from "@/src/components/day17/task-list-item";
 import NewTaskInput from "@/src/components/day17/new-task-input";
 import {useTasks} from "@/src/components/day17/TasksContextProvider";
+import useTasksStore from "@/src/components/day17/TasksStore";
 
 const TodoScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [tab, setTab] = useState<'All' | 'Todo' | 'Finished'>('All');
-  const {tasks, setTasks, onItemPressed, deleteTask, getFilteredTasks, numberOfCompletedTasks, numberOfTasks} = useTasks();
+  const { setTasks, onItemPressed, deleteTask, getFilteredTasks, numberOfCompletedTasks, numberOfTasks} = useTasks();
+  const tasks = useTasksStore((state) => state.tasks);
 
   const headerHeight = useHeaderHeight();
 
@@ -63,7 +65,7 @@ const TodoScreen = () => {
           <Button title="Finished" onPress={() => setTab('Finished')} />
         </View>
         <FlatList
-          data={filteredTasks}
+          data={tasks}
           contentContainerStyle={{ gap: 5, padding: 10 }}
           keyExtractor={(item) => item.id}
           renderItem={({ item, index }) => (
