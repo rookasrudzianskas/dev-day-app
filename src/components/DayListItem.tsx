@@ -8,7 +8,10 @@ const DayListItem = ({ item }: {item: number}) => {
   return (
     <TouchableOpacity
       activeOpacity={0.7}
-      onPress={() => router.push(`/(days)/day${item}`)}
+      onPress={() => {
+        // console.log(`/(days)/day${item}`)
+        router.push(`/(days)/day${item}`)
+      }}
       className="flex-1" style={styles.box}
     >
       <Text style={styles.text}>{item}</Text>

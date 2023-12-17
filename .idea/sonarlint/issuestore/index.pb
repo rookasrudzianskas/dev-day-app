@@ -9,8 +9,6 @@ H
 src/lib/utils.ts,b/6/b64d1893e69ac0511cda386a979ec589465b7fe7
 A
 src/app/about.tsx,5/8/5861c1c570b2125f538c1328e4b526c4f207bec3
-N
-src/components/DayListItem.tsx,6/f/6fc2ea2a14458999b70881c507818fcd5de54899
 X
 (src/app/(days)/day10/protected/index.tsx,c/3/c32890ab0bbfcacad28ca7a8b0c8769f831d3fa4
 \
