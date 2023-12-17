@@ -24,6 +24,14 @@ const useTasksStore = create((set, get) => ({
       }
     ))
   },
+  changeIsFinished: (id: string) => {
+    set((state: any) => (
+      {
+        tasks: state.tasks.map((task: Task) => task.id === id ? {...task, isFinished: !task.isFinished} : task)
+      }
+    ))
+    // setTasks((currentTasks) => currentTasks.map((task) => task.id === id ? {...task, isFinished: !task.isFinished} : task))
+  }
 }));
 
 export default useTasksStore
