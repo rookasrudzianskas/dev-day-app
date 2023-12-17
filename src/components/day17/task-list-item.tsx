@@ -2,6 +2,7 @@ import {Text, StyleSheet, Pressable, Animated, View} from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import {useTasks, Task} from "@/src/components/day17/TasksContextProvider";
+import useTasksStore from "@/src/components/day17/TasksStore";
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
@@ -12,7 +13,8 @@ const RightActions = ({
   dragAnimatedValue: Animated.AnimatedInterpolation<string | number>;
   task: Task;
 }) => {
-  const { deleteTask } = useTasks();
+  // const { deleteTask } = useTasks();
+  const deleteTask = useTasksStore((state) => state.deleteTask);
 
   const animatedStyles = {
     transform: [
