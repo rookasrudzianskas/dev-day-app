@@ -15,7 +15,6 @@ import Reanimated, { CurvedTransition } from 'react-native-reanimated';
 import { useHeaderHeight } from '@react-navigation/elements';
 import TaskListItem from "@/src/components/day17/task-list-item";
 import NewTaskInput from "@/src/components/day17/new-task-input";
-import {useTasks} from "@/src/components/day17/TasksContextProvider";
 import useTasksStore from "@/src/components/day17/TasksStore";
 
 const TodoScreen = () => {
@@ -26,10 +25,9 @@ const TodoScreen = () => {
     numberOfTasks: state.numberOfTasks(),
   }));
 
-  const getFilteredTasks = useTasksStore((state) => state.getFilteredTasks);
   const headerHeight = useHeaderHeight();
 
-  const filteredTasks = getFilteredTasks(tab, searchQuery);
+  const filteredTasks = useTasksStore((state) => state.getFilteredTasks(tab, searchQuery));
 
   return (
     <KeyboardAvoidingView

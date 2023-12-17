@@ -14,7 +14,7 @@ type TasksStore = {
   addTask: (title: string) => void,
   deleteTask: (id: string) => void,
   changeIsFinished: (id: string) => void,
-  getFilteredTasks: (tab: string, searchQuery: string) => Task[],
+  getFilteredTasks: (tab: string, searchQuery: string) => Task[];
 }
 
 const useTasksStore = create<TasksStore>((set, get) => ({
@@ -57,7 +57,7 @@ const useTasksStore = create<TasksStore>((set, get) => ({
     ))
   },
   getFilteredTasks: (tab: string, searchQuery: string) => {
-    const tasks = get((state) => state.tasks).tasks;
+    const tasks = get().tasks;
     return tasks.filter((task: Task) => {
       if (task.isFinished && tab === 'Todo') {
         return false;
