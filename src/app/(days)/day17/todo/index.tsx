@@ -21,10 +21,11 @@ import useTasksStore from "@/src/components/day17/TasksStore";
 const TodoScreen = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [tab, setTab] = useState<'All' | 'Todo' | 'Finished'>('All');
-  const { setTasks, onItemPressed, deleteTask, numberOfCompletedTasks, numberOfTasks} = useTasks();
-  const getFilteredTasks = useTasksStore((state) => state.getFilteredTasks);
-  const tasks = useTasksStore((state) => state.tasks);
+  // const { setTasks, onItemPressed, deleteTask, numberOfCompletedTasks, numberOfTasks} = useTasks();
+  const numberOfCompletedTasks = useTasksStore((state) => state.numberOfCompletedTasks());
+  const numberOfTasks = useTasksStore((state) => state.numberOfTasks());
 
+  const getFilteredTasks = useTasksStore((state) => state.getFilteredTasks);
   const headerHeight = useHeaderHeight();
 
   const filteredTasks = getFilteredTasks(tab, searchQuery);
@@ -66,7 +67,7 @@ const TodoScreen = () => {
           <Button title="Finished" onPress={() => setTab('Finished')} />
         </View>
         <FlatList
-          data={tasks}
+          data={filteredTasks}
           contentContainerStyle={{ gap: 5, padding: 10 }}
           keyExtractor={(item) => item.id}
           renderItem={({ item, index }) => (

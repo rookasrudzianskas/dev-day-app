@@ -1,9 +1,28 @@
 import { create } from 'zustand'
 import {dummyTasks} from "@/src/components/day17/data";
-import {Task} from "@/src/components/day17/TasksContextProvider";
 
-const useTasksStore = create((set, get) => ({
+export type Task = {
+  id: string;
+  title: string;
+  isFinished: boolean;
+};
+
+type TasksStore = {
+  tasks: Task[],
+  numberOfCompletedTasks: number,
+  numberOfTasks: number,
+  addTask: (title: string) => void,
+  deleteTask: (id: string) => void,
+  changeIsFinished: (id: string) => void,
+  getFilteredTasks: (tab: string, searchQuery: string) => Task[],
+}
+
+const useTasksStore = create<TasksStore>((set, get) => ({
   tasks: dummyTasks,
+
+  numberOfCompletedTasks: get((state) => state.tasks).tasks.filter((task: Task) => task.isFinished).length,
+  numberOfTasks: get((state) => state.tasks).tasks.length,
+
   addTask: (title: string) => {
     const newTask: Task = {
       id: Math.random().toString(),
@@ -32,24 +51,24 @@ const useTasksStore = create((set, get) => ({
     ))
   },
   getFilteredTasks: (tab: string, searchQuery: string) => {
-    const tasks = get().tasks;
-    // return tasks.filter((task: Task) => {
-    //   if (task.isFinished && tab === 'Todo') {
-    //     return false;
-    //   }
-    //   if (!task.isFinished && tab === 'Finished') {
-    //     return false;
-    //   }
-    //
-    //   if (!searchQuery) {
-    //     return true;
-    //   }
-    //
-    //   return task.title
-    //     .toLowerCase()
-    //     .trim()
-    //     .includes(searchQuery.toLowerCase().trim());
-    // });
+    const tasks = get((state) => state.tasks).tasks;
+    return tasks.filter((task: Task) => {
+      if (task.isFinished && tab === 'Todo') {
+        return false;
+      }
+      if (!task.isFinished && tab === 'Finished') {
+        return false;
+      }
+
+      if (!searchQuery) {
+        return true;
+      }
+
+      return task.title
+        .toLowerCase()
+        .trim()
+        .includes(searchQuery.toLowerCase().trim());
+    });
   }
 }));
 
