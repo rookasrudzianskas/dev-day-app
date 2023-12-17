@@ -10,7 +10,7 @@ const useTasksStore = create((set, get) => ({
       title,
       isFinished: false
     }
-    set((state: any) => [...state.tasks, newTask]);
+    set((state: any) => ({tasks: [...state.tasks, newTask]}));
   }
 }));
 
