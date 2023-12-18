@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, Image, SafeAreaView, TextInput} from 'react-native';
+import {Text, View, StyleSheet, Image, SafeAreaView, TextInput, TouchableOpacity} from 'react-native';
 import {Stack} from "expo-router";
 import {USER_STORIES} from "@/src/components/day18/stories";
 
@@ -14,18 +14,23 @@ const Stories = () => {
   const story = user.stories[storyIndex];
 
   return (
-    <SafeAreaView className="bg-black">
-      <Stack.Screen options={{ headerShown: false }} />
-      <Image
-        source={{ uri: story.uri }}
-        style={styles.image}
-      />
-      <View style={styles.header}>
-        <>
-          <Text style={styles.username}>{user.username}</Text>
-        </>
-      </View>
+    <>
+      <SafeAreaView className="bg-black flex-1">
+        <Stack.Screen options={{ headerShown: false }} />
+        <Image
+          source={{ uri: story.uri }}
+          style={styles.image}
+        />
 
+        <TouchableOpacity style={styles.navPressable}></TouchableOpacity>
+        {/*<TouchableOpacity></TouchableOpacity>*/}
+
+        <View style={styles.header}>
+          <>
+            <Text style={styles.username}>{user.username}</Text>
+          </>
+        </View>
+      </SafeAreaView>
       <View>
         <TextInput
           style={styles.input}
@@ -33,7 +38,7 @@ const Stories = () => {
           placeholderTextColor={'white'}
         />
       </View>
-    </SafeAreaView>
+    </>
   );
 };
 
@@ -42,7 +47,7 @@ export default Stories;
 const styles = StyleSheet.create({
   image: {
     width: '100%',
-    height: '100%',
+    height: '94%',
     borderRadius: 10,
   },
   header: {
@@ -57,6 +62,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold'
+  },
+  navPressable: {
+    backgroundColor: 'red',
+    width: '30%',
+    height: '100%',
+    position: 'absolute',
   },
   input: {
     position: 'absolute',
