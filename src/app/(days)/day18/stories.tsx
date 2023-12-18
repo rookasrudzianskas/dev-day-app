@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, Image, SafeAreaView} from 'react-native';
+import {Text, View, StyleSheet, Image, SafeAreaView, TextInput} from 'react-native';
 import {Stack} from "expo-router";
 import {USER_STORIES} from "@/src/components/day18/stories";
 
@@ -25,6 +25,14 @@ const Stories = () => {
           <Text style={styles.username}>{user.username}</Text>
         </SafeAreaView>
       </View>
+
+      <View>
+        <TextInput
+          style={styles.input}
+          placeholder={'Send message'}
+          placeholderTextColor={'white'}
+        />
+      </View>
     </View>
   );
 };
@@ -48,5 +56,23 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold'
+  },
+  input: {
+    position: 'absolute',
+    bottom: 10,
+    width: '90%',
+    height: 40,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    color: 'white',
+    fontSize: 18,
+    margin: 10,
+    // center it
+    alignSelf: 'center',
+    borderRadius: 30,
+    paddingLeft: 20,
+    paddingRight: 20,
+    // border white
+    borderWidth: 1,
+    borderColor: 'white',
   }
 })
