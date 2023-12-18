@@ -14,16 +14,16 @@ const Stories = () => {
   const story = user.stories[storyIndex];
 
   return (
-    <View className="">
+    <SafeAreaView className="bg-black">
       <Stack.Screen options={{ headerShown: false }} />
       <Image
         source={{ uri: story.uri }}
         style={styles.image}
       />
       <View style={styles.header}>
-        <SafeAreaView>
+        <>
           <Text style={styles.username}>{user.username}</Text>
-        </SafeAreaView>
+        </>
       </View>
 
       <View>
@@ -33,7 +33,7 @@ const Stories = () => {
           placeholderTextColor={'white'}
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -43,11 +43,12 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
+    borderRadius: 10,
   },
   header: {
     position: 'absolute',
     backgroundColor: 'rgba(0,0,0,0.1)',
-    top: 0,
+    top: 47,
     width: '100%',
     padding: 10
 
