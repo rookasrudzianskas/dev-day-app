@@ -1,8 +1,10 @@
 //@ts-nocheck
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Text, View, StyleSheet, Image, SafeAreaView, TextInput, TouchableOpacity} from 'react-native';
 import {Stack} from "expo-router";
 import {USER_STORIES} from "@/src/components/day18/stories";
+import {LinearGradient} from "expo-linear-gradient";
+import Animated, {useAnimatedStyle, useSharedValue, withTiming} from "react-native-reanimated";
 
 const uri = 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/vertical-images/1.jpg';
 
@@ -12,6 +14,17 @@ const Stories = () => {
 
   const user = USER_STORIES[userIndex];
   const story = user.stories[storyIndex];
+  const STORY_VIEW_DURATION = 10 * 1000;
+  const progress = useSharedValue(0);
+
+  const indicatorAnimatedStyle = useAnimatedStyle(() => ({
+    width: `${progress.value * 100}%`
+  }));
+
+  useEffect(() => {
+    progress.value = 0;
+    progress.value = withTiming(1, { duration: STORY_VIEW_DURATION })
+  }, [storyIndex])
 
   const goToPreviousStory = () => {
     setStoryIndex((index) => {
@@ -22,7 +35,6 @@ const Stories = () => {
       return index - 1;
     });
   }
-
   const goToNextStory = () => {
     setStoryIndex((index) => {
       if(index === user.stories.length - 1) {
@@ -66,25 +78,28 @@ const Stories = () => {
           style={[styles.navPressable, { right: 0}]}
         />
 
-        <View style={styles.header}>
-          <View style={styles.indicatorRow}>
-            {user.stories.map((_, i) => (
-              <View
-                key={i}
-                style={[
-                  styles.indicator,
-                  i === storyIndex && {
-                    backgroundColor: 'white',
-                    width: '15%',
-                  }
-                ]}
-              />
-            ))}
+        <LinearGradient
+          colors={['rgba(0,0,0,0.7)', 'transparent']}
+          style={styles.header}
+        >
+          <View>
+            <View style={styles.indicatorRow}>
+              {user.stories.map((_, i) => (
+                <View key={i} style={styles.indicatorBG}>
+                  <Animated.View
+                    style={[
+                      styles.indicator,
+                      indicatorAnimatedStyle,
+                    ]}
+                  />
+                </View>
+              ))}
+            </View>
+            <>
+              <Text style={styles.username}>{user.username}</Text>
+            </>
           </View>
-          <>
-            <Text style={styles.username}>{user.username}</Text>
-          </>
-        </View>
+        </LinearGradient>
       </SafeAreaView>
       <View>
         <TextInput
@@ -107,7 +122,7 @@ const styles = StyleSheet.create({
   },
   header: {
     position: 'absolute',
-    backgroundColor: 'rgba(0,0,0,0.1)',
+    // backgroundColor: 'rgba(0,0,0,0.1)',
     top: 47,
     width: '100%',
     paddingTop: 5,
@@ -148,11 +163,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginBottom: 20
   },
-  indicator: {
+  indicatorBG: {
     flex: 1,
-    height: 5,
-    borderRadius: 4,
-    backgroundColor: 'gray',
-    marginRight: 5
+    height: 3,
+    borderRadius: 10,
+    backgroundColor: 'darkgray',
+    overflow: 'hidden',
+  },
+  indicator: {
+    backgroundColor: 'white',
+    height: '100%',
+    width: '50%',
+    borderRadius: 10,
   },
 })
