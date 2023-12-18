@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React, {useState} from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
+import {Text, View, StyleSheet, Image, SafeAreaView} from 'react-native';
 import {Stack} from "expo-router";
 import {USER_STORIES} from "@/src/components/day18/stories";
 
@@ -20,6 +20,11 @@ const Stories = () => {
         source={{ uri: story.uri }}
         style={styles.image}
       />
+      <View style={styles.header}>
+        <SafeAreaView>
+          <Text style={styles.username}>{user.username}</Text>
+        </SafeAreaView>
+      </View>
     </View>
   );
 };
@@ -30,5 +35,18 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
+  },
+  header: {
+    position: 'absolute',
+    backgroundColor: 'rgba(0,0,0,0.1)',
+    top: 0,
+    width: '100%',
+    padding: 10
+
+  },
+  username: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold'
   }
 })
