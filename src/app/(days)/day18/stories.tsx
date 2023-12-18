@@ -14,30 +14,39 @@ const Stories = () => {
   const story = user.stories[storyIndex];
 
   const goToPreviousStory = () => {
-    if (storyIndex > 0) {
-      setStoryIndex(storyIndex - 1);
-    } else if (userIndex > 0) {
-      setUserIndex(userIndex - 1);
-      setStoryIndex(USER_STORIES[userIndex - 1].stories.length - 1);
-    }
+    setStoryIndex((index) => {
+      if(index === 0) {
+        goToPrevUser();
+        return 0;
+      }
+      return index - 1;
+    });
   }
 
   const goToNextStory = () => {
     setStoryIndex((index) => {
       if(index === user.stories.length - 1) {
         goToNextUser();
+        return 0;
       }
       return index + 1;
     });
   }
-
   const goToNextUser = () => {
-    if (userIndex === USER_STORIES.length - 1) {
-      setUserIndex(0);
-    } else {
-      setUserIndex(userIndex + 1);
-    }
-    setStoryIndex(0);
+    setUserIndex((index) => {
+      if(index === USER_STORIES.length - 1) {
+        return 0;
+      }
+      return index + 1;
+    });
+  }
+  const goToPrevUser = () => {
+    setUserIndex((index) => {
+      if(index === 0) {
+        return USER_STORIES.length - 1;
+      }
+      return index - 1;
+    });
   }
 
   return (
@@ -58,6 +67,20 @@ const Stories = () => {
         />
 
         <View style={styles.header}>
+          <View style={styles.indicatorRow}>
+            {user.stories.map((_, i) => (
+              <View
+                key={i}
+                style={[
+                  styles.indicator,
+                  i === storyIndex && {
+                    backgroundColor: 'white',
+                    width: '15%',
+                  }
+                ]}
+              />
+            ))}
+          </View>
           <>
             <Text style={styles.username}>{user.username}</Text>
           </>
@@ -87,6 +110,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.1)',
     top: 47,
     width: '100%',
+    paddingTop: 5,
     padding: 10
 
   },
@@ -118,5 +142,17 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'white',
     fontSize: 16,
-  }
+  },
+  indicatorRow: {
+    gap: 5,
+    flexDirection: 'row',
+    marginBottom: 20
+  },
+  indicator: {
+    flex: 1,
+    height: 5,
+    borderRadius: 4,
+    backgroundColor: 'gray',
+    marginRight: 5
+  },
 })
