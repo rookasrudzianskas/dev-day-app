@@ -29,7 +29,7 @@ const Stories = () => {
         duration: STORY_VIEW_DURATION
       },
     );
-  }, [storyIndex]);
+  }, [storyIndex, userIndex]);
 
   const goToPreviousStory = () => {
     setStoryIndex((index) => {
@@ -90,11 +90,13 @@ const Stories = () => {
           <View>
             <View style={styles.indicatorRow}>
               {user.stories.map((_, i) => (
-                <View key={i} style={styles.indicatorBG}>
+                <View key={`${user.id}-${i}`} style={styles.indicatorBG}>
                   <Animated.View
                     style={[
                       styles.indicator,
-                      indicatorAnimatedStyle,
+                      i === storyIndex && indicatorAnimatedStyle,
+                      i > storyIndex && { width: 0 },
+                      i < storyIndex && { width: '100%' },
                     ]}
                   />
                 </View>
@@ -178,7 +180,6 @@ const styles = StyleSheet.create({
   indicator: {
     backgroundColor: 'white',
     height: '100%',
-    width: '50%',
     borderRadius: 10,
   },
 })
