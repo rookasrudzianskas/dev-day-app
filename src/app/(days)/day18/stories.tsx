@@ -74,5 +74,6 @@ const styles = StyleSheet.create({
     // border white
     borderWidth: 1,
     borderColor: 'white',
+    fontSize: 16,
   }
 })
