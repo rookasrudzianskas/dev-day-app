@@ -4,7 +4,7 @@ import {Text, View, StyleSheet, Image, SafeAreaView, TextInput, TouchableOpacity
 import {Stack} from "expo-router";
 import {USER_STORIES} from "@/src/components/day18/stories";
 import {LinearGradient} from "expo-linear-gradient";
-import Animated, {useAnimatedStyle, useSharedValue, withTiming} from "react-native-reanimated";
+import Animated, {Easing, useAnimatedStyle, useSharedValue, withTiming} from "react-native-reanimated";
 
 const uri = 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/vertical-images/1.jpg';
 
@@ -23,8 +23,13 @@ const Stories = () => {
 
   useEffect(() => {
     progress.value = 0;
-    progress.value = withTiming(1, { duration: STORY_VIEW_DURATION })
-  }, [storyIndex])
+    progress.value = withTiming(1,
+      {
+        easing: Easing.linear,
+        duration: STORY_VIEW_DURATION
+      },
+    );
+  }, [storyIndex]);
 
   const goToPreviousStory = () => {
     setStoryIndex((index) => {
