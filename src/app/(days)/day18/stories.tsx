@@ -19,7 +19,6 @@ const AnimatedPage = ({story, index, pageIndex, children}) => {
           [index - 1, index, index + 1], 
           [90, 0, -90]
         )}deg`,
-        // rotateZ: '45deg',
       }
     ]
   }));
