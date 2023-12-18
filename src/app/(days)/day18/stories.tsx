@@ -13,6 +13,33 @@ const Stories = () => {
   const user = USER_STORIES[userIndex];
   const story = user.stories[storyIndex];
 
+  const goToPreviousStory = () => {
+    if (storyIndex > 0) {
+      setStoryIndex(storyIndex - 1);
+    } else if (userIndex > 0) {
+      setUserIndex(userIndex - 1);
+      setStoryIndex(USER_STORIES[userIndex - 1].stories.length - 1);
+    }
+  }
+
+  const goToNextStory = () => {
+    setStoryIndex((index) => {
+      if(index === user.stories.length - 1) {
+        goToNextUser();
+      }
+      return index + 1;
+    });
+  }
+
+  const goToNextUser = () => {
+    if (userIndex === USER_STORIES.length - 1) {
+      setUserIndex(0);
+    } else {
+      setUserIndex(userIndex + 1);
+    }
+    setStoryIndex(0);
+  }
+
   return (
     <>
       <SafeAreaView className="bg-black flex-1">
@@ -22,8 +49,13 @@ const Stories = () => {
           style={styles.image}
         />
 
-        <TouchableOpacity style={styles.navPressable}></TouchableOpacity>
-        {/*<TouchableOpacity></TouchableOpacity>*/}
+        <TouchableOpacity
+          onPress={() => goToPreviousStory()}
+          style={styles.navPressable}/>
+        <TouchableOpacity
+          onPress={() => goToNextStory()}
+          style={[styles.navPressable, { right: 0}]}
+        />
 
         <View style={styles.header}>
           <>
@@ -64,7 +96,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   navPressable: {
-    backgroundColor: 'red',
     width: '30%',
     height: '100%',
     position: 'absolute',
