@@ -35,8 +35,6 @@ N
 src/app/(days)/day13/index.tsx,5/1/516e163e6bf5a190e99aec8bdad16950f2e20e8e
 O
 src/app/(days)/day11/camera.tsx,a/a/aa09bb60035a33c96ff831eb738b701b94891b33
-<
-package.json,7/0/7030d0b2f71b999ff89a343de08c414af32fc93a
 8
 eas.json,b/2/b2c6faa35c1c551556c81b82f88d4b81f53d18f0
 J
