@@ -11,7 +11,7 @@ const AnimatedPage = ({story, index, pageIndex, children}) => {
   const anim = useAnimatedStyle(() => ({
     transform: [
       {
-        perspective: 300,
+        perspective: width * 2,
       },
       {
         rotateY: `${interpolate(
