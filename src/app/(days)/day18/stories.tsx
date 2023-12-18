@@ -17,7 +17,7 @@ const Stories = () => {
         perspective: 300,
       },
       {
-        rotateY: `${interpolate(progress.value, [0, 1], [-90, 90])}deg`,
+        rotateY: `${interpolate(progress.value, [0, 1], [0, 90])}deg`,
         // rotateZ: '45deg',
       }
     ]
@@ -25,7 +25,9 @@ const Stories = () => {
 
   const runAnimation = () => {
     progress.value = 0;
-    progress.value = withTiming(1);
+    progress.value = withTiming(1, {
+      duration: 1000,
+    });
   }
 
   return (
