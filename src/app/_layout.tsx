@@ -15,6 +15,9 @@ import { Amplify } from 'aws-amplify';
 import { ThemeProvider, Theme } from '@aws-amplify/ui-react-native';
 import { Authenticator } from '@aws-amplify/ui-react-native';
 import BiometricProvider from "@/src/components/day10/biometrics-provider";
+// import { vexo } from 'vexo-analytics';
+//
+// vexo(process.env.EXPO_PUBLIC_VEXO_ANALYTICS_KEY!);
 
 // Amplify.configure(awsExports);
 SplashScreen.preventAutoHideAsync();

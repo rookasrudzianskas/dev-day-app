@@ -17,8 +17,6 @@ Z
 *src/app/(days)/day10/protected/_layout.tsx,8/d/8d1948b8d8914c018514643ed55b9dcf98fa97e6
 Y
 )src/app/(days)/day10/protected/second.tsx,6/0/60161127345b957b211547d9b5ec09d2d369d351
-C
-src/app/_layout.tsx,8/4/84557afa2ad91837dda31d3cc20d3981b4ca5cf3
 N
 src/app/(days)/day11/index.tsx,5/5/559c50a71f70f1cd4674983639ec51c1791f4ce0
 P

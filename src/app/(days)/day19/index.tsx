@@ -17,10 +17,10 @@ const Day19 = () => {
         {description}
       </MarkdownDisplay>
       <Button
-        title={'Go To Editor'}
+        title={'Go To Analytics'}
         className="mb-6"
         onPress={() => router.push('/day19/analytics')}>
-          Go To Editor
+          Go To Analytics
       </Button>
     </SafeAreaView>
   );
