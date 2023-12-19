@@ -6,7 +6,8 @@ const Analytics = () => {
 
   // customEvent('cart-checkout', {
   //   total: [213123], // $130.00
-  //   items, // ['Kindle'],
+  //   currency, // ['USD'],
+  //   items: [],
   //   description, // 'Bought Kindle'
   // });
 
