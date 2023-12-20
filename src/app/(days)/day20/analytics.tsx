@@ -33,6 +33,11 @@ const Analytics = () => {
   const [loading, setLoading] = useState(false);
 
   const onSendMessage = async () => {
+
+    const USER_MESSAGE = {
+      role: 'user',
+      content: prompt,
+    };
     setLoading(true);
     if (prompt !== '') {
       setMessages([
@@ -50,9 +55,10 @@ const Analytics = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        message: messages,
-      })
+      body: JSON.stringify([
+        ...messages,
+        USER_MESSAGE,
+      ])
     });
 
     const data = await res.json();
