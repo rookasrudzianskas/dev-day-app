@@ -30,8 +30,10 @@ const Analytics = () => {
     }
   ]);
   const [prompt, setPrompt] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const onSendMessage = () => {
+  const onSendMessage = async () => {
+    setLoading(true);
     if (prompt !== '') {
       setMessages([
         ...messages,
@@ -42,6 +44,27 @@ const Analytics = () => {
       ]);
       setPrompt('');
     }
+
+    const res = fetch('http://localhost:3000/create-a-ai-completion', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: messages,
+      })
+    });
+
+    const data = await res.json();
+
+    setMessages([
+      ...messages,
+      {
+        role: 'assistant',
+        content: data.completion,
+      }
+    ]);
+    setLoading(false);
   }
 
   return (
@@ -61,7 +84,7 @@ const Analytics = () => {
               data={messages}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item, index}) => (
-                <Message message={item} />
+                <Message message={item} loading={loading} />
               )}
             />
           </View>

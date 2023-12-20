@@ -7,9 +7,10 @@ type IProps = {
     role: string;
     content: string;
   };
+  loading: boolean;
 };
 
-const Message = ({message}: IProps) => {
+const Message = ({message, loading}: IProps) => {
   return (
     <View
       className={`flex flex-row ${
@@ -33,6 +34,11 @@ const Message = ({message}: IProps) => {
           {message.content}
         </Text>
       </View>
+      {/*{loading && message.role !== 'user' && (*/}
+      {/*  <View className="ml-2">*/}
+      {/*    <Text className="text-neutral-500">...</Text>*/}
+      {/*  </View>*/}
+      {/*)}*/}
     </View>
   );
 };

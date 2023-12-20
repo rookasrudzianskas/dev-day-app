@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
   res.send("Hello from Express!")
 });
 
-app.get('/create-a-ai-completion', async (req, res) => {
+app.post('/create-a-ai-completion', async (req, res) => {
   const prompt = req.body.prompt || "null";
 
   try {
@@ -30,8 +30,6 @@ app.get('/create-a-ai-completion', async (req, res) => {
       }],
       model: 'gpt-3.5-turbo'
     });
-
-    console.log(completion.choices[0].text)
 
     return res.status(200).json({
       success: true,
