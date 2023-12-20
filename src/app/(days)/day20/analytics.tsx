@@ -47,7 +47,9 @@ const Analytics = () => {
   return (
     <View className="pt-16 flex-1 mx-5">
       <Stack.Screen options={{ headerShown: false }} />
-
+      {/*<View className="bg-blue-500 px-3 rounded-full py-1">*/}
+      {/*  <Text className="text-white">Talk</Text>*/}
+      {/*</View>*/}
       <View className="h-full">
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
