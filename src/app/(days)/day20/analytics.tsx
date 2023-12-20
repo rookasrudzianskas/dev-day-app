@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   Text,
   View,
@@ -15,6 +15,7 @@ import Message from "@/src/components/day20/message";
 import {Ionicons} from "@expo/vector-icons";
 
 const Analytics = () => {
+  const list = useRef(null);
   const [messages, setMessages] = useState([
     {
       role: 'system',
@@ -48,6 +49,9 @@ const Analytics = () => {
         }
       ]);
       setPrompt('');
+      list.current.scrollToEnd({
+        animated: true,
+      });
     }
 
     const res = fetch('http://localhost:3000/create-a-ai-completion', {
@@ -70,6 +74,10 @@ const Analytics = () => {
         content: data.completion,
       }
     ]);
+
+    list.current.scrollToEnd({
+      animated: true,
+    });
     setLoading(false);
   }
 
@@ -87,6 +95,7 @@ const Analytics = () => {
         >
           <View className="flex flex-1">
             <FlatList
+              ref={list}
               data={messages}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item, index}) => (
