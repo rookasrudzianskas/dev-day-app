@@ -1,5 +1,5 @@
 //@ts-nocheck
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   Text,
   View,
@@ -32,13 +32,12 @@ const Analytics = () => {
   ]);
   const [prompt, setPrompt] = useState('');
   const [loading, setLoading] = useState(false);
+  const USER_MESSAGE = {
+    role: 'user',
+    content: prompt,
+  };
 
   const onSendMessage = async () => {
-
-    const USER_MESSAGE = {
-      role: 'user',
-      content: prompt,
-    };
     setLoading(true);
     if (prompt !== '') {
       setMessages([
@@ -49,9 +48,6 @@ const Analytics = () => {
         }
       ]);
       setPrompt('');
-      list.current.scrollToEnd({
-        animated: true,
-      });
     }
 
     const res = fetch('http://localhost:3000/create-a-ai-completion', {
@@ -74,12 +70,14 @@ const Analytics = () => {
         content: data.completion,
       }
     ]);
+    setLoading(false);
+  }
 
+  useEffect(() => {
     list.current.scrollToEnd({
       animated: true,
     });
-    setLoading(false);
-  }
+  }, [messages]);
 
   return (
     <View className="pt-16 flex-1 mx-5">
