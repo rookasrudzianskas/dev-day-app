@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {Stack} from "expo-router";
 import Message from "@/src/components/day20/message";
+import {Ionicons} from "@expo/vector-icons";
 
 const Analytics = () => {
   const [messages, setMessages] = useState([
@@ -75,7 +76,12 @@ const Analytics = () => {
               className="bg-primary-500 rounded-md p-2"
               onPress={() => onSendMessage()}
             >
-              <Text className="text-primary-500">Send</Text>
+              <Ionicons
+                className="text-neutral-300"
+                name="send" size={24} color={
+                  prompt === '' ? 'darkgrey' : 'black'
+              }
+              />
             </TouchableOpacity>
           </View>
         </KeyboardAvoidingView>
