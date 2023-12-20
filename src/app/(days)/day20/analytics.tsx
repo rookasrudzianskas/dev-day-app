@@ -74,11 +74,13 @@ const Analytics = () => {
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      list.current.scrollToEnd({
-        animated: true,
-      });
-    }, 100);
+    if(list.current) {
+      setTimeout(() => {
+        list.current.scrollToEnd({
+          animated: true,
+        });
+      }, 100);
+    }
   }, [messages]);
 
   return (
@@ -96,7 +98,7 @@ const Analytics = () => {
           <View className="flex flex-1">
             <FlatList
               ref={list}
-              data={messages}
+              data={messages.filter((message) => message.role !== 'system')}
               keyExtractor={(item, index) => index.toString()}
               renderItem={({item, index}) => (
                 <Message message={item} loading={loading} />
