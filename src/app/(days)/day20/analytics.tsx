@@ -2,6 +2,7 @@
 import React, {useState} from 'react';
 import {Text, View, StyleSheet, TextInput, TouchableOpacity, FlatList} from 'react-native';
 import {Stack} from "expo-router";
+import Message from "@/src/components/day20/message";
 
 const Analytics = () => {
   const [messages, setMessages] = useState([
@@ -18,6 +19,20 @@ const Analytics = () => {
       content: 'Fine, thanks',
     }
   ]);
+  const [prompt, setPrompt] = useState('');
+
+  const onSendMessage = () => {
+    if (prompt !== '') {
+      setMessages([
+        ...messages,
+        {
+          role: 'user',
+          content: prompt,
+        }
+      ]);
+      setPrompt('');
+    }
+  }
 
   return (
     <View className="pt-16 flex-1 mx-5">
@@ -29,29 +44,7 @@ const Analytics = () => {
             data={messages}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({item, index}) => (
-              <View
-                className={`flex flex-row ${
-                  item.role === 'user' ? 'justify-end' : 'justify-start'
-                }`}
-              >
-                <View
-                  className={`${
-                    item.role === 'user'
-                      ? 'bg-blue-500'
-                      : 'bg-neutral-300'
-                  } rounded-md p-2 mb-2`}
-                >
-                  <Text
-                    className={`${
-                      item.role === 'user'
-                        ? 'text-white'
-                        : 'text-neutral-900'
-                    }`}
-                  >
-                    {item.content}
-                  </Text>
-                </View>
-              </View>
+              <Message message={item} />
             )}
           />
         </View>
@@ -61,10 +54,12 @@ const Analytics = () => {
             placeholder="Search"
             autoCorrect={false}
             autoCapitalize="none"
+            value={prompt}
+            onChangeText={setPrompt}
           />
           <TouchableOpacity
             className="bg-primary-500 rounded-md p-2"
-            onPress={() => {}}
+            onPress={() => onSendMessage()}
           >
             <Text className="text-primary-500">Send</Text>
           </TouchableOpacity>
