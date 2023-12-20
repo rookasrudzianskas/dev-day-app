@@ -50,8 +50,6 @@ d
 ,src/app/(days)/day14/notifications/index.tsx,9/4/94b5a702f130f55ca8e188b3127d23ab96cdcb8d
 ^
 .src/app/(days)/day14/notifications/_layout.tsx,7/1/716422ceabba45f738dff635569230001e7ced0a
-8
-app.json,6/5/65596286f14dbaba6a5081a2edaae69700cc3c3b
 X
 (android/app/src/main/AndroidManifest.xml,e/f/ef79bfd51db69a15dbf5807c05bb249bdccb0556
 N
