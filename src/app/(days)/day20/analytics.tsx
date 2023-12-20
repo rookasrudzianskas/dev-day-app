@@ -74,9 +74,11 @@ const Analytics = () => {
   }
 
   useEffect(() => {
-    list.current.scrollToEnd({
-      animated: true,
-    });
+    setTimeout(() => {
+      list.current.scrollToEnd({
+        animated: true,
+      });
+    }, 100);
   }, [messages]);
 
   return (

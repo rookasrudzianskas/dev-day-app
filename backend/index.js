@@ -6,7 +6,7 @@ const port = 3000;
 const { OpenAI } = require("openai");
 
 const openai = new OpenAI({
-  apiKey: "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",
+  apiKey: "sk-<YOUR_API_KEY>",
 });
 
 app.use(express.static('public'));
