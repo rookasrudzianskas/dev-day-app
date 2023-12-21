@@ -18,6 +18,10 @@ import BiometricProvider from "@/src/components/day10/biometrics-provider";
 // import { vexo } from 'vexo-analytics';
 //
 // vexo(process.env.EXPO_PUBLIC_VEXO_ANALYTICS_KEY!);
+import { Platform } from 'react-native';
+import Purchases from "react-native-purchases";
+
+const REVENUE_CAT_API_KEY = process.env.EXPO_PUBLIC_REVENUE_CAT_IOS_KEY!;
 
 // Amplify.configure(awsExports);
 SplashScreen.preventAutoHideAsync();
@@ -84,6 +88,12 @@ const theme = vars({
 });
 
 function RootLayoutNav({showAnimatedSplashScreen, setSplashAnimationFinished}: any) {
+
+  // useEffect(() => {
+  //   if (Platform.OS === 'ios') {
+  //   	Purchases.configure({ apiKey: REVENUE_CAT_API_KEY });
+  //   }
+  // }, []);
 
   if (showAnimatedSplashScreen) {
     return (
