@@ -3230,6 +3230,11 @@
   dependencies:
     nanoid "^3.1.23"
 
+"@revenuecat/purchases-typescript-internal@8.1.1":
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/@revenuecat/purchases-typescript-internal/-/purchases-typescript-internal-8.1.1.tgz#2f91d71a7c9680954143ecd8adbc0e63407f7fff"
+  integrity sha512-U3H+WsU6MYiCwK9HwaPjFWDeNcZhc3cPTrJ/NbSIw8dqR1xD7Mr71AoDTUW0pDVh/87E0/9FACRPPH6iVVHZ/Q==
+
 "@segment/loosely-validate-event@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@segment/loosely-validate-event/-/loosely-validate-event-2.0.0.tgz#87dfc979e5b4e7b82c5f1d8b722dfd5d77644681"
@@ -9811,6 +9816,13 @@ react-native-markdown-display@^7.0.0-alpha.2:
     markdown-it "^10.0.0"
     prop-types "^15.7.2"
     react-native-fit-image "^1.5.5"
+
+react-native-purchases@^7.5.1:
+  version "7.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-purchases/-/react-native-purchases-7.5.1.tgz#58dd4129e3eeb7702abcdcaaf201acf69cf0ef08"
+  integrity sha512-zSKLcEUHVm0ja/ZGUl3y8IeB3BG0eZGM2Z/B6Lft73fcOF+l9UHjfKrK+uvhMDBuxwjlr+2CbRl4NQTOSRFQ0Q==
+  dependencies:
+    "@revenuecat/purchases-typescript-internal" "8.1.1"
 
 react-native-reanimated@~3.3.0:
   version "3.3.0"

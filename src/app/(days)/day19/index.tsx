@@ -12,12 +12,12 @@ const Day19 = () => {
 
   return (
     <SafeAreaView edges={['bottom']} style={{ flex: 1 }}>
-      <Stack.Screen options={{ title: 'Day 19 Analytics'}} />
+      <Stack.Screen options={{ title: 'Day 19 Paywall'}} />
       <MarkdownDisplay>
         {description}
       </MarkdownDisplay>
       <Button
-        title={'Go To Analytics'}
+        title={'Go To Paywall'}
         className="mb-6"
         onPress={() => router.push('/day19/analytics')}>
           Go To Analytics
