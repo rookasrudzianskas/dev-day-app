@@ -36,6 +36,17 @@ const Paywall = () => {
   //   }
   // }
 
+  const onPress = async () => {
+    try {
+      const purchaseMade = await Purchases.purchasePackage(offerings[0].id);
+      if (typeof purchaseMade.customerInfo.entitlements.active.pro !== 'undefined') {
+        // Unlock that pro content
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   if(!offerings) {
     return (
       <View>
@@ -70,7 +81,9 @@ const Paywall = () => {
 
       <View className="py-10 pt-4 bg-black rounded-t-xl">
         {offerings.map((offering) => (
-          <TouchableOpacity key={offering.id} className="mx-5 flex flex-row justify-between items-center py-4">
+          <TouchableOpacity
+            onPress={() => onPress(offering.id)}
+            key={offering.id} className="mx-5 flex flex-row justify-between items-center py-4">
             <View className="flex flex-col">
               <Text className="text-xl text-neutral-100">
                 {offering.title}
