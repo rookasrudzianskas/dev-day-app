@@ -36,6 +36,16 @@ const Paywall = () => {
   //   }
   // }
 
+  if(!offerings) {
+    return (
+      <View>
+        <Text>
+          Loading...
+        </Text>
+      </View>
+    )
+  }
+
   return (
     <LinearGradient
       colors={['rgba(0,0,0,0.7)', 'transparent']}
