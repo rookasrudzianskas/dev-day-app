@@ -2,7 +2,6 @@
 import React, {useEffect, useState} from 'react';
 import {Text, View, StyleSheet, TouchableOpacity, ImageBackground} from 'react-native';
 import {Stack} from "expo-router";
-import Purchases from 'react-native-purchases';
 import {LinearGradient} from "expo-linear-gradient";
 
 const Paywall = () => {
@@ -38,10 +37,10 @@ const Paywall = () => {
 
   const onPress = async () => {
     try {
-      const purchaseMade = await Purchases.purchasePackage(offerings[0].id);
-      if (typeof purchaseMade.customerInfo.entitlements.active.pro !== 'undefined') {
-        // Unlock that pro content
-      }
+      // const purchaseMade = await Purchases.purchasePackage(offerings[0].id);
+      // if (typeof purchaseMade.customerInfo.entitlements.active.pro !== 'undefined') {
+      //   // Unlock that pro content
+      // }
     } catch (e) {
       console.log(e);
     }
