@@ -19,7 +19,7 @@ const Day21 = () => {
       <Button
         title={'Go To Paywall'}
         className="mb-6"
-        onPress={() => router.push('/day21/paywall')}>
+        onPress={() => router.push('/day21/pro')}>
           Go To Paywall
       </Button>
     </SafeAreaView>
