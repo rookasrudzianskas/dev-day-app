@@ -15,6 +15,12 @@ const NewTaskInput = ({ onAdd }: any) => {
 
   const assTask = async () => {
     // Task.addTask(newTask);
+    // await database.write(async () => {
+    //   const newTask = await database.get('tasks').create((task) => {
+    //     task.title = 'New Task';
+    //     task.isFinished = false;
+    //   })
+    // }
   }
 
   return (
