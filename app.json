@@ -84,7 +84,22 @@
           "enableCodeScanner": true,
           "microphonePermissionText": "$(PRODUCT_NAME) needs access to your Microphone."
         }
-      ]
+      ],
+      [
+        "@morrowdigital/watermelondb-expo-plugin",
+        {
+          "databases": ["morrow.db"]
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "kotlinVersion": "1.6.10",
+            "extraProguardRules":  "-keep class com.nozbe.watermelondb.** { *; }"
+          }
+        }
+      ],
     ],
     "experiments": {
       "tsconfigPaths": true,
