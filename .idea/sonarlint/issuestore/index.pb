@@ -112,3 +112,13 @@ P
 backend/index.js,8/0/80bbc5cb78649d309f1889f4389113eb55bf357f
 R
 "src/app/(days)/day20/analytics.tsx,b/f/bf000e66a3da3d2ab677cb674f9c85682a67bd86
+4
+.env,3/c/3c84dcdc6bbe3d7817c49dcdc327b926fea1808a
+C
+src/app/_layout.tsx,8/4/84557afa2ad91837dda31d3cc20d3981b4ca5cf3
+N
+src/app/(days)/day21/index.tsx,9/b/9bb74d9d63b053a0b8b72f22a2da8e4c8bda029b
+P
+ src/app/(days)/day21/paywall.tsx,7/5/75727763d41926625a127fa8d99ec4173d96bc5d
+L
+src/app/(days)/day21/pro.tsx,3/1/31ddbd72d3087abab2a47c0cf94cc9ee0a40799f
