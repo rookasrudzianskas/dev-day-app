@@ -3,7 +3,7 @@ import { Platform } from 'react-native'
 import { Database } from '@nozbe/watermelondb'
 import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite'
 import schema from "@/src/components/day22/model/schema";
-import migrations from "@/src/components/day22/migrations";
+import migrations from "@/src/components/day22/model/migrations";
 
 export function LocalAppLayout() {
   const adapter = new SQLiteAdapter({
