@@ -1,106 +1,113 @@
-//@ts-nocheck
-import React, {useEffect, useState} from 'react';
-import {Text, View, StyleSheet, TouchableOpacity, ImageBackground} from 'react-native';
-import {Stack} from "expo-router";
-import {LinearGradient} from "expo-linear-gradient";
+import { View, Text, StyleSheet, Alert, Pressable } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import Purchases, {
+  PurchasesOffering,
+  PurchasesPackage,
+} from 'react-native-purchases';
+import { Stack } from 'expo-router';
+import { SafeAreaView } from 'react-native-safe-area-context';
+
+const Package = ({ item }: { item: PurchasesPackage }) => {
+  const onPressed = async () => {
+    // try {
+    //   const purchaseMade = await Purchases.purchasePackage(item);
+    //   if (
+    //     typeof purchaseMade.customerInfo.entitlements.active['Premium'] !==
+    //     'undefined'
+    //   ) {
+    //     Alert.alert('Huray', 'Welcome to the PRO');
+    //   }
+    // } catch (e) {
+    //   if (!e.userCancelled) {
+    //     console.log(e);
+    //     Alert.alert('Ooopsie', 'Something went wrong');
+    //   }
+    // }
+  };
+
+  return (
+    <Pressable onPress={onPressed} style={styles.package}>
+      <Text style={styles.packageDuration}>
+        {item.packageType === 'ANNUAL' ? 'Yearly' : ''}
+        {item.packageType === 'MONTHLY' ? 'Monthly' : ''}
+      </Text>
+      <Text style={styles.packagePrice}>{item.product.priceString}</Text>
+    </Pressable>
+  );
+};
 
 const Paywall = () => {
-  const [offerings, setOfferings] = useState([
-    {
-      id: 1,
-      title: 'Monthly',
-      price: '$9.99',
-      description: 'Monthly subscription'
-    },
-    {
-      id: 2,
-      title: 'Yearly',
-      price: '$99.99',
-      description: 'Yearly subscription'
-    }
-  ]);
-  // useEffect(() => {
-  //   fetchOfferings();
-  // }, []);
+  const [offering, setOffering] = useState<PurchasesOffering | null>(null);
 
-  // const fetchOfferings = async () => {
-  //   try {
-  //     const offerings  = await Purchases.getOfferings();
-  //
-  //     if (offerings.current !== null) {
-  //       // Display current offering with offerings.current
-  //     }
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
+  const fetchOfferings = async () => {
+    // try {
+    //   const offerings = await Purchases.getOfferings();
+    //
+    //   if (offerings.current !== null) {
+    //     // Display current offering with offerings.current
+    //     setOffering(offerings.current);
+    //   }
+    // } catch (e) {}
+  };
 
-  const onPress = async () => {
-    try {
-      // const purchaseMade = await Purchases.purchasePackage(offerings[0].id);
-      // if (typeof purchaseMade.customerInfo.entitlements.active.pro !== 'undefined') {
-      //   // Unlock that pro content
-      // }
-    } catch (e) {
-      console.log(e);
-    }
-  }
+  useEffect(() => {
+    fetchOfferings();
+  }, []);
 
-  if(!offerings) {
-    return (
-      <View>
-        <Text>
-          Loading...
-        </Text>
-      </View>
-    )
+  if (!offering) {
+    return <Text>Failed to fetch the offering</Text>;
   }
 
   return (
-    <LinearGradient
-      colors={['rgba(0,0,0,0.7)', 'transparent']}
-      // style={styles.header}
-      style={{ flex: 1 }}
-    >
-    <ImageBackground
-      style={{ flex: 1, paddingTop: 100 }}
-      source={{ uri: 'https://images.unsplash.com/photo-1582550945154-66ea8fff25e1?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'}}
-    >
-    <View className="flex-1">
+    <View style={styles.page}>
       <Stack.Screen options={{ headerShown: false }} />
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.title}>Unlock PRO Access</Text>
+        <Text style={styles.subtitle}>All features premium features</Text>
 
-      <View className="flex-1">
-        <Text className="text-3xl text-neutral-100 text-center">
-          Unlock Everything
-        </Text>
-        <Text className="text-neutral-300 text-center">
-          Get access to all premium features
-        </Text>
-      </View>
-
-      <View className="py-10 pt-4 bg-black rounded-t-xl">
-        {offerings.map((offering) => (
-          <TouchableOpacity
-            onPress={() => onPress(offering.id)}
-            key={offering.id} className="mx-5 flex flex-row justify-between items-center py-4">
-            <View className="flex flex-col">
-              <Text className="text-xl text-neutral-100">
-                {offering.title}
-              </Text>
-              <Text className="text-neutral-300">
-                {offering.description}
-              </Text>
-            </View>
-            <Text className="text-xl text-neutral-100">
-              {offering.price}
-            </Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+        <View style={styles.packages}>
+          {offering.availablePackages.map((item) => (
+            <Package key={item.identifier} item={item} />
+          ))}
+        </View>
+      </SafeAreaView>
     </View>
-    </ImageBackground>
-    </LinearGradient>
   );
 };
+
+const styles = StyleSheet.create({
+  page: {
+    backgroundColor: '#EF4951',
+    flex: 1,
+  },
+  container: {
+    alignItems: 'center',
+  },
+  title: {
+    fontSize: 24,
+    color: 'white',
+    fontWeight: 'bold',
+    marginVertical: 20,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: 'gainsboro',
+  },
+  packages: {
+    flexDirection: 'row',
+    gap: 10,
+    marginTop: 50,
+  },
+  package: {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+  },
+  packageDuration: {},
+  packagePrice: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+});
 
 export default Paywall;

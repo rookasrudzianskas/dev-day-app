@@ -1,24 +1,44 @@
-//@ts-nocheck
-import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
-import {Redirect} from "expo-router";
+import { View, Text, ActivityIndicator } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import Purchases from 'react-native-purchases';
+import { Redirect } from 'expo-router';
 
-const Pro = () => {
-  const isSubscribed = false;
+const ProScreen = () => {
+  // const isSubscribed = false;
+  const [isSubscribed, setIsSubscribed] = useState<boolean | undefined>(
+    undefined
+  );
 
-  if(!isSubscribed) {
-    return (
-      <Redirect href="/day21/paywall" />
-    )
+  useEffect(() => {
+    checkSubscribtion();
+  }, []);
+
+  const checkSubscribtion = async () => {
+    // try {
+    //   const customerInfo = await Purchases.getCustomerInfo();
+    //   if (typeof customerInfo.entitlements.active['Premium'] !== 'undefined') {
+    //     setIsSubscribed(true);
+    //   } else {
+    //     setIsSubscribed(false);
+    //   }
+    // } catch (e) {
+    //   // Error fetching purchaser info
+    // }
+  };
+
+  if (isSubscribed === undefined) {
+    return <ActivityIndicator />;
+  }
+
+  if (!isSubscribed) {
+    return <Redirect href={'/day21/paywall'} />;
   }
 
   return (
     <View>
-      <Text>
-        byrookas 🚀
-      </Text>
+      <Text style={{ fontSize: 20 }}>Pro Screen for subscribed users only</Text>
     </View>
   );
 };
 
-export default Pro;
+export default ProScreen;
