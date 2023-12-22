@@ -1,5 +1,4 @@
 // @ts-nocheck
-// index.js
 import {field, text, writer} from '@nozbe/watermelondb/decorators'
 import {Database, Model} from "@nozbe/watermelondb";
 import {database} from "@/src/components/day22/model/index";
