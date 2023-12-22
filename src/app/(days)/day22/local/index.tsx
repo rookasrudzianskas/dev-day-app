@@ -1,14 +1,17 @@
 //@ts-nocheck
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
+import {database} from "@/src/components/day22/model";
 
 const LocalScreen = () => {
-  // customEvent('cart-checkout', {
-  //   total: [213123], // $130.00
-  //   currency, // ['USD'],
-  //   items: [],
-  //   description, // 'Bought Kindle'
-  // });
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const fetchTasks = async () => {
+    const res = await database.get('tasks').query().fetch();
+    console.log('res', res);
+  }
 
   return (
     <View>
