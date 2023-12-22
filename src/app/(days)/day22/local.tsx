@@ -2,7 +2,7 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 
-const Analytics = () => {
+const LocalScreen = () => {
   // customEvent('cart-checkout', {
   //   total: [213123], // $130.00
   //   currency, // ['USD'],
@@ -19,4 +19,4 @@ const Analytics = () => {
   );
 };
 
-export default Analytics;
+export default LocalScreen;
