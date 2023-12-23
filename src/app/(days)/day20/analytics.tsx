@@ -37,22 +37,6 @@ const Analytics = () => {
     content: prompt,
   };
 
-  const onSendMessage = async () => {
-    setLoading(true);
-    if (prompt !== '') {
-      setMessages([
-        ...messages,
-        {
-          role: 'user',
-          content: prompt,
-        }
-      ]);
-      setPrompt('');
-    }
-
-
-  }
-
   const fetchAPI = async (endpoint, bodyJson) => {
     const res = await fetch(`http://localhost:3000/${endpoint}`, {
       method: 'POST',
@@ -67,7 +51,7 @@ const Analytics = () => {
     return data;
   }
 
-  const onSendImageGeneration = async () => {
+  const onSendMessage = async () => {
     setLoading(true);
     if (prompt !== '') {
       setMessages([
@@ -79,7 +63,14 @@ const Analytics = () => {
       ]);
       setPrompt('');
     }
-    await generateImage();
+
+    const shouldGenerateImage = true
+
+    if(shouldGenerateImage) {
+      await generateImage();
+    } else {
+      await generateCompletion();
+    }
   }
 
   const generateCompletion = async () => {
