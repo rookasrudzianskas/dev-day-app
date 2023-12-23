@@ -66,10 +66,16 @@ const Analytics = () => {
 
     const shouldGenerateImage = true
 
-    if(shouldGenerateImage) {
-      await generateImage();
-    } else {
-      await generateCompletion();
+    try {
+      if(shouldGenerateImage) {
+        await generateImage();
+      } else {
+        await generateCompletion();
+      }
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
     }
   }
 
