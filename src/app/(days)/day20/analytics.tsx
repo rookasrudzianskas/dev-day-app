@@ -90,12 +90,21 @@ const Analytics = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(prompt)
+      body: JSON.stringify({prompt})
     });
 
     const data = await res.json();
 
-
+    if(data) {
+      const imageMessage  = {
+        role: 'image',
+        content: data.data[0].url,
+      };
+      setMessages([
+        ...messages,
+        imageMessage
+      ]);
+    }
     setLoading(false);
   }
 
