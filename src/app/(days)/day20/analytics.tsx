@@ -52,6 +52,21 @@ const Analytics = () => {
 
 
   }
+
+  const fetchAPI = async (endpoint, bodyJson) => {
+    const res = await fetch(`http://localhost:3000/${endpoint}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(bodyJson)
+    });
+
+    const data = await res.json();
+
+    return data;
+  }
+
   const onSendImageGeneration = async () => {
     setLoading(true);
     if (prompt !== '') {
@@ -68,18 +83,10 @@ const Analytics = () => {
   }
 
   const generateCompletion = async () => {
-    const res = fetch('http://localhost:3000/create-a-ai-completion', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify([
-        ...messages,
-        USER_MESSAGE,
-      ])
-    });
-
-    const data = await res.json();
+    const data = await fetchAPI('create-a-ai-completion', [
+      ...messages,
+      USER_MESSAGE,
+    ]);
 
     setMessages([
       ...messages,
@@ -92,15 +99,9 @@ const Analytics = () => {
   }
 
   const generateImage = async () => {
-    const res = fetch('http://localhost:3000/create-a-ai-image-completion', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({prompt})
-    });
-
-    const data = await res.json();
+    const data = await fetchAPI('create-a-ai-image', [
+      prompt,
+    ]);
 
     if(data) {
       const imageMessage  = {
