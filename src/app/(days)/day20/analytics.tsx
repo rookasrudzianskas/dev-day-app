@@ -105,7 +105,7 @@ const Analytics = () => {
               )}
             />
           </View>
-          <View className="flex flex-row items-center w-full mb-10">
+          <View className="flex flex-row items-center w-full mb-32">
             <TextInput
               className="border border-neutral-300 flex-1 my-auto rounded-md p-2"
               placeholder="Search"
