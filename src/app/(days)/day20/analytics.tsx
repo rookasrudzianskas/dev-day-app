@@ -103,7 +103,7 @@ const Analytics = () => {
     ]);
 
     setMessages([
-      ...messages,
+      ...messages.filter((message) => message.role !== 'image'),
       {
         role: 'assistant',
         content: data.completion,
