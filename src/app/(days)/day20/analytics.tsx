@@ -64,7 +64,7 @@ const Analytics = () => {
       setPrompt('');
     }
 
-    const shouldGenerateImage = true
+    const shouldGenerateImage = await isImagePrompt(prompt);
 
     try {
       if(shouldGenerateImage) {
@@ -77,6 +77,21 @@ const Analytics = () => {
     } finally {
       setLoading(false);
     }
+  }
+
+  const isImagePrompt = (prompt) => {
+    // fetchAPI to check if it is an image prompt
+    const data = await fetchAPI('is-image-prompt', [
+        ...messages.filter((message) => message.role !== 'image'),
+      {
+        role: 'user',
+        content: `Categorize the prompt that I will give you and tell me if it s a prompt fr the image generation.
+          ' Answer with a value from 0 to 1.0 that represents how confident you are that the prompt is an image prompt. The prompt is: ${prompt}`,
+      }
+    ]);
+
+    const answer = data.choices[0].message;
+    return answer > 0.5;
   }
 
   const generateCompletion = async () => {
