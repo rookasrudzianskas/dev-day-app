@@ -3,7 +3,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import {
   Text,
   View,
-  StyleSheet,
   TextInput,
   TouchableOpacity,
   FlatList,
