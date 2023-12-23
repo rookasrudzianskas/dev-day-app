@@ -72,6 +72,32 @@ const Analytics = () => {
     ]);
     setLoading(false);
   }
+  const onSendImageGeneration = async () => {
+    setLoading(true);
+    if (prompt !== '') {
+      setMessages([
+        ...messages,
+        {
+          role: 'user',
+          content: prompt,
+        }
+      ]);
+      setPrompt('');
+    }
+
+    const res = fetch('http://localhost:3000/create-a-ai-image-completion', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(prompt)
+    });
+
+    const data = await res.json();
+
+
+    setLoading(false);
+  }
 
   useEffect(() => {
     if(list.current) {
