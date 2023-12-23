@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, Image} from 'react-native';
 
 type IProps = {
   message: {
@@ -33,6 +33,14 @@ const Message = ({message, loading}: IProps) => {
         >
           {message.content}
         </Text>
+
+        {message.role === 'image' && (
+          <Image
+            className="w-full h-48 mt-2"
+            source={{uri: message.content}}
+          />
+        )
+      }
       </View>
       {/*{loading && message.role !== 'user' && (*/}
       {/*  <View className="ml-2">*/}

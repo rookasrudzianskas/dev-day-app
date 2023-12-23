@@ -104,8 +104,6 @@ P
  src/app/(days)/day18/stories.tsx,1/7/17b47c15cd983ae8609d5abfb1a91ce7b96c922c
 V
 &src/app/(days)/day20/completion+api.ts,0/5/0537bb1cc98504b727e0d70c83d37659fc21b148
-P
- src/components/day20/message.tsx,2/f/2f4385e20ad2cbad35a88edf7279741f6fe9f2c9
 @
 backend/index.js,8/0/80bbc5cb78649d309f1889f4389113eb55bf357f
 4

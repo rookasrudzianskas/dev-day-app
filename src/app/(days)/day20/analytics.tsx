@@ -50,6 +50,24 @@ const Analytics = () => {
       setPrompt('');
     }
 
+
+  }
+  const onSendImageGeneration = async () => {
+    setLoading(true);
+    if (prompt !== '') {
+      setMessages([
+        ...messages,
+        {
+          role: 'user',
+          content: prompt,
+        }
+      ]);
+      setPrompt('');
+    }
+    await generateImage();
+  }
+
+  const generateCompletion = async () => {
     const res = fetch('http://localhost:3000/create-a-ai-completion', {
       method: 'POST',
       headers: {
@@ -72,19 +90,8 @@ const Analytics = () => {
     ]);
     setLoading(false);
   }
-  const onSendImageGeneration = async () => {
-    setLoading(true);
-    if (prompt !== '') {
-      setMessages([
-        ...messages,
-        {
-          role: 'user',
-          content: prompt,
-        }
-      ]);
-      setPrompt('');
-    }
 
+  const generateImage = async () => {
     const res = fetch('http://localhost:3000/create-a-ai-image-completion', {
       method: 'POST',
       headers: {
