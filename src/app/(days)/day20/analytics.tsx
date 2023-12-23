@@ -64,7 +64,7 @@ const Analytics = () => {
       setPrompt('');
     }
 
-    const shouldGenerateImage = await isImagePrompt(prompt);
+    const shouldGenerateImage = isImagePrompt(prompt);
 
     try {
       if(shouldGenerateImage) {
@@ -80,17 +80,34 @@ const Analytics = () => {
   }
 
   const isImagePrompt = (prompt) => {
-    const data = await fetchAPI('is-image-prompt', [
+    // const data = await fetchAPI('is-image-prompt', [
+    //   {
+    //     role: 'system',
+    //     content: `You are AI that categorizes prompts. I will give you a prompt and you will tell me if it is an image prompt. You only answer one number 0 to 1.0 that represents your confident you are that the prompt is for image generation.`
+    //   },
+    //   {
+    //     role: 'user',
+    //     content: `Categorize the prompt that I will give you and tell me if it s a prompt fr the image generation.
+    //       ' Answer with a value from 0 to 1.0 that represents how confident you are that the prompt is an image prompt. The prompt is: ${prompt}`,
+    //   }
+    // ]);
+    const data = [
       {
-        role: 'system',
-        content: `You are AI that categorizes prompts. I will give you a prompt and you will tell me if it is an image prompt. You only answer one number 0 to 1.0 that represents your confident you are that the prompt is for image generation.`
-      },
-      {
-        role: 'user',
-        content: `Categorize the prompt that I will give you and tell me if it s a prompt fr the image generation.
-          ' Answer with a value from 0 to 1.0 that represents how confident you are that the prompt is an image prompt. The prompt is: ${prompt}`,
+        "choices": [
+          {
+            "finish_reason": "stop",
+            "index": 0,
+            "logprobs": null,
+            "text": "0.75",
+            "token_logprobs": null
+          }
+        ],
+        "created": 1627002039,
+        "id": "cmpl-3Q7o2d0ZqJz7Y7Q4f6bQYgZK",
+        "model": "davinci:2020-05-03",
+        "object": "text_completion"
       }
-    ]);
+    ]
 
     const answer = data.choices[0].message;
     return answer > 0.75;
