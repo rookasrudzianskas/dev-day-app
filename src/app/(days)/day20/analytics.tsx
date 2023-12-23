@@ -93,7 +93,7 @@ const Analytics = () => {
     ]);
 
     const answer = data.choices[0].message;
-    return answer > 0.5;
+    return answer > 0.75;
   }
 
   const generateCompletion = async () => {
