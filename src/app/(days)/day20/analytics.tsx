@@ -80,9 +80,11 @@ const Analytics = () => {
   }
 
   const isImagePrompt = (prompt) => {
-    // fetchAPI to check if it is an image prompt
     const data = await fetchAPI('is-image-prompt', [
-        ...messages.filter((message) => message.role !== 'image'),
+      {
+        role: 'system',
+        content: `You are AI that categorizes prompts. I will give you a prompt and you will tell me if it is an image prompt. You only answer one number 0 to 1.0 that represents your confident you are that the prompt is for image generation.`
+      },
       {
         role: 'user',
         content: `Categorize the prompt that I will give you and tell me if it s a prompt fr the image generation.
