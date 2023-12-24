@@ -20,7 +20,7 @@ const Day24 = () => {
         title={'Go To DALLE'}
         className="mb-6"
         onPress={() => router.push('/day24/analytics')}>
-          Go To Day Last
+          Go To Last Day
       </Button>
     </SafeAreaView>
   );
