@@ -3,12 +3,6 @@ import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 
 const Analytics = () => {
-  // customEvent('cart-checkout', {
-  //   total: [213123], // $130.00
-  //   currency, // ['USD'],
-  //   items: [],
-  //   description, // 'Bought Kindle'
-  // });
 
   return (
     <View>
