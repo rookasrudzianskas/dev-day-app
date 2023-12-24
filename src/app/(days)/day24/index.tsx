@@ -17,7 +17,7 @@ const Day24 = () => {
         {description}
       </MarkdownDisplay>
       <Button
-        title={'Go To DALLE'}
+        title={'Go To Last Day'}
         className="mb-6"
         onPress={() => router.push('/day24/analytics')}>
           Go To Last Day
