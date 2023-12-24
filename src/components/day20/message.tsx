@@ -1,6 +1,6 @@
 //@ts-nocheck
 import React from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
+import {Text, View, Image} from 'react-native';
 
 type IProps = {
   message: {
