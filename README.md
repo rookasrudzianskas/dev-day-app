@@ -1,6 +1,6 @@
 # ⚛️💨 Universal Nativewind v5
 
-## Native Deploy
+## Native
 
 > ℹ️ For all these steps you need to install EAS first
 
