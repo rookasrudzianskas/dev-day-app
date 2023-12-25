@@ -1,4 +1,4 @@
-# ⚛️💨 Universal Nativewind v4 starter
+# ⚛️💨 Universal Nativewind v4
 
 ## Native Deploy
 
