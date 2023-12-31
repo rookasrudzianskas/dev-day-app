@@ -1,4 +1,4 @@
-# ⚛️💨 Universal Nativewind v5
+# ⚛️💨 Universal Nativewind v5 SDK 50
 
 ## Native
 
