@@ -1,4 +1,4 @@
-# ⚛️💨 Universal Nativewind v5 SD
+# ⚛️💨 Universal Nativewind v5 S
 
 ## Native
 
