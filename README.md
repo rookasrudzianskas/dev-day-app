@@ -1,4 +1,4 @@
-# ⚛️💨 Universal Nativewind 
+# ⚛️💨 Universal Nativewind
 
 ## Native
 
