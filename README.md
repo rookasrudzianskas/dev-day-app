@@ -1,4 +1,4 @@
-# ⚛️💨 Universal Nativewind v5 e
+# ⚛️💨 Universal Nativewind v5 expo
 
 ## Native
 
